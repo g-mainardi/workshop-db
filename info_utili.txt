@@ -1,0 +1,3 @@
+Elaborato su crociere https://github.com/tassiLuca/db-crociere/tree/main/report
+IdGruppo: 2292
+Password: elisaGiosue
