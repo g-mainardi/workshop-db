@@ -8,13 +8,16 @@ stampa costo totale riparazione
 stampa tot ore lavorazione meccanico su una certa riparazione
 stampa proprietario veicolo in un certo periodo (se c'è)
 stampa agente con più transazioni
+stampa n° transazioni per agente
 stampa paga oraria dipendente
 elenco riparazioni utente
 elenco riparazioni veicolo
 elenco meccanici addetti a riparazione
-elenco proprietari veicolo
+elenco riparazioni effettuate da un meccanico
+elenco clienti proprietari veicolo (solo uno attuale)
+elenco veicoli che possiede un cliente
 elenco transazioni cliente
 elenco pezzi ricambi usati per una certa riparazione
 aggiorna paga oraria dipendente
-aggiorna data fine proprietà
-
+aggiorna attributo scaduto su atto di proprietà
+aggiorna targa veicolo
