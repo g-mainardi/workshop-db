@@ -1,0 +1,164 @@
+body {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: rgb(64,64,66);
+}
+
+footer > ul {
+	width: 90%;
+}
+
+footer p, footer address {
+	margin: 3px 0;	
+}
+
+ul {
+	padding: 0;
+	list-style-type: none;
+	display: flex;
+	justify-content: space-around;
+}
+
+ul ul {
+	flex-direction: column;
+}
+
+main {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	gap: 5%;
+	width: 80%;
+}
+
+footer {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+}
+
+button {
+	width: 20vw;
+	height: 15vw;
+	margin: 1vw;
+}
+
+form ul {
+	display: flex;
+	flex-direction: column;
+	gap: 2vh;
+}
+
+form > ul *:not(legend, ul) {
+	float: right;
+}
+
+a{
+	text-decoration: none;
+}
+
+form > ul > li label, form fieldset > ul > li > label {
+	float: left;
+}
+
+table, .l100 {
+	border-spacing: 0;
+	width: 100%;
+	margin: 10px 0;
+}
+
+.newcustomerform{
+display: inline-block;
+}
+
+.setAn, .rils, .params, .estrack, .estrackt, .esbypaz, .infer, .revAn {
+	display: none;
+}
+
+tr button {
+    width: revert;
+    height: revert;
+}
+
+td, th {
+    padding: 0.5vw;
+}
+
+thead tr, caption {
+	background-color: #282A35;
+	color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #e7e9eb5c;
+}
+
+section > label {
+	font-weight: bolder;
+}
+
+/* section:not(:first-child) {
+	margin: 20px 25%;
+} */
+
+section {
+	margin: 20px 25%;
+}
+
+input[type="submit"], button:hover {
+    margin: 2px;
+    background-color: white;
+    color: #282A35;
+    border-radius: 5px;
+    font-weight: 600;
+    border: 2px solid #282A35;
+    font-family: sans-serif;
+}
+
+input[type="submit"]:hover, button {
+	margin: 2px;
+	background-color: #282A35;
+    border: 2px solid #282A35;
+	color: white;
+	border-radius: 5px;
+}
+
+h1 {
+	font-family: monospace;
+	font-size: xxx-large;
+}
+
+body {
+	font-family: 'Roboto', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	color: rgb(155,155,155);
+}
+
+ul#contacts {
+    height: 100%;
+    justify-content: space-evenly;
+}
+
+fieldset {
+    width: 100%;
+}
+
+header {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+}
+
+header img {
+	height: 10vw;
+}
+
+header h1 a {
+	color : white;
+	font: normal bold 44px/1 "Roboto", sans-serif;
+}
+
+header > ul {
+	width: 90%;
+}
