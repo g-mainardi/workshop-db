@@ -1,0 +1,36 @@
+SEZIONE CLIENTI
+- inserisci cliente (inserisci anagrafica)
+- elenco clienti (anagrafica + n°veicoli attuali(->elenco) + n°transazioni + n°riparazioni)
+
+
+SEZIONE AGENTI
+	sottosez. gestisci agenti
+    - inserisci agente(anagr + paga ora)
+	- elenco agenti (anagr + paga ora + n°transazioni(->elenco))
+	- aggiorna paga ora
+	- visualizza agente con più transazioni
+
+	sottosez. gestisci transazioni e proprietà
+	- inserisci transazione
+	- inserisci atto prop.
+	- aggiorna atto prop. (attr. scaduto)
+	- aggiorna targa
+
+SEZIONE MECCANICI
+	sottosez. gestisci meccanici
+	- inserisci meccanico(anagr + paga oraria)
+	- elenco agenti (anagr + paga ora + n°lav fatte(->elenco rip con veicolo, pezzi e n°ore))
+	- aggiorna paga ora
+	
+	sottosez. gestisci riparazioni
+	- inserisci riparazione
+	- elenco riparazioni (n°meccanici(->elenco con n°ore),elenco pezzi con quantità, costo tot.)
+	
+	sottosez. pezzi ricambio
+	- inserisci pezzo 
+	- elenco pezzi 
+
+SEZIONE VEICOLI
+- inserisci veicolo
+- elenco veicoli(dettagli, proprietario attuale (se non c'è = in vendita) (->elenco vecchi proprietari), n°riparazioni)	
+
