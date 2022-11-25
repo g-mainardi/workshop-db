@@ -31,19 +31,18 @@
         ?>
 		</main>
 		<footer>
-			<ul>
-				<li>
-					<ul id="contacts">
-						<li>
-							<p>info@dbgarage.it</p>
-							<p>348-1300234</p>
-						</li>
-						<li>
-							<address>Via Cesare Pavese 50, 47521 Cesena(FC)</address>
-						</li>
-					</ul>
-				</li>
-			</ul>
+				<ul id="contacts">
+					<li>
+						<h2>Contatti autofficina</h2>
+					</li>
+					<li>
+						<p>info@dbgarage.it</p>
+						<p>348-1300234</p>
+					</li>
+					<li>
+						<address>Via Cesare Pavese 50, 47521 Cesena(FC)</address>
+					</li>
+				</ul>
 		</footer>
 	</body>
 </html>
