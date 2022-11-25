@@ -22,3 +22,4 @@ elenco solo veicoli in vendita (senza proprietario)
 aggiorna paga oraria dipendente
 aggiorna attributo scaduto su atto di proprietà
 aggiorna targa veicolo
+aggiorna mail
