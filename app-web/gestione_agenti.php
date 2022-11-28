@@ -28,7 +28,7 @@
 		/*
 		$db->updateAgentTelephone($_POST["agenteCF"], $_POST["agenteTelefono"]);
 		*/
-		echo "aggiornato: ".$_POST["agenteCF"]." numero: ".$_POST["agenteeTelefono"];
+		echo "aggiornato: ".$_POST["agenteCF"]." numero: ".$_POST["agenteTelefono"];
 	}
 	if(isset($_POST["aggiornaMail"])){
 		/*
@@ -41,6 +41,12 @@
 		$db->updateAgentPay($_POST["agenteCF"], $_POST["agentePaga"]);
 		*/
 		echo "aggiornato: ".$_POST["agenteCF"]." Paga: ".$_POST["agentePaga"];
+	}
+	if(isset($_POST["aggiornaTutto"])){
+		/*
+		$db->updateAgent($_POST["agenteCF"], $_POST["agenteTelefono"], $_POST["agenteMail"], $_POST["agentePaga"]);
+		*/
+		echo "aggiornato: ".$_POST["agenteCF"]." numero: ".$_POST["agenteTelefono"]." Mail: ".$_POST["agenteMail"]." Paga: ".$_POST["agentePaga"];
 	}
 
     if(isset($_POST["agenteCF"]) && isset($_POST["agenteNome"]) && isset($_POST["agenteCognome"]) 
