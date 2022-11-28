@@ -34,6 +34,7 @@
 
 <section class="tabelle">
 	<h2>Clienti registrati</h2>
+	<p>È possibile modificare Telefono e Mail di un cliente</p>
 	<table>
 		<thead>
 			<tr>
@@ -50,7 +51,7 @@
 					<td><input type="hidden" name="clienteDataNascita" value=<?php echo $cliente["data_nascita"]; ?>> <?php echo $cliente["data_nascita"]?></td>
 					<td><input type="tel" pattern="[0-9]{10}" maxlength="10" name="clienteTelefono" placeholder="Inserisci Telefono" value=<?php echo $cliente["telefono"]?> required></td>
 					<td><input type="email" maxlength="80" name="clienteMail" placeholder="Inserisci email" value=<?php echo $cliente["mail"]?>></td>
-					<td><input type="submit" name="aggiornaTelefono" value="Aggiorna Telefono"> <input type="submit" name="aggiornaMail" value="Aggiorna Mail"></td>
+					<td><input disabled type="submit" name="aggiornaTelefono" value="Aggiorna Telefono"> <input disabled type="submit" name="aggiornaMail" value="Aggiorna Mail"><input disabled type="submit" name="aggiornaTutto" value="Aggiorna Tutto"> </td>
 				</tr>
 			</form>
 			<?php endforeach; ?>

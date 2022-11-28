@@ -4,6 +4,7 @@
 
     $SetParameters["titolo"] = "Gestione clienti";
     $SetParameters["file"] = "nuovo_cliente.php";
+	array_push($SetParameters["scripts"], "./js/script.js");
 
 	// Leggo clienti dal database
 	$SetParameters["clienti"] = [array("CF" => "RSSMRA65P21R889T", "nome" => "mario",
@@ -33,6 +34,12 @@
 		$db->updateClientMail($_POST["clienteCF"], $_POST["clienteMail"]);
 		*/
 		echo "aggiornato: ".$_POST["clienteCF"]." Mail: ".$_POST["clienteMail"];
+	}
+	if(isset($_POST["aggiornaTutto"])){
+		/*
+		$db->updateClient($_POST["clienteCF"], $_POST["clienteTelefono"], $_POST["clienteMail"]);
+		*/
+		echo "aggiornato: ".$_POST["clienteCF"]." numero: ".$_POST["clienteTelefono"]." Mail: ".$_POST["clienteMail"];
 	}
 
     if(isset($_POST["clienteCF"]) && isset($_POST["clienteNome"]) && isset($_POST["clienteCognome"]) 
