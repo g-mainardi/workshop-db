@@ -8,20 +8,20 @@
 	array_push($SetParameters["scripts"], "./js/script.js");
 
 	// Leggo agenti dal database
-    $SetParameters["agenti"] = [array("CF" => "BRGPEP65P21R889T", "nome" => "peppe",
-										 "cognome" => "borgia",	"telefono" => "3428990332", 
-										 "data_nascita" => "1965-10-21", "mail" => "borgia.peppe@gmail.com", "paga" => "15"),
-										 array("CF" => "BRGPEP65P21R889T", "nome" => "peppe",
-										 "cognome" => "borgia",	"telefono" => "3428990332", 
+    $SetParameters["agenti"] = [array("CF" => "RSSMRA65P21R889T", "nome" => "mario",
+										 "cognome" => "rossi",	"telefono" => "3428990332", 
+										 "data_nascita" => "1965-10-21", "mail" => "rossi.mario@gmail.com", "paga" => "15"),
+										 array("CF" => "RSSMRA65P21R889T", "nome" => "mario",
+										 "cognome" => "rossi",	"telefono" => "3428990332", 
 										 "data_nascita" => "1965-10-21", "mail" => "-", "paga" => "16"),
-										 array("CF" => "BRGPEP65P21R889T", "nome" => "peppe",
-										 "cognome" => "borgia",	"telefono" => "3428990332", 
-										 "data_nascita" => "1965-10-21", "mail" => "borgia.peppe@gmail.com", "paga" => "13"),
-										 array("CF" => "BRGPEP65P21R889T", "nome" => "peppe",
-										 "cognome" => "borgia",	"telefono" => "3428990332", 
-										 "data_nascita" => "1965-10-21", "mail" => "borgia.peppe@gmail.com", "paga" => "12"),
-										 array("CF" => "BRGPEP65P21R889T", "nome" => "peppe",
-										 "cognome" => "borgia",	"telefono" => "3428990332", 
+										 array("CF" => "RSSMRA65P21R889T", "nome" => "mario",
+										 "cognome" => "rossi",	"telefono" => "3428990332", 
+										 "data_nascita" => "1965-10-21", "mail" => "rossi.mario@gmail.com", "paga" => "13"),
+										 array("CF" => "RSSMRA65P21R889T", "nome" => "mario",
+										 "cognome" => "rossi",	"telefono" => "3428990332", 
+										 "data_nascita" => "1965-10-21", "mail" => "rossi.mario@gmail.com", "paga" => "12"),
+										 array("CF" => "RSSMRA65P21R889T", "nome" => "mario",
+										 "cognome" => "rossi",	"telefono" => "3428990332", 
 										 "data_nascita" => "1965-10-21", "mail" => "-", "paga" => "20")];  // $db->getAgenti()
 
 	if(isset($_POST["aggiornaTelefono"])){

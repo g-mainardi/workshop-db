@@ -4,21 +4,21 @@
 
     $SetParameters["titolo"] = "Gestione transazioni";
     $SetParameters["file"] = "nuova_transazione.php";
-    $SetParameters["transazioni"] = [array("CF" => "BRGPEP65P21R889T", "nome" => "peppe",
-										 "cognome" => "borgia",	"telefono" => "3428990332", 
-										 "data_nascita" => "1965-10-21", "mail" => "borgia.peppe@gmail.com"),
-										 array("CF" => "BRGPEP65P21R889T", "nome" => "peppe",
-										 "cognome" => "borgia",	"telefono" => "3428990332", 
-										 "data_nascita" => "1965-10-21", "mail" => "borgia.peppe@gmail.com"),
-										 array("CF" => "BRGPEP65P21R889T", "nome" => "peppe",
-										 "cognome" => "borgia",	"telefono" => "3428990332", 
-										 "data_nascita" => "1965-10-21", "mail" => "borgia.peppe@gmail.com"),
-										 array("CF" => "BRGPEP65P21R889T", "nome" => "peppe",
-										 "cognome" => "borgia",	"telefono" => "3428990332", 
-										 "data_nascita" => "1965-10-21", "mail" => "borgia.peppe@gmail.com"),
-										 array("CF" => "BRGPEP65P21R889T", "nome" => "peppe",
-										 "cognome" => "borgia",	"telefono" => "3428990332", 
-										 "data_nascita" => "1965-10-21", "mail" => "borgia.peppe@gmail.com")];  // $db->getTransazioni()
+    $SetParameters["transazioni"] = [array("CF" => "RSSMRA65P21R889T", "nome" => "mario",
+										 "cognome" => "rossi",	"telefono" => "3428990332", 
+										 "data_nascita" => "1965-10-21", "mail" => "rossi.mario@gmail.com"),
+										 array("CF" => "RSSMRA65P21R889T", "nome" => "mario",
+										 "cognome" => "rossi",	"telefono" => "3428990332", 
+										 "data_nascita" => "1965-10-21", "mail" => "rossi.mario@gmail.com"),
+										 array("CF" => "RSSMRA65P21R889T", "nome" => "mario",
+										 "cognome" => "rossi",	"telefono" => "3428990332", 
+										 "data_nascita" => "1965-10-21", "mail" => "rossi.mario@gmail.com"),
+										 array("CF" => "RSSMRA65P21R889T", "nome" => "mario",
+										 "cognome" => "rossi",	"telefono" => "3428990332", 
+										 "data_nascita" => "1965-10-21", "mail" => "rossi.mario@gmail.com"),
+										 array("CF" => "RSSMRA65P21R889T", "nome" => "mario",
+										 "cognome" => "rossi",	"telefono" => "3428990332", 
+										 "data_nascita" => "1965-10-21", "mail" => "rossi.mario@gmail.com")];  // $db->getTransazioni()
 
 
     if(isset($_POST["transazioneCF"]) && isset($_POST["transazioneNome"]) && isset($_POST["transazioneCognome"]) 
