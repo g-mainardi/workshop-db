@@ -34,7 +34,7 @@
 		</thead>
 		<tbody>
 			<?php foreach($SetParameters["veicoli"] as $veicolo) :?>
-				<tr>
+				<tr class="noform">
 					<td><?php echo $veicolo["casaProd"]; ?></td>
 					<td><?php echo $veicolo["modello"]; ?></td>
 					<td><?php echo $veicolo["anno_prod"]; ?></td>

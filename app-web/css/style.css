@@ -94,7 +94,7 @@ thead tr, caption {
 	color: white;
 }
 
-tr:nth-child(even) {
+tr.noform:nth-child(even), tr:nth-child(4n){
     background-color: #7272725c;
 }
 
