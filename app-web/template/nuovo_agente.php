@@ -38,6 +38,7 @@
 
 <section class="tabelle">
 	<h2>Agenti registrati</h2>
+	<p>È possibile modificare Telefono, Mail e Paga Oraria di un agente</p>
 	<table>
 		<thead>
 			<tr>
@@ -55,7 +56,7 @@
 					<td><input type="tel" pattern="[0-9]{10}" maxlength="10" name="agenteTelefono" placeholder="Inserisci Telefono" value=<?php echo $agente["telefono"]?> required></td>
 					<td><input type="email" maxlength="80" name="agenteMail" placeholder="Inserisci email" value=<?php echo $agente["mail"]?>></td>
 					<td><input type="number" min="1" name="agentePaga" placeholder="Inserisci paga oraria" value=<?php echo $agente["paga"]?> required></td>
-					<td> <input type="submit" name="aggiornaTelefono" value="Aggiorna Telefono"> <input type="submit" name="aggiornaMail" value="Aggiorna Mail"> <input type="submit" name="aggiornaPaga" value="Aggiorna Paga"> </td>
+					<td> <input disabled type="submit" name="aggiornaTelefono" value="Aggiorna Telefono"> <input disabled type="submit" name="aggiornaMail" value="Aggiorna Mail"> <input disabled type="submit" name="aggiornaPaga" value="Aggiorna Paga"> <input disabled type="submit" name="aggiornaTutto" value="Aggiorna Tutto"> </td>
 				</tr>
 			</form>
 			<?php endforeach; ?>

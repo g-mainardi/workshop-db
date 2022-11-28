@@ -9,6 +9,13 @@
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
             crossorigin="anonymous">
 		</script>
+
+		<?php if(isset($SetParameters["scripts"])):
+			foreach($SetParameters["scripts"] as $script):?>
+				<script src="<?php echo $script; ?>"></script>
+			<?php endforeach;
+    	endif;?>
+		
 		<title><?php echo $SetParameters["titolo"]?></title>
 	</head>
 	<body>

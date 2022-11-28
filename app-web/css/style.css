@@ -134,6 +134,14 @@ input[type="submit"]:hover, button {
 	border-radius: 5px;
 }
 
+input[type="submit"]:disabled{
+	background-color: grey;
+}
+
+input[type="submit"]:disabled:hover{
+    color: #282A35;
+}
+
 h1 {
 	font-family: monospace;
 	font-size: xxx-large;

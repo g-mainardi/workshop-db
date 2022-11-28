@@ -4,6 +4,8 @@
 
     $SetParameters["titolo"] = "Gestione agenti";
     $SetParameters["file"] = "nuovo_agente.php";
+	$SetParameters["scripts"] = array ();
+	array_push($SetParameters["scripts"], "./js/script.js");
 
 	// Leggo agenti dal database
     $SetParameters["agenti"] = [array("CF" => "BRGPEP65P21R889T", "nome" => "peppe",
