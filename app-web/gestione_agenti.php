@@ -12,7 +12,7 @@
 										 "data_nascita" => "1965-10-21", "mail" => "rossi.mario@gmail.com", "paga" => "15"),
 										 array("CF" => "RSSMRA65P21R889T", "nome" => "mario",
 										 "cognome" => "rossi",	"telefono" => "3428990332", 
-										 "data_nascita" => "1965-10-21", "mail" => "-", "paga" => "16"),
+										 "data_nascita" => "1965-10-21", "mail" => "", "paga" => "16"),
 										 array("CF" => "RSSMRA65P21R889T", "nome" => "mario",
 										 "cognome" => "rossi",	"telefono" => "3428990332", 
 										 "data_nascita" => "1965-10-21", "mail" => "rossi.mario@gmail.com", "paga" => "13"),
@@ -21,7 +21,7 @@
 										 "data_nascita" => "1965-10-21", "mail" => "rossi.mario@gmail.com", "paga" => "12"),
 										 array("CF" => "RSSMRA65P21R889T", "nome" => "mario",
 										 "cognome" => "rossi",	"telefono" => "3428990332", 
-										 "data_nascita" => "1965-10-21", "mail" => "-", "paga" => "20")];  // $db->getAgenti()
+										 "data_nascita" => "1965-10-21", "mail" => "", "paga" => "20")];  // $db->getAgenti()
 
 	if(isset($_POST["aggiornaTelefono"])){
 		/*
