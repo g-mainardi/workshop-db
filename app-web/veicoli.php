@@ -7,7 +7,10 @@
 	array_push($SetParameters["scripts"], "./js/script.js");
 
 	// Leggo veicoli dal database
-	$SetParameters["veicoli"] = [array("casaProd" => "Fiat", "modello" => "Stilo",
+	$SetParameters["proprietari"] = $db->getClients();
+	$SetParameters["veicoli"] = $db->getAllCar();
+	
+	/*[array("casaProd" => "Fiat", "modello" => "Stilo",
 										"cilindrata" => "1596", "anno_prod" => "1965-10-21", "proprietario" => "Mario Rossi"),
 									array("casaProd" => "Audi", "modello" => "A4",
 										"cilindrata" => "1984", "anno_prod" => "1965-10-21", "proprietario" => "Mario Rossi"),
@@ -16,7 +19,7 @@
 									array("casaProd" => "Citroen", "modello" => "C3",
 										"cilindrata" => "1199", "anno_prod" => "1965-10-21", "proprietario" => "Mario Rossi"),
 									array("casaProd" => "Toyota", "modello" => "Yaris",
-										"cilindrata" => "1618", "anno_prod" => "1965-10-21", "proprietario" => "In Vendita")];  // $db->getVehicles()
+										"cilindrata" => "1618", "anno_prod" => "1965-10-21", "proprietario" => "In Vendita")];  // $db->getVehicles()*/
 
     if(isset($_POST["veicoloCasaProd"]) && isset($_POST["veicoloModello"])
 		&& isset($_POST["veicoloCilindrata"]) && isset($_POST["veicoloAnnoProd"]))
@@ -42,13 +45,19 @@
 		}
 		*/
 		if(!$error){
-			// Inserisco veicolo nel database
+			$db->insertCar($_POST["veicoloCasaProd"], $_POST["veicoloModello"],
+							$_POST["veicoloAnnoProd"], $_POST["veicoloCilindrata"]);
+			$cod_veicolo_array = $db->getCarCod( $_POST["veicoloModello"], $_POST["veicoloCasaProd"], $_POST["veicoloAnnoProd"]);
+			$cod_veicolo = $cod_veicolo_array[0];
+			echo(gettype($cod_veicolo));
+			$scaduto = 0;
+			$dataAppropriazione = $_POST["dataAppropriazione"];
+			echo($dataAppropriazione);
+			$db->insertOwnershipCertificate($_POST["proprietarioVeicolo"], $cod_veicolo, $dataAppropriazione, $scaduto);
 			/*
-			$db->insertVehicle($_POST["veicoloCasaProd"], $_POST["veicoloModello"],
-					$_POST["veicoloCilindrata"], $_POST["veicoloAnnoProd"]);
-			*/
 			$SetParameters["veicoli"][] = array("casaProd" => $_POST["veicoloCasaProd"], "modello" => $_POST["veicoloModello"],
 					"cilindrata" => $_POST["veicoloCilindrata"], "anno_prod" => $_POST["veicoloAnnoProd"], "proprietario" => "In Vendita");
+			*/
 		}
     }
 
