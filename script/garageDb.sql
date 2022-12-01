@@ -33,8 +33,8 @@ create table ATTESTATO_PROPRIETA (
      CF_proprietario char(16) not null,
      cod_veicolo int(3) not null,
      scaduto int(1) not null,
-     data_appropriazione date not null,
-     CONSTRAINT ID_attestato primary key (CF_proprietario, cod_veicolo, data_appropriazione) 
+     data_produzione date not null,
+     id_attestato int(3) not null AUTO_INCREMENT primary key
 );
 
 create table CLIENTE (
@@ -64,31 +64,30 @@ create table PEZZO_RICAMBIO (
 
 create table RIPARAZIONE (
 	CF_cliente char(16) not null, 
-	CF_meccanico char(16) not null,
-	cod_veicolo int(3) not null,
-	data_inizio date not null,
-	data_fine date not null,
-	costo_totale int(5) not null,
-	id_riparazione int(3) not null AUTO_INCREMENT primary key
+     CF_meccanico char(16) not null,
+     cod_veicolo int(3) not null,
+     data_inizio date not null,
+     data_fine date not null,
+     costo_totale int(5) not null,
+     id_riparazione int(3) not null AUTO_INCREMENT primary key
 );
 
 create table TRANSAZIONE (
      CF_cliente char(16) not null,
      CF_agente char(16) not null,
-     cod_veicolo int(3) not null,
+     cod_veicolo int(3) not null AUTO_INCREMENT primary key,
      prezzo int(6) not null,
      tipologia char(8) not null,
-     data_transazione date not null,
-     CONSTRAINT ID_transazione primary key (CF_cliente, CF_agente, cod_veicolo, data_transazione)
+     data_transazione date not null
 );
 
 create table VEICOLO (
-     cod_veicolo int(3) not null,
+     cod_veicolo int not null AUTO_INCREMENT primary key,
      casa_produttrice char(15) not null,
      modello char(20) not null,
      data_produzione date not null,
      cilindrata char(10) not null,
-     CONSTRAINT ID_veicolo primary key (casa_produttrice, modello, data_produzione)
+     UNIQUE (casa_produttrice, modello, data_produzione)
 );
 
 

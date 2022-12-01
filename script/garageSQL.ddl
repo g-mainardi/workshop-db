@@ -20,42 +20,40 @@ use Officina;
 -- _____________ 
 
 create table AGENTE (
-     codice_fiscale char(16) not null,
+     codice_fiscale char(16) not null primary key,
      nome char(20) not null,
      cognome char(20) not null,
      data_nascita date not null,
      telefono char(10) not null,
      email varchar(30),
-     paga_oraria int not null,
-     constraint IDAGENTE primary key (codice_fiscale)
+     paga_oraria int not null
 );
 
 create table ATTESTATO_PROPRIETA (
      CF_proprietario char(16) not null,
      cod_veicolo int(3) not null,
+     scaduto int(1) not null,
      data_produzione date not null,
      id_attestato int(3) not null AUTO_INCREMENT primary key
 );
 
 create table CLIENTE (
-     codice_fiscale char(16) not null,
+     codice_fiscale char(16) not null primary key,
      nome char(20) not null,
      cognome char(20) not null,
      data_nascita date not null,
      telefono char(10) not null,
-     email varchar(30),
-     constraint IDCLIENTE primary key (codice_fiscale)
+     email varchar(30)
 );
 
 create table MECCANICO (
-     codice_fiscale char(16) not null,
+     codice_fiscale char(16) not null primary key,
      nome char(20) not null,
      cognome char(20) not null,
      data_nascita date not null,
      telefono char(10) not null,
      email varchar(30),
-     paga_oraria int(2) not null,
-     constraint IDMECCANICO primary key (codice_fiscale)
+     paga_oraria int(2) not null
 );
 
 create table PEZZO_RICAMBIO (
@@ -65,7 +63,7 @@ create table PEZZO_RICAMBIO (
 );
 
 create table RIPARAZIONE (
-	 CF_cliente char(16) not null, 
+	CF_cliente char(16) not null, 
      CF_meccanico char(16) not null,
      cod_veicolo int(3) not null,
      data_inizio date not null,
@@ -84,12 +82,12 @@ create table TRANSAZIONE (
 );
 
 create table VEICOLO (
-     cod_veicolo int(3) not null AUTO_INCREMENT primary,
+     cod_veicolo int not null AUTO_INCREMENT primary key,
      casa_produttrice char(15) not null,
      modello char(20) not null,
      data_produzione date not null,
      cilindrata char(10) not null,
-     constraint IDVEICOLO primary key (casa_produttrice, modello, data_produzione)
+     UNIQUE (casa_produttrice, modello, data_produzione)
 );
 
 
