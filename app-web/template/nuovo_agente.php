@@ -31,7 +31,7 @@
 				<input type="number" min="1" name="agentePaga" placeholder="Paga oraria" required>
 			</li>
 		</ul>		
-		<input type="submit" name="submit"  value="Inserisci agente">
+		<input type="submit" name="inserisciAgente"  value="Inserisci agente">
 	</form>
 
 </section>
@@ -49,13 +49,13 @@
 			<?php foreach($SetParameters["agenti"] as $agente) :?>
 			<form action="#" method="POST">
 				<tr>
-					<td><input type="hidden" name="agenteCF" value=<?php echo $agente["CF"]; ?>> <?php echo $agente["CF"]?></td>
+					<td><input type="hidden" name="agenteCF" value=<?php echo $agente["codice_fiscale"]; ?>> <?php echo $agente["codice_fiscale"]?></td>
 					<td><input type="hidden" name="agenteNome" value=<?php echo $agente["nome"]; ?>> <?php echo $agente["nome"]?></td>
 					<td><input type="hidden" name="agenteCognome" value=<?php echo $agente["cognome"]; ?>> <?php echo $agente["cognome"]?></td>
 					<td><input type="hidden" name="agenteDataNascita" value=<?php echo $agente["data_nascita"]; ?>> <?php echo $agente["data_nascita"]?></td>
 					<td><input type="tel" pattern="[0-9]{10}" maxlength="10" name="agenteTelefono" placeholder="Inserisci Telefono" value=<?php echo $agente["telefono"]?> required></td>
-					<td><input type="email" maxlength="80" name="agenteMail" placeholder="Inserisci email" value=<?php echo $agente["mail"]?>></td>
-					<td><input type="number" min="1" name="agentePaga" placeholder="Inserisci paga oraria" value=<?php echo $agente["paga"]?> required></td>
+					<td><input type="email" maxlength="80" name="agenteMail" placeholder="Inserisci email" value=<?php echo $agente["email"]?>></td>
+					<td><input type="number" min="1" name="agentePaga" placeholder="Inserisci paga oraria" value=<?php echo $agente["paga_oraria"]?> required></td>
 					<td> <input disabled type="submit" name="aggiornaTelefono" value="Aggiorna Telefono"> <input disabled type="submit" name="aggiornaMail" value="Aggiorna Mail"> <input disabled type="submit" name="aggiornaPaga" value="Aggiorna Paga"> <input disabled type="submit" name="aggiornaTutto" value="Aggiorna Tutto"> </td>
 				</tr>
 			</form>
