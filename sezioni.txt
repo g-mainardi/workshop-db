@@ -8,7 +8,6 @@ SEZIONE AGENTI
     - inserisci agente(anagr + paga ora)
 	- elenco agenti (anagr + paga ora + n°transazioni(->elenco))
 	- aggiorna paga ora
-	- visualizza agente con più transazioni
 
 	sottosez. gestisci transazioni e proprietà
 	- inserisci transazione

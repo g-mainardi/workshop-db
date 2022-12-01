@@ -1,7 +1,7 @@
 <section class="prova">
 	<ul>
 		<li>
-			<a href="clienti.php">SEZIONE CLIENTI</a>
+			<a href="gestione_clienti.php">SEZIONE CLIENTI</a>
 			<p>Qui puoi visualizzare la lista dei clienti e registrarne uno nuovo</p>
 		</li>
 		<li>
