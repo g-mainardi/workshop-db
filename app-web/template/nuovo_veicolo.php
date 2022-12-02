@@ -12,7 +12,7 @@
 			</li>
 			<li>				
 				<label for="veicoloAnnoProd"> Anno di Produzione: </label>
-				<input type="number" min="1960" max="2022" name="veicoloAnnoProd" placeholder="Anno" required>
+				<input type="number" min="1900" max="2022"  step="1" name="veicoloAnnoProd" required>
 			</li>
 			<li>				
 				<label for="veicoloCilindrata"> Cilindrata: </label>
@@ -22,7 +22,7 @@
 				<label for="proprietario"> Proprietario del veicolo: </label>
 				<select name="proprietarioVeicolo"> 
 				<?php foreach($SetParameters["proprietari"] as $proprietario) :?>
-					<option value="<?php echo $proprietario["codice_fiscale"]; ?>"><?php echo $proprietario["nome"]." ".$proprietario["cognome"]." - ".$proprietario["codice_fiscale"]; ?></option>
+					<option value="<?php echo $proprietario["codice_fiscale"]; ?>"><?php echo $proprietario["codice_fiscale"]; ?></option> 
 				<?php endforeach; ?>
 				</select> 
 			</li>
@@ -46,7 +46,7 @@
 		</thead>
 		<tbody>
 			<?php foreach($SetParameters["veicoli"] as $veicolo) :?>
-				<tr class="noform">
+				<tr>
 					<td><?php echo $veicolo["casa_produttrice"]; ?></td>
 					<td><?php echo $veicolo["modello"]; ?></td>
 					<td><?php echo $veicolo["data_produzione"]; ?></td>
