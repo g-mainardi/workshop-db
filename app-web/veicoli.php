@@ -36,28 +36,26 @@
 			echo "Numero di cilindrata non valido<br>";
 			$error = true;
 		}
-		/*
+		
 		// Controllo se Veicolo già presente
-		if($db->checkVehicle(($_POST['veicoloCasaProd'], $_POST['veicoloModello']))!=0)
-		{
-			echo "Veicolo già presente nel database<br>";
-			$error = true;
-		}
-		*/
 		if(!$error){
-			$db->insertCar($_POST["veicoloCasaProd"], $_POST["veicoloModello"],
-							$_POST["veicoloAnnoProd"], $_POST["veicoloCilindrata"]);
-			$cod_veicolo_array = $db->getCarCod( $_POST["veicoloModello"], $_POST["veicoloCasaProd"], $_POST["veicoloAnnoProd"]);
-			$cod_veicolo = $cod_veicolo_array[0];
-			echo(gettype($cod_veicolo));
-			$scaduto = 0;
 			$dataAppropriazione = $_POST["dataAppropriazione"];
-			echo($dataAppropriazione);
-			$db->insertOwnershipCertificate($_POST["proprietarioVeicolo"], $cod_veicolo, $dataAppropriazione, $scaduto);
-			/*
-			$SetParameters["veicoli"][] = array("casaProd" => $_POST["veicoloCasaProd"], "modello" => $_POST["veicoloModello"],
-					"cilindrata" => $_POST["veicoloCilindrata"], "anno_prod" => $_POST["veicoloAnnoProd"], "proprietario" => "In Vendita");
-			*/
+			$annoAppropriazione = intval(date('Y', strtotime($dataAppropriazione)));
+			
+			if($annoAppropriazione < $_POST["veicoloAnnoProd"]){
+				echo("la data di acquisizione è sbagliata.");
+			}else{
+				try{
+					$db->insertCar($_POST["veicoloCasaProd"], $_POST["veicoloModello"],
+							$_POST["veicoloAnnoProd"], $_POST["veicoloCilindrata"]);
+					$cod_veicolo = $db->getCarCod( $_POST["veicoloModello"], $_POST["veicoloCasaProd"], $_POST["veicoloAnnoProd"]);
+					$scaduto = 0;
+					echo($dataAppropriazione);
+					$db->insertOwnershipCertificate($_POST["proprietarioVeicolo"], $cod_veicolo, $scaduto, $dataAppropriazione);
+				}catch (Exception $e) {
+					echo 'Errore: è stato inserito un veicolo già presente. ';
+				}
+			}
 		}
     }
 
