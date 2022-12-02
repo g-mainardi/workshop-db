@@ -27,7 +27,7 @@
 				<input type="email" name="meccanicoMail" placeholder="Email" maxlength="80">
 			</li>
 			<li>				
-				<label for="meccanicoPaga"> Paga oraria: </label>
+				<label for="meccanicoPaga"> Paga oraria(minimo 1): </label>
 				<input type="number" min="1" name="meccanicoPaga" placeholder="Paga oraria" required>
 			</li>
 		</ul>		
