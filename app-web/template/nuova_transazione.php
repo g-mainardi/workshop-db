@@ -1,33 +1,46 @@
-<section>
+<section class="grande">
 	<h2>Registra una transazione</h2>
 	<form action="#" method="POST">
 		<ul>
 			<li>
-				<label for="transazioneCF"> Codice fiscale: </label>
-				<input type="text" name="transazioneCF" placeholder="Codice fiscale" maxlength="16" required>
+				<label for="selezioneAgente"> Seleziona Agente: </label>
+					<select name="selezioneAgente" required <?php if($SetParameters["selezionati"]): echo "disabled"; endif; ?>>
+					<?php foreach($SetParameters["agenti"] as $agente) :?>
+						<option value=<?php echo $agente["codice_fiscale"]?>><?php echo $agente["nome"]." ".$agente["cognome"]." - ".$agente["codice_fiscale"]?></option>
+					<?php endforeach; ?>
+					</select>
 			</li>
 			<li>				
-				<label for="transazioneNome"> Nome: </label>
-				<input type="text" name="transazioneNome" placeholder="Nome" maxlength="20" required>
+				<label for="selezioneCliente"> Seleziona Cliente: </label>
+				<select name="selezioneCliente" required <?php if($SetParameters["selezionati"]): echo "disabled"; endif; ?>>
+				<?php foreach($SetParameters["clienti"] as $cliente) :?>
+					<option value=<?php echo $cliente["codice_fiscale"]?>><?php echo $cliente["nome"]." ".$cliente["cognome"]." - ".$cliente["codice_fiscale"]?></option>
+				<?php endforeach; ?>
+				</select>
 			</li>
 			<li>
-				<label for="transazioneCognome"> Cognome: </label>
-				<input type="text" name="transazioneCognome" placeholder="Cognome" maxlength="20" required>
+				<label for="selezioneTipo"> Seleziona il tipo di transazione: </label>
+				<select name="selezioneTipo" required <?php if($SetParameters["selezionati"]): echo "disabled"; endif; ?>>
+					<option value="acquisto">Acquisto</option>
+					<option value="vendita">Vendita</option>
+				</select>
 			</li>
+			<?php if($SetParameters["selezionati"]): ?>
 			<li>				
-				<label for="transazioneTelefono"> Telefono: </label>
-				<input type="tel" pattern="[0-9]{10}" maxlength="10" name="transazioneTelefono" placeholder="Telefono">
+				<label for="selezioneVeicolo"> Seleziona Veicolo: </label>
+				<select name="selezioneVeicolo" required>
+				<?php foreach($SetParameters["veicoli"] as $veicolo) :?>
+					<option value=<?php echo $veicolo["modello"]?>><?php echo $veicolo["casaProd"]." - ".$veicolo["modello"]?></option>
+				<?php endforeach; ?>
+				</select>
 			</li>
-			<li>				
-				<label for="transazioneDataNascita"> Data di nascita: </label>
-				<input type="date" name="transazioneDataNascita">
+			<li>
+				<label for="selezionePrezzo"> Stabilisci il prezzo: </label>
+				<input type="number" min="0" name="selezionePrezzo" placeholder="Prezzo" required>
 			</li>
-			<li>				
-				<label for="transazioneMail"> Email: </label>
-				<input type="email" name="transazioneMail" placeholder="Email" maxlength="80">
-			</li>
+			<?php endif; ?>
 		</ul>		
-		<input type="submit" name="submit"  value="Inserisci transazione">
+		<input type="submit" name=<?php if($SetParameters["selezionati"]): echo "inserisciTransazione"; else: echo "avanti"; endif?> value=<?php if($SetParameters["selezionati"]): echo "Inserisci transazione"; else: echo "Avanti"; endif?> >
 	</form>
 
 </section>
@@ -37,15 +50,19 @@
 	<table>
 		<thead>
 			<tr>
-				<th>CF</th><th>NOME</th><th>COGNOME</th><th>TELEFONO</th><th>DATA DI NASCITA</th><th>MAIL</th>
+				<th>AGENTE</th><th>CLIENTE</th><th>VEICOLO</th><th>DATA</th><th>TIPO</th><th>PREZZO</th>
 			</tr>
 		</thead>
 		<tbody>
-			<?php foreach($SetParameters["transazioni"] as $transazione) :?>
-			<tr>
-				<td><?php echo $transazione["CF"]?></td><td><?php echo $transazione["nome"]?></td><td><?php echo $transazione["cognome"]?></td><td><?php echo $transazione["telefono"]?></td>
-				<td><?php echo $transazione["data_nascita"]?></td><td><?php echo $transazione["mail"]?></td>
-			</tr>
+		<?php foreach($SetParameters["transazioni"] as $transazione) :?>
+				<tr class="noform">
+					<td><?php echo $transazione["agente"]; ?></td>
+					<td><?php echo $transazione["cliente"]; ?></td>
+					<td><?php echo $transazione["veicolo"]; ?></td>
+					<td><?php echo $transazione["data_transazione"]; ?></td>
+					<td><?php echo $transazione["tipo"]; ?></td>
+					<td><?php echo $transazione["prezzo"]; ?></td>
+				</tr>
 			<?php endforeach; ?>
 		</tbody>
 	</table>
