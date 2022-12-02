@@ -22,7 +22,7 @@
 				<label for="proprietario"> Proprietario del veicolo: </label>
 				<select name="proprietarioVeicolo"> 
 				<?php foreach($SetParameters["proprietari"] as $proprietario) :?>
-					<option value="<?php echo $proprietario["codice_fiscale"]; ?>"><?php echo $proprietario["codice_fiscale"]; ?></option> 
+					<option value="<?php echo $proprietario["codice_fiscale"]; ?>"><?php echo $proprietario["nome"]." ".$proprietario["cognome"]." - ".$proprietario["codice_fiscale"]; ?></option>
 				<?php endforeach; ?>
 				</select> 
 			</li>
