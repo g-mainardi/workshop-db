@@ -4,25 +4,40 @@
 		<ul>
 			<li>
 				<label for="selezioneAgente"> Seleziona Agente: </label>
-					<select name="selezioneAgente" required <?php if($SetParameters["selezionati"]): echo "disabled"; endif; ?>>
+				<?php if($SetParameters["selezionati"]):?>
+					<select name="selezioneAgente" required disabled>
+					<option value=<?php echo $SetParameters["agente"]["codice_fiscale"]?>><?php echo $SetParameters["agente"]["nome"]." ".$SetParameters["agente"]["cognome"]." - ".$SetParameters["agente"]["codice_fiscale"]?></option>
+				<?php else: ?>
+					<select name="selezioneAgente" required>
 					<?php foreach($SetParameters["agenti"] as $agente) :?>
 						<option value=<?php echo $agente["codice_fiscale"]?>><?php echo $agente["nome"]." ".$agente["cognome"]." - ".$agente["codice_fiscale"]?></option>
 					<?php endforeach; ?>
-					</select>
+				<?php endif;?>
+				</select>
 			</li>
 			<li>				
 				<label for="selezioneCliente"> Seleziona Cliente: </label>
-				<select name="selezioneCliente" required <?php if($SetParameters["selezionati"]): echo "disabled"; endif; ?>>
-				<?php foreach($SetParameters["clienti"] as $cliente) :?>
+				<?php if($SetParameters["selezionati"]): ?>
+					<select name="selezioneCliente" required disabled>
+					<option value=<?php echo $SetParameters["cliente"]["codice_fiscale"]?>><?php echo $SetParameters["cliente"]["nome"]." ".$SetParameters["cliente"]["cognome"]." - ".$SetParameters["cliente"]["codice_fiscale"]?></option>
+				<?php else: ?>
+					<select name="selezioneCliente" required>
+					<?php foreach($SetParameters["clienti"] as $cliente) :?>
 					<option value=<?php echo $cliente["codice_fiscale"]?>><?php echo $cliente["nome"]." ".$cliente["cognome"]." - ".$cliente["codice_fiscale"]?></option>
-				<?php endforeach; ?>
+					<?php endforeach; ?>
+				<?php endif;?>
 				</select>
 			</li>
 			<li>
 				<label for="selezioneTipo"> Seleziona il tipo di transazione: </label>
-				<select name="selezioneTipo" required <?php if($SetParameters["selezionati"]): echo "disabled"; endif; ?>>
-					<option value="acquisto">Acquisto</option>
-					<option value="vendita">Vendita</option>
+				<?php if($SetParameters["selezionati"]):?>
+					<select name="selezioneTipo" required disabled>
+						<option value=<?php echo $SetParameters["tipo"]; ?>><?php echo $SetParameters["tipo"]; ?></option>
+				<?php else:?>
+					<select name="selezioneTipo" required>
+						<option value="acquisto">acquisto</option>
+						<option value="vendita">vendita</option>
+				<?php endif;?>
 				</select>
 			</li>
 			<?php if($SetParameters["selezionati"]): ?>
@@ -35,8 +50,8 @@
 				</select>
 			</li>
 			<li>
-				<label for="selezionePrezzo"> Stabilisci il prezzo: </label>
-				<input type="number" min="0" name="selezionePrezzo" placeholder="Prezzo" required>
+				<label for="selezionePrezzo"> Stabilisci il prezzo (€): </label>
+				<input type="number" min="0" step="5" name="selezionePrezzo" placeholder="Prezzo" required>
 			</li>
 			<?php endif; ?>
 		</ul>		

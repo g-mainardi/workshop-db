@@ -6,13 +6,14 @@
     $SetParameters["file"] = "nuova_transazione.php";
     $SetParameters["agenti"] = $db->getAgents();
 	$SetParameters["clienti"] = $db->getClients();
-	$SetParameters["transazioni"] = array(); // da implementare $db->getAllTransactions();
 	
 	$SetParameters["selezionati"] = false;
-	if(isset($_POST["selezioneAgente"]) && isset($_POST["selezioneCliente"]) && isset($_POST["selezioneTipo"])){
+
+	// Fase controllo primi 3 input: Agente, Cliente e Tipo di transazione
+	if(isset($_POST["avanti"]) && isset($_POST["selezioneAgente"]) && isset($_POST["selezioneCliente"]) && isset($_POST["selezioneTipo"])){
 		$SetParameters["selezionati"] = true;
-		$SetParameters["agente"] = ["CF" => "RSSMRA65P21R889T", "nome" => "mario", "cognome" => "rossi"];   // getAgent($_POST["selezioneAgente"]) # ottengo agente da cf
-		$SetParameters["cliente"] = ["CF" => "RSSMRA65P21R889T", "nome" => "mario", "cognome" => "rossi"]; // getClient($_POST["selezioneCliente"]) # ottengo agente da cf
+		$SetParameters["agente"] = ["codice_fiscale" => $_POST["selezioneAgente"], "nome" => "mario", "cognome" => "rossi"];   // getUser($_POST["selezioneAgente"]) # ottengo agente da cf
+		$SetParameters["cliente"] = ["codice_fiscale" => $_POST["selezioneCliente"], "nome" => "mario", "cognome" => "rossi"]; // getUser($_POST["selezioneCliente"]) # ottengo cliente da cf
 		$SetParameters["tipo"] = $_POST["selezioneTipo"];
 		if($SetParameters["tipo"] == "acquisto"){
 			# questo è un array fittizio per provare senza funzione db
@@ -32,14 +33,15 @@
 		}
 	}
 
-	if($SetParameters["selezionati"] && isset($_POST["selezioneVeicolo"]) && isset($_POST["selezionePrezzo"])){
+	if($SetParameters["selezionati"] && isset($_POST["inserisciTransazione"]) && isset($_POST["selezioneVeicolo"]) && isset($_POST["selezionePrezzo"])){
 		# effettuo il cambio di proprietà (scade la vecchia e ne creo una nuova)
-		//$db->changeCarOwner($_POST["selezioneVeicolo"], $_POST["selezioneCliente"]);
-		
+		//$db->changeCarOwner($_POST["selezioneVeicolo"], $_POST["selezioneCliente"]);	
+
 		# creo la transazione
 		//$db->insertTransaction($_POST["selezioneAgente"],$_POST["selezioneCliente"],$_POST["selezioneVeicolo"]), -data_attuale-, $_POST["selezioneTipo"],$_POST["selezionePrezzo"]);
 	}
 
+	$SetParameters["transazioni"] = array(); // da implementare $db->getAllTransactions();
     require("template/base.php");
 
 ?>
