@@ -33,7 +33,7 @@ class DatabaseHelper {
     #avro un metodo per ottenere un codice veicolo passando una casa produtrrive un modello e una data di produzione
     public function insertCar($casa_produttrice, $modello, $data_produzione, $cilindrata){
         $statement = $this->db->prepare('INSERT INTO VEICOLO(casa_produttrice, modello, data_produzione, cilindrata) VALUES(?, ?, ?, ?)');
-        $statement->bind_param('ssss', $casa_produttrice, $modello, $data_produzione, $cilindrata);
+        $statement->bind_param('ssis', $casa_produttrice, $modello, $data_produzione, $cilindrata);
         $statement->execute();
         /*
         $cod_veicolo = $this->getCarCod($modello, $casa_produttrice, $data_produzione);
@@ -71,7 +71,6 @@ class DatabaseHelper {
         $statement->bind_param('siis', $CF_proprietario, $cod_veicolo, $scaduto, $data_produzione);
         $statement->execute();
         echo "<meta http-equiv='refresh' content='0'>";
-        #echo "<meta http-equiv='refresh' content='0'>";
     }
 
     public function getDependentType($CF){
@@ -258,11 +257,11 @@ class DatabaseHelper {
     #dal modello data di produzione e casa produttrice individuare il codice veicolo
     public function getCarCod($modello, $casa_produttrice, $data_produzione){
         $statement = $this->db->prepare("SELECT cod_veicolo FROM VEICOLO WHERE modello = ? AND casa_produttrice = ? AND data_produzione = ? ");
-		$statement->bind_param('sss', $modello, $casa_produttrice, $data_produzione);
+		$statement->bind_param('ssi', $modello, $casa_produttrice, $data_produzione);
 		$statement->execute();
 		$result = $statement->get_result();
-		
-		return $result->fetch_all(MYSQLI_ASSOC);
+		$data = $result->fetch_array(MYSQLI_ASSOC);
+        return $data["cod_veicolo"];
     }
 
     public function getAllCar(){
@@ -288,6 +287,19 @@ class DatabaseHelper {
 		$result = $statement->get_result();
 		
 		return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function checkCar($modello, $casa_produttrice, $anno_produzione){
+        $statement = $this->db->prepare("SELECT * FROM VEICOLO WHERE modello = ? AND casa_produttrice = ? AND data_produzione = ? ");
+        $statement->bind_param('ssi', $modello, $casa_produttrice, $data_produzione);
+        $statement->execute();
+		$result = $statement->get_result();
+		
+		if(empty($result->fetch_all(MYSQLI_ASSOC))){
+            return 0;
+        }else{
+            return 1;
+        }
     }
 }
 
