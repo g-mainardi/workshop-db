@@ -22,16 +22,16 @@
 				<label for="proprietario"> Proprietario del veicolo: </label>
 				<select name="proprietarioVeicolo"> 
 				<?php foreach($SetParameters["proprietari"] as $proprietario) :?>
-					<option value="<?php echo $proprietario["codice_fiscale"]; ?>"><?php echo $proprietario["codice_fiscale"]; ?></option> 
+					<option value="<?php echo $proprietario["codice_fiscale"]; ?>"><?php echo $proprietario["nome"]." ".$proprietario["cognome"]." - ".$proprietario["codice_fiscale"]; ?></option> 
 				<?php endforeach; ?>
 				</select> 
 			</li>
+			<li>
 				<label for="dataAppropriazione"> Data di acquisizione: </label>
 				<input type="date" maxlength="10" name="dataAppropriazione" placeholder="dataAppropriazione" required>
-			<li>
 			</li>
 		</ul>		
-		<input type="submit" name="submit"  value="Inserisci veicolo">
+		<input type="submit" name="inserisciVeicolo"  value="Inserisci veicolo">
 	</form>
 
 </section>
@@ -46,11 +46,12 @@
 		</thead>
 		<tbody>
 			<?php foreach($SetParameters["veicoli"] as $veicolo) :?>
-				<tr>
+				<tr class="noform">
 					<td><?php echo $veicolo["casa_produttrice"]; ?></td>
 					<td><?php echo $veicolo["modello"]; ?></td>
 					<td><?php echo $veicolo["data_produzione"]; ?></td>
 					<td><?php echo $veicolo["cilindrata"]; ?></td>
+					<td><?php echo "da implementare"#$veicolo["proprietario"]["nome"]." ".$veicolo["proprietario"]["cognome"]." - ".$veicolo["proprietario"]["codice_fiscale"]; ?></td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>

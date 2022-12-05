@@ -5,46 +5,21 @@
     $SetParameters["titolo"] = "Gestione veicoli";
     $SetParameters["file"] = "nuovo_veicolo.php";
 	array_push($SetParameters["scripts"], "./js/script.js");
-
-	// Leggo veicoli dal database
-	$SetParameters["proprietari"] = $db->getClients();
-	$SetParameters["veicoli"] = $db->getAllCar();
 	
-	/*[array("casaProd" => "Fiat", "modello" => "Stilo",
-										"cilindrata" => "1596", "anno_prod" => "1965-10-21", "proprietario" => "Mario Rossi"),
-									array("casaProd" => "Audi", "modello" => "A4",
-										"cilindrata" => "1984", "anno_prod" => "1965-10-21", "proprietario" => "Mario Rossi"),
-									array("casaProd" => "Volkswagen", "modello" => "Golf",
-										"cilindrata" => "1498", "anno_prod" => "1965-10-21", "proprietario" => "In Vendita"),
-									array("casaProd" => "Citroen", "modello" => "C3",
-										"cilindrata" => "1199", "anno_prod" => "1965-10-21", "proprietario" => "Mario Rossi"),
-									array("casaProd" => "Toyota", "modello" => "Yaris",
-										"cilindrata" => "1618", "anno_prod" => "1965-10-21", "proprietario" => "In Vendita")];  // $db->getVehicles()*/
-
-    if(isset($_POST["veicoloCasaProd"]) && isset($_POST["veicoloModello"])
-		&& isset($_POST["veicoloCilindrata"]) && isset($_POST["veicoloAnnoProd"]))
+    if(isset($_POST["veicoloCasaProd"]) && isset($_POST["veicoloModello"]) && isset($_POST["veicoloCilindrata"]) && isset($_POST["veicoloAnnoProd"]))
 	{
-		$error = false;
-		// Controllo se sono inseriti Modello e Casa Produttrice
-		if(strlen($_POST['veicoloModello']) <= 0 || strlen($_POST['veicoloCasaProd']) <= 0){
-			echo "Modello o Casa produttrice non possono essere vuoti<br>";
-			$error = true;
-		}
-
 		// Controllo se cilindrata inserita correttamente
 		if(!is_numeric($_POST['veicoloCilindrata'])){
 			echo "Numero di cilindrata non valido<br>";
-			$error = true;
-		}
-		
-		// Controllo se Veicolo già presente
-		if(!$error){
+		} else {
 			$dataAppropriazione = $_POST["dataAppropriazione"];
 			$annoAppropriazione = intval(date('Y', strtotime($dataAppropriazione)));
 			
+			// Controllo che l'anno di appropriazione sia successivo a quello di produzione
 			if($annoAppropriazione < $_POST["veicoloAnnoProd"]){
 				echo("la data di acquisizione è sbagliata.");
 			}else{
+				// Controllo se Veicolo già presente
 				try{
 					$db->insertCar($_POST["veicoloCasaProd"], $_POST["veicoloModello"],
 							$_POST["veicoloAnnoProd"], $_POST["veicoloCilindrata"]);
@@ -58,6 +33,10 @@
 			}
 		}
     }
+
+	// Leggo dati dal database
+	$SetParameters["proprietari"] = $db->getClients();
+	$SetParameters["veicoli"] = $db->getAllCar();
 
     require("template/base.php");
 
