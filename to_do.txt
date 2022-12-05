@@ -5,3 +5,8 @@ Funzioni da implementare per gestione_transazioni.php:
 - changeCarOwner(Input: codice veicolo e CF cliente, Output: niente) : per riga 38
 - insertTransaction(Input: CF agente, CF cliente, codice veicolo, data_attuale, tipo selezionato e prezzo) : per riga 41
 - getAllTransactions(Input: niente; Output: tutte le transazioni) : per riga 44
+
+
+Funzioni da implementare per gestione_pezzi.php:
+- getAllParts(Input: niente; Output: tutte le parti registrate sul database)
+- insertPart(Input: dati pezzo; Output: niente) 
