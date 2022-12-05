@@ -207,3 +207,7 @@ header > ul {
 	width: 76%;
 	margin: 1% 12%; 
 }
+
+section.prova > ul > li{
+	width: 33%;
+}
