@@ -9,7 +9,7 @@
 	$SetParameters["veicoli"] = $db->getAllCar();
 
 	// DA IMPLEMENTARE $db->getAllParts(); ora c'è un array di prova
-	$SetParameters["pezzi"] = array(array("veicolo"=> $SetParameters["veicoli"][0], "nome" => "ruote", "descrizione"=>"vuota", "costo"=>"200"));
+	$SetParameters["pezzi"] = $db->getAllPieces();
 	
     if(isset($_POST["pezzoVeicolo"]) && isset($_POST["pezzoNome"]) && isset($_POST["pezzoCosto"]))
 	{
@@ -25,14 +25,13 @@
 			$descrizione = "";
 		}
 		// Controllo se Pezzo di ricambio già presente, altrimenti inserisco
-		# Questa parte è da riadattare e DA IMPLEMENTARE 
-		/*
 		try{
-			$db->insertPart($veicolo, $nome, $costo, $descrizione);
+			#public function insertPiece($nome, $cod_veicolo, $costo_unitario, $descrizione){
+
+			$db->insertPiece($nome, $veicolo, $costo, $descrizione);
 		}catch (Exception $e) {
 			echo 'Errore: è stato inserito un pezzo già presente. ';
 		}
-		*/
     }
 
     require("template/base.php");
