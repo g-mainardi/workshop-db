@@ -27,7 +27,7 @@
 				<input type="email" name="agenteMail" placeholder="Email" maxlength="80">
 			</li>
 			<li>				
-				<label for="agentePaga"> Paga oraria: </label>
+				<label for="agentePaga"> Paga oraria(minimo 1): </label>
 				<input type="number" min="1" name="agentePaga" placeholder="Paga oraria" required>
 			</li>
 		</ul>		
