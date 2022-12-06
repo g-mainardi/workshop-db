@@ -7,7 +7,7 @@
 	array_push($SetParameters["scripts"], "./js/script.js");
 
 	// Leggo agenti dal database
-	$SetParameters["agenti"] = $db->getAgents();
+	$SetParameters["agenti"] = $db->getAllAgents();
 
 	if(isset($_POST["aggiornaTelefono"])){
 		$type = $db->getDependentType($_POST["agenteCF"]);
