@@ -35,9 +35,6 @@ class DatabaseHelper {
         $statement = $this->db->prepare('INSERT INTO VEICOLO(casa_produttrice, modello, data_produzione, cilindrata) VALUES(?, ?, ?, ?)');
         $statement->bind_param('ssis', $casa_produttrice, $modello, $data_produzione, $cilindrata);
         $statement->execute();
-        /*
-        $cod_veicolo = $this->getCarCod($modello, $casa_produttrice, $data_produzione);
-        $this->insertOwnershipCertificate($CF, $cod_veicolo, $data_appropriazione, $scaduto);*/
     }
 
     #per ogni transazione fare l'update dell'attestao ovvero cambiare il CF_proprietario
@@ -46,17 +43,27 @@ class DatabaseHelper {
         $statement->bind_param('sisiss', $CF_cliente, $cod_veicolo, $CF_agente, $prezzo, $data_transazione, $tipologia);
         $statement->execute();
         echo "<meta http-equiv='refresh' content='0'>";
-
     }
-    #a livello di applicazione fare un if, se la transazione è di tipo acquisto allora scaduto deve essere posto a 1 in alternativa a 0
-    #se quindi la transazione è di tipo vendita il cf viene aggiornato in alternativa lo mettosolo a scaduto
+
+    public function insertOwnershipCertificate($CF_proprietario, $cod_veicolo, $scaduto, $data_produzione){
+        $statement = $this->db->prepare('INSERT INTO ATTESTATO_PROPRIETA(CF_proprietario, cod_veicolo, scaduto, data_produzione	) VALUES(?, ?, ?, ?)');
+        $statement->bind_param('siis', $CF_proprietario, $cod_veicolo, $scaduto, $data_produzione);
+        $statement->execute();
+    }
+
+    public function insertPiece($nome, $cod_veicolo, $costo_unitario, $descrizione){
+        $statement = $this->db->prepare('INSERT INTO PEZZO_RICAMBIO(nome, cod_veicolo, costo_unitario, descrizione) VALUES(?, ?, ?, ?)');
+        $statement->bind_param('siis', $nome, $cod_veicolo, $costo_unitario, $descrizione);
+        $statement->execute();
+        echo "<meta http-equiv='refresh' content='0'>";
+    }
+
     public function updateCertificate($scaduto, $cod_veicolo, $CF_proprietario){
             $statement = $this->db->prepare("UPDATE ATTESTATO_PROPRIETA
                                             SET scaduto = ? 
                                             WHERE cod_veicolo =  ? AND CF_proprietario = ? ");
         $statement->bind_param("iis", $scaduto, $cod_veicolo, $CF_proprietario);
         $statement->execute();
-        #echo "<meta http-equiv='refresh' content='0'>";
     }
     /*
     public fuction insertRepair($CF_cliente, $CF_meccanico, $data_inizio, $data_fine, $costo_totale, $cod_veicolo){
@@ -66,11 +73,6 @@ class DatabaseHelper {
         echo "<meta http-equiv='refresh' content='0'>";
     }
     */
-    public function insertOwnershipCertificate($CF_proprietario, $cod_veicolo, $scaduto, $data_produzione){
-        $statement = $this->db->prepare('INSERT INTO ATTESTATO_PROPRIETA(CF_proprietario, cod_veicolo, scaduto, data_produzione	) VALUES(?, ?, ?, ?)');
-        $statement->bind_param('siis', $CF_proprietario, $cod_veicolo, $scaduto, $data_produzione);
-        $statement->execute();
-    }
 
     public function getDependentType($CF){
         if (!empty($this->checkClient($CF))){
@@ -337,6 +339,23 @@ class DatabaseHelper {
 		$result = $statement->get_result();
 		
 		return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getAllPieces(){
+        $statement = $this->db->prepare("SELECT * FROM PEZZO_RICAMBIO ");
+        $statement->execute();
+		$result = $statement->get_result();
+		
+		return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getCarSpecific($cod_veicolo){
+        $statement = $this->db->prepare("SELECT * FROM VEICOLO WHERE cod_veicolo = ?");
+        $statement->bind_param('i', $cod_veicolo);
+		$statement->execute();
+		$result = $statement->get_result();
+		$data = $result->fetch_array(MYSQLI_ASSOC);
+        return $data["modello"]." - ".$data["casa_produttrice"];
     }
 
 }
