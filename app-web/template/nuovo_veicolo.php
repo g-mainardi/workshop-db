@@ -12,7 +12,7 @@
 			</li>
 			<li>				
 				<label for="veicoloAnnoProd"> Anno di Produzione: </label>
-				<input type="number" min="1960" max="2022" name="veicoloAnnoProd" placeholder="Anno" required>
+				<input type="number" min="1900" max="2022"  step="1" name="veicoloAnnoProd" required>
 			</li>
 			<li>				
 				<label for="veicoloCilindrata"> Cilindrata: </label>
@@ -22,16 +22,16 @@
 				<label for="proprietario"> Proprietario del veicolo: </label>
 				<select name="proprietarioVeicolo"> 
 				<?php foreach($SetParameters["proprietari"] as $proprietario) :?>
-					<option value="<?php echo $proprietario["codice_fiscale"]; ?>"><?php echo $proprietario["nome"]." ".$proprietario["cognome"]." - ".$proprietario["codice_fiscale"]; ?></option>
+					<option value="<?php echo $proprietario["codice_fiscale"]; ?>"><?php echo $proprietario["nome"]." ".$proprietario["cognome"]." - ".$proprietario["codice_fiscale"]; ?></option> 
 				<?php endforeach; ?>
 				</select> 
 			</li>
+			<li>
 				<label for="dataAppropriazione"> Data di acquisizione: </label>
 				<input type="date" maxlength="10" name="dataAppropriazione" placeholder="dataAppropriazione" required>
-			<li>
 			</li>
 		</ul>		
-		<input type="submit" name="submit"  value="Inserisci veicolo">
+		<input type="submit" name="inserisciVeicolo"  value="Inserisci veicolo">
 	</form>
 
 </section>
@@ -41,7 +41,7 @@
 	<table>
 		<thead>
 			<tr>
-				<th>CASA PRODUZIONE</th><th>MODELLO</th><th>ANNO DI PRODUZIONE</th><th>CILINDRATA(CM3)</th>
+				<th>CASA PRODUZIONE</th><th>MODELLO</th><th>ANNO DI PRODUZIONE</th><th>CILINDRATA(CM3)</th><th>PROPRIETARIO</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -51,6 +51,7 @@
 					<td><?php echo $veicolo["modello"]; ?></td>
 					<td><?php echo $veicolo["data_produzione"]; ?></td>
 					<td><?php echo $veicolo["cilindrata"]; ?></td>
+					<td><?php echo "da implementare"#$veicolo["proprietario"]["nome"]." ".$veicolo["proprietario"]["cognome"]." - ".$veicolo["proprietario"]["codice_fiscale"]; ?></td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
