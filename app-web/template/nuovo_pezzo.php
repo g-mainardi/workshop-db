@@ -39,10 +39,10 @@
 		<tbody>
 			<?php foreach($SetParameters["pezzi"] as $pezzo) :?>
 				<tr class="noform">
-					<td><?php echo $pezzo["veicolo"]["casa_produttrice"]." - ".$pezzo["veicolo"]["modello"]." (".$pezzo["veicolo"]["data_produzione"].")"; ?></td>
+					<td><?php echo $db->getCarSpecific($pezzo["cod_veicolo"]); ?></td>
 					<td><?php echo $pezzo["nome"]; ?></td>
 					<td><?php echo $pezzo["descrizione"]; ?></td>
-					<td><?php echo $pezzo["costo"]; ?></td>
+					<td><?php echo $pezzo["costo_unitario"]; ?></td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
