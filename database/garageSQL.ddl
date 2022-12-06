@@ -57,13 +57,14 @@ create table MECCANICO (
 );
 
 create table PEZZO_RICAMBIO (
+     nome char(20) not null,
      cod_veicolo int(3) not null,
-     descrizione char(40) not null,
-     costo int(5) not null
+     descrizione char(40),
+     costo_unitario int(5) not null, 
 );
 
 create table RIPARAZIONE (
-	CF_cliente char(16) not null, 
+     CF_cliente char(16) not null, 
      CF_meccanico char(16) not null,
      cod_veicolo int(3) not null,
      data_inizio date not null,
@@ -85,7 +86,7 @@ create table VEICOLO (
      cod_veicolo int not null AUTO_INCREMENT primary key,
      casa_produttrice char(15) not null,
      modello char(20) not null,
-     data_produzione date not null,
+     data_produzione int(4) not null,
      cilindrata char(10) not null,
      UNIQUE (casa_produttrice, modello, data_produzione)
 );
