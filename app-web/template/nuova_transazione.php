@@ -6,7 +6,9 @@
 				<label for="selezioneAgente"> Seleziona Agente: </label>
 				<?php if($SetParameters["selezionati"]):?>
 					<select name="selezioneAgente" required disabled>
-					<option value=<?php echo $SetParameters["agente"]["codice_fiscale"]?>><?php echo $SetParameters["agente"]["nome"]." ".$SetParameters["agente"]["cognome"]." - ".$SetParameters["agente"]["codice_fiscale"]?></option>
+					<?php foreach($SetParameters["agente"] as $agente) :?>
+						<option value=<?php echo($agente["codice_fiscale"])?>><?php echo $agente["nome"]." ".$agente["cognome"]." - ".$agente["codice_fiscale"]?></option>
+					<?php endforeach; ?>
 				<?php else: ?>
 					<select name="selezioneAgente" required>
 					<?php foreach($SetParameters["agenti"] as $agente) :?>
@@ -19,11 +21,13 @@
 				<label for="selezioneCliente"> Seleziona Cliente: </label>
 				<?php if($SetParameters["selezionati"]): ?>
 					<select name="selezioneCliente" required disabled>
-					<option value=<?php echo $SetParameters["cliente"]["codice_fiscale"]?>><?php echo $SetParameters["cliente"]["nome"]." ".$SetParameters["cliente"]["cognome"]." - ".$SetParameters["cliente"]["codice_fiscale"]?></option>
+					<?php foreach($SetParameters["cliente"] as $cliente) :?>
+						<option value=<?php echo $cliente["codice_fiscale"]?>><?php echo $cliente["nome"]." ".$cliente["cognome"]." - ".$cliente["codice_fiscale"]?></option>
+					<?php endforeach; ?>				
 				<?php else: ?>
 					<select name="selezioneCliente" required>
 					<?php foreach($SetParameters["clienti"] as $cliente) :?>
-					<option value=<?php echo $cliente["codice_fiscale"]?>><?php echo $cliente["nome"]." ".$cliente["cognome"]." - ".$cliente["codice_fiscale"]?></option>
+						<option value=<?php echo $cliente["codice_fiscale"]?>><?php echo $cliente["nome"]." ".$cliente["cognome"]." - ".$cliente["codice_fiscale"]?></option>
 					<?php endforeach; ?>
 				<?php endif;?>
 				</select>
@@ -45,7 +49,7 @@
 				<label for="selezioneVeicolo"> Seleziona Veicolo: </label>
 				<select name="selezioneVeicolo" required>
 				<?php foreach($SetParameters["veicoli"] as $veicolo) :?>
-					<option value=<?php echo $veicolo["modello"]?>><?php echo $veicolo["casaProd"]." - ".$veicolo["modello"]?></option>
+					<option value=<?php echo $veicolo["cod_veicolo"]?>><?php echo $veicolo["casa_produttrice"]." - ".$veicolo["modello"]?></option>
 				<?php endforeach; ?>
 				</select>
 			</li>
@@ -71,11 +75,11 @@
 		<tbody>
 		<?php foreach($SetParameters["transazioni"] as $transazione) :?>
 				<tr class="noform">
-					<td><?php echo $transazione["agente"]; ?></td>
-					<td><?php echo $transazione["cliente"]; ?></td>
-					<td><?php echo $transazione["veicolo"]; ?></td>
+					<td><?php echo $transazione["CF_agente"]; ?></td>
+					<td><?php echo $transazione["CF_cliente"]; ?></td>
+					<td><?php echo $transazione["cod_veicolo"]; ?></td>
 					<td><?php echo $transazione["data_transazione"]; ?></td>
-					<td><?php echo $transazione["tipo"]; ?></td>
+					<td><?php echo $transazione["tipologia"]; ?></td>
 					<td><?php echo $transazione["prezzo"]; ?></td>
 				</tr>
 			<?php endforeach; ?>
