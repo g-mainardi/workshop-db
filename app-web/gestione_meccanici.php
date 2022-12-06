@@ -7,45 +7,24 @@
 	array_push($SetParameters["scripts"], "./js/script.js");
 
 	// Leggo meccanici dal database
-    $SetParameters["meccanici"] = [array("CF" => "RSSMRA65P21R889T", "nome" => "mario",
-										 "cognome" => "rossi",	"telefono" => "3428990332", 
-										 "data_nascita" => "1965-10-21", "mail" => "rossi.mario@gmail.com", "paga" => "15"),
-										 array("CF" => "RSSMRA65P21R889T", "nome" => "mario",
-										 "cognome" => "rossi",	"telefono" => "3428990332", 
-										 "data_nascita" => "1965-10-21", "mail" => "-", "paga" => "16"),
-										 array("CF" => "RSSMRA65P21R889T", "nome" => "mario",
-										 "cognome" => "rossi",	"telefono" => "3428990332", 
-										 "data_nascita" => "1965-10-21", "mail" => "rossi.mario@gmail.com", "paga" => "13"),
-										 array("CF" => "RSSMRA65P21R889T", "nome" => "mario",
-										 "cognome" => "rossi",	"telefono" => "3428990332", 
-										 "data_nascita" => "1965-10-21", "mail" => "rossi.mario@gmail.com", "paga" => "12"),
-										 array("CF" => "RSSMRA65P21R889T", "nome" => "mario",
-										 "cognome" => "rossi",	"telefono" => "3428990332", 
-										 "data_nascita" => "1965-10-21", "mail" => "-", "paga" => "20")];  // $db->getMechanics()
+    $SetParameters["meccanici"] =  $db->getAllMechanics();
 
 	if(isset($_POST["aggiornaTelefono"])){
-		/*
-		$db->updateMechanicTelephone($_POST["meccanicoCF"], $_POST["meccanicoTelefono"]);
-		*/
-		echo "aggiornato: ".$_POST["meccanicoCF"]." numero: ".$_POST["meccanicoTelefono"];
+		$type = 2;
+		$db->updateTelephone( $_POST["meccanicoTelefono"], $_POST["meccanicoCF"], $type);
 	}
 	if(isset($_POST["aggiornaMail"])){
-		/*
-		$db->updateMechanicMail($_POST["meccanicoCF"], $_POST["meccanicoMail"]);
-		*/
-		echo "aggiornato: ".$_POST["meccanicoCF"]." Mail: ".$_POST["meccanicoMail"];
+		$type = 2;
+		$db->updateEmail($_POST["meccanicoMail"], $_POST["meccanicoCF"], $type);
 	}
 	if(isset($_POST["aggiornaPaga"])){
-		/*
-		$db->updateMechanicPay($_POST["meccanicoCF"], $_POST["meccanicoPaga"]);
-		*/
-		echo "aggiornato: ".$_POST["meccanicoCF"]." Paga: ".$_POST["meccanicoPaga"];
+		$type = 2;
+		$db->updatePagaOraria($_POST["meccanicoMail"], $_POST["meccanicoCF"], $type);
 	}
 	if(isset($_POST["aggiornaTutto"])){
-		/*
-		$db->updateMechanic($_POST["meccanicoCF"], $_POST["meccanicoTelefono"], $_POST["meccanicoMail"], $_POST["meccanicoPaga"]);
-		*/
-		echo "aggiornato: ".$_POST["meccanicoCF"]." numero: ".$_POST["meccanicoTelefono"]." Mail: ".$_POST["meccanicoMail"]." Paga: ".$_POST["meccanicoPaga"];
+		$type = 2;
+		$paga = intval($_POST["agentePaga"]);
+		$db->updateEverything($_POST["meccanicoMail"], $_POST["meccanicoTelefono"], $paga, $_POST["meccanicoCF"], $type);
 	}
 
     if(isset($_POST["meccanicoCF"]) && isset($_POST["meccanicoNome"]) && isset($_POST["meccanicoCognome"]) 
@@ -81,13 +60,8 @@
 			*/
 			if(!$error){
 				// Inserisco meccanico nel database
-				/*
-				$db->insertmeccanico($_POST["meccanicoCF"], $_POST["meccanicoNome"], $_POST["meccanicoCognome"],
-					 $_POST["meccanicoTelefono"], $_POST["meccanicoDataNascita"], $_POST["meccanicoMail"]);
-				*/
-				$SetParameters["meccanici"][] = array("CF" => $_POST["meccanicoCF"], "nome" => $_POST["meccanicoNome"],
-										"cognome" => $_POST["meccanicoCognome"],	"telefono" => $_POST["meccanicoTelefono"], 
-										"data_nascita" => $_POST["meccanicoDataNascita"], "mail" => $_POST["meccanicoMail"], "paga" => $_POST["meccanicoPaga"]);
+				$db->insertmeccanico($_POST["meccanicoCF"], $_POST["meccanicoNome"], $_POST["meccanicoCognome"], $_POST["meccanicoDataNascita"], $_POST["meccanicoTelefono"], $_POST["meccanicoMail"], $_POST["meccanicoPaga"]);
+				
 			}
         }
 
