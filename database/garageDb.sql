@@ -60,7 +60,7 @@ create table PEZZO_RICAMBIO (
      nome char(20) not null,
      cod_veicolo int(3) not null,
      descrizione char(40),
-     costo_unitario int(5) not null, 
+     costo_unitario int(5) not null
 );
 
 create table RIPARAZIONE (
