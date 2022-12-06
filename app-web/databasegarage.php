@@ -43,20 +43,20 @@ class DatabaseHelper {
     #per ogni transazione fare l'update dell'attestao ovvero cambiare il CF_proprietario
     public function insertTransaction($CF_cliente, $cod_veicolo, $CF_agente, $prezzo, $data_transazione, $tipologia){
         $statement = $this->db->prepare('INSERT INTO TRANSAZIONE(CF_cliente, cod_veicolo, CF_agente, prezzo, data_transazione, tipologia) VALUES(?, ?, ?, ?, ?, ?)');
-        $statement->bind_param('ssissss', $CF_cliente, $cod_veicolo, $CF_agente, $prezzo, $data_transazione, $tipologia);
+        $statement->bind_param('sisiss', $CF_cliente, $cod_veicolo, $CF_agente, $prezzo, $data_transazione, $tipologia);
         $statement->execute();
         echo "<meta http-equiv='refresh' content='0'>";
+
     }
     #a livello di applicazione fare un if, se la transazione è di tipo acquisto allora scaduto deve essere posto a 1 in alternativa a 0
     #se quindi la transazione è di tipo vendita il cf viene aggiornato in alternativa lo mettosolo a scaduto
-    public function updateCertificate($CF_proprietario, $tipologia, $cod_veicolo){
-        if ($tipologia == "acquisto"){
-            $varScaduto = 1;
+    public function updateCertificate($scaduto, $cod_veicolo, $CF_proprietario){
             $statement = $this->db->prepare("UPDATE ATTESTATO_PROPRIETA
-                                            SET scaduto = $varScaduto 
-                                            WHERE cod_veicolo =  $cod_veicolo ");
-            $statement->bind_param("ii", $varScaduto, $cod_veicolo);
-        }
+                                            SET scaduto = ? 
+                                            WHERE cod_veicolo =  ? AND CF_proprietario = ? ");
+        $statement->bind_param("iis", $scaduto, $cod_veicolo, $CF_proprietario);
+        $statement->execute();
+        #echo "<meta http-equiv='refresh' content='0'>";
     }
     /*
     public fuction insertRepair($CF_cliente, $CF_meccanico, $data_inizio, $data_fine, $costo_totale, $cod_veicolo){
@@ -70,7 +70,6 @@ class DatabaseHelper {
         $statement = $this->db->prepare('INSERT INTO ATTESTATO_PROPRIETA(CF_proprietario, cod_veicolo, scaduto, data_produzione	) VALUES(?, ?, ?, ?)');
         $statement->bind_param('siis', $CF_proprietario, $cod_veicolo, $scaduto, $data_produzione);
         $statement->execute();
-        echo "<meta http-equiv='refresh' content='0'>";
     }
 
     public function getDependentType($CF){
@@ -83,7 +82,7 @@ class DatabaseHelper {
         }
     }
 
-    public function getAgents(){
+    public function getAllAgents(){
         $statement = $this->db->prepare("SELECT * FROM AGENTE");
 		$statement->execute();
 		$result = $statement->get_result();
@@ -244,14 +243,18 @@ class DatabaseHelper {
     }
 
     #stampa proprietario del veicolo se c'è sennò stampa che è di proprietà dell'officina(ovvero se scaduto=1)
-    public function getActualOwnerForCar($cod_veicolo){
-        $scaduto = 0;
-        $statement = $this->db->prepare("SELECT CF_proprietario FROM ATTESTATO_PROPRIETA WHERE cod_veicolo = ? AND scaduto = $scaduto ");
-		$statement->bind_param('ii', $cod_veicolo, $scaduto);
+    public function getActualOwnerForCar($cod_veicolo, $data_acquisizione){
+        $statement = $this->db->prepare("SELECT CF_proprietario FROM ATTESTATO_PROPRIETA WHERE cod_veicolo = ? AND data_acquisizione = ? AND $scaduto = 0 ");
+		$statement->bind_param('is', $cod_veicolo, $data_acquisizione);
 		$statement->execute();
 		$result = $statement->get_result();
-		
-		return $result->fetch_all(MYSQLI_ASSOC);
+		$data = $result->fetch_array(MYSQLI_ASSOC);
+        if(empty($data["CF_proprietario"])){
+            $sol = "officina";
+            return $sol;
+        }else{
+            return $data["CF_proprietario"];
+        }
     }
 
     #dal modello data di produzione e casa produttrice individuare il codice veicolo
@@ -301,6 +304,41 @@ class DatabaseHelper {
             return 1;
         }
     }
+
+    public function getClientValidCar($CF_cliente, $scaduto){
+        $statement = $this->db->prepare("SELECT *  FROM ATTESTATO_PROPRIETA a JOIN VEICOLO v ON a.cod_veicolo = v.cod_veicolo WHERE a.CF_proprietario=? AND a.scaduto=? ");
+        $statement->bind_param('si', $CF_cliente, $scaduto);
+        $statement->execute();
+        $result = $statement->get_result();
+		
+		return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getGarageCar($scaduto){
+        $statement = $this->db->prepare("SELECT *  FROM ATTESTATO_PROPRIETA a JOIN VEICOLO v ON a.cod_veicolo = v.cod_veicolo WHERE a.scaduto=? ");
+        $statement->bind_param('i', $scaduto);
+        $statement->execute();
+        $result = $statement->get_result();
+		
+		return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getAllTransactions(){
+        $statement = $this->db->prepare("SELECT * FROM TRANSAZIONE ");
+        $statement->execute();
+		$result = $statement->get_result();
+		
+		return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getAllMechanics(){
+        $statement = $this->db->prepare("SELECT * FROM MECCANICO ");
+        $statement->execute();
+		$result = $statement->get_result();
+		
+		return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
 }
 
 
