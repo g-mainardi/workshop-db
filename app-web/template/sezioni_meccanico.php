@@ -5,7 +5,7 @@
 			<p>Qui puoi visualizzare la lista degli meccanici, registrarne uno nuovo e modificarne la paga oraria</p>
 		</li>
 		<li>
-			<a href="gestione_transazioni.php">RIPARAZIONI</a>
+			<a href="gestione_riparazioni.php">RIPARAZIONI</a>
 			<p>Qui puoi visualizzare la lista delle riparazioni e inserirne una nuova </p>
 		</li>
 		<li>
