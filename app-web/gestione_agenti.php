@@ -8,59 +8,40 @@
 
 	// Leggo agenti dal database
 	$SetParameters["agenti"] = $db->getAllAgents();
+	
+	// Tipo di utente: agente -> 1
+	$type = 1;
 
+	// Controlli per attributi aggiornati
 	if(isset($_POST["aggiornaTelefono"])){
-		$type = $db->getDependentType($_POST["agenteCF"]);
 		$db->updateTelephone( $_POST["agenteTelefono"], $_POST["agenteCF"], $type);
 	}
 	if(isset($_POST["aggiornaMail"])){
-		$type = $db->getDependentType($_POST["agenteCF"]);
 		$db->updateEmail($_POST["agenteMail"], $_POST["agenteCF"], $type);	
 	}
 	if(isset($_POST["aggiornaPaga"])){
-		$type = $db->getDependentType($_POST["agenteCF"]);
 		$db->updatePagaOraria($_POST["agentePaga"], $_POST["agenteCF"], $type);
 	}
 	if(isset($_POST["aggiornaTutto"])){
-		$type = $db->getDependentType($_POST["agenteCF"]);
         $paga = intval($_POST["agentePaga"]);
 		$db->updateEverything($_POST["agenteMail"], $_POST["agenteTelefono"], $paga, $_POST["agenteCF"], $type);
 	}
 
+	// Controllo se tutto inserito
     if(isset($_POST["inserisciAgente"]) && isset($_POST["agenteCF"]) && isset($_POST["agenteNome"]) && isset($_POST["agenteCognome"]) 
 		&& isset($_POST["agenteTelefono"]) && isset($_POST["agenteDataNascita"])  && isset($_POST["agentePaga"])){
-			$error = false;
-			// Controllo se sono inseriti nome e cognome
-			if(strlen($_POST['agenteNome']) <= 0 || strlen($_POST['agenteCognome']) <= 0){
-				echo "Nome e cognome non possono essere vuoti<br>";
-				$error = true;
+		if(checkUserInputDigit($_POST["agenteNome"], $_POST["agenteCognome"], $_POST["agenteCF"], $_POST["agenteTelefono"], $_POST["agenteMail"])){
+			// Inserisco agente nel database
+			try{
+				$paga = intval($_POST["agentePaga"]);
+				$db->insertAgente($_POST["agenteCF"], $_POST["agenteNome"], $_POST["agenteCognome"], $_POST["agenteDataNascita"], $_POST["agenteTelefono"], $_POST["agenteMail"], $paga);
+			}catch(Exception $e) {
+				echo 'Errore: è stato inserito un agente già presente. ';
 			}
-			// Controllo se mail inserita correttamente
-			if($_POST["agenteMail"] != "" && !filter_var($_POST['agenteMail'], FILTER_VALIDATE_EMAIL)){
-				echo "L'email non ha un giusto formato<br>";
-				$error = true;
-			}
-			// Controllo se CF inserito correttamente
-			if(strlen($_POST['agenteCF']) != 16){
-				echo "Il codice fiscale è composto da esattamente 16 caratteri<br>";
-				$error = true;
-			}
-			// Controllo se telefono inserito correttamente
-			if(!is_numeric($_POST['agenteTelefono'])){
-				echo "Numero di telefono non valido<br>";
-				$error = true;
-			}
-			if(!$error){
-				// Inserisco cliente nel database
-                try{
-                    $paga = intval($_POST["agentePaga"]);
-				    $db->insertAgente($_POST["agenteCF"], $_POST["agenteNome"], $_POST["agenteCognome"],
-				    $_POST["agenteDataNascita"], $_POST["agenteTelefono"], $_POST["agenteMail"], $paga);
-                }catch (Exception $e) {
-					echo 'Errore: è stato inserito un utente già presente. ';
-				}
-			}
-        }
+		}
+    } else{
+		echo 'Errore: ci sono dati mancanti.';
+	}
 
     require("template/base.php");
 

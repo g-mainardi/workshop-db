@@ -32,7 +32,9 @@
 				}
 			}
 		}
-    }
+    } else{
+		echo 'Errore: ci sono dati mancanti.';
+	}
 
 	// Leggo dati dal database
 	$SetParameters["proprietari"] = $db->getClients();
