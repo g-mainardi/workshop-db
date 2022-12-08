@@ -31,9 +31,8 @@
 				<input type="number" min="1" name="meccanicoPaga" placeholder="Paga oraria" required>
 			</li>
 		</ul>		
-		<input type="submit" name="submit"  value="Inserisci meccanico">
+		<input type="submit" name="inserisciMeccanico"  value="Inserisci meccanico">
 	</form>
-
 </section>
 
 <section class="tabelle">
@@ -49,14 +48,19 @@
 			<?php foreach($SetParameters["meccanici"] as $meccanico) :?>
 			<form action="#" method="POST">
 				<tr>
-					<td><input type="hidden" name="meccanicoCF" value=<?php echo $meccanico["codice_fiscale"]; ?>> <?php echo $meccanico["codice_fiscale"]?></td>
-					<td><input type="hidden" name="meccanicoNome" value=<?php echo $meccanico["nome"]; ?>> <?php echo $meccanico["nome"]?></td>
-					<td><input type="hidden" name="meccanicoCognome" value=<?php echo $meccanico["cognome"]; ?>> <?php echo $meccanico["cognome"]?></td>
-					<td><input type="hidden" name="meccanicoDataNascita" value=<?php echo $meccanico["data_nascita"]; ?>> <?php echo $meccanico["data_nascita"]?></td>
-					<td><input type="tel" pattern="[0-9]{10}" maxlength="10" name="meccanicoTelefono" placeholder="Inserisci Telefono" value=<?php echo $meccanico["telefono"]?> required></td>
-					<td><input type="email" maxlength="80" name="meccanicoMail" placeholder="Inserisci email" value=<?php echo $meccanico["email"]?>></td>
-					<td><input type="number" min="1" name="meccanicoPaga" placeholder="Inserisci paga oraria" value=<?php echo $meccanico["paga_oraria"]?> required></td>
-					<td> <input disabled type="submit" name="aggiornaTelefono" value="Aggiorna Telefono"> <input disabled type="submit" name="aggiornaMail" value="Aggiorna Mail"> <input disabled type="submit" name="aggiornaPaga" value="Aggiorna Paga"> <input disabled type="submit" name="aggiornaTutto" value="Aggiorna Tutto"> </td>
+					<td><input type="hidden" id='<?php echo $meccanico["codice_fiscale"];?>' name="meccanicoCF" value=<?php echo $meccanico["codice_fiscale"]; ?>> <?php echo $meccanico["codice_fiscale"]?></td>
+					<td><input type="hidden" id='<?php echo $meccanico["codice_fiscale"];?>' name="meccanicoNome" value=<?php echo $meccanico["nome"]; ?>> <?php echo $meccanico["nome"]?></td>
+					<td><input type="hidden" id='<?php echo $meccanico["codice_fiscale"];?>' name="meccanicoCognome" value=<?php echo $meccanico["cognome"]; ?>> <?php echo $meccanico["cognome"]?></td>
+					<td><input type="hidden" id='<?php echo $meccanico["codice_fiscale"];?>' name="meccanicoDataNascita" value=<?php echo $meccanico["data_nascita"]; ?>> <?php echo $meccanico["data_nascita"]?></td>
+					<td><input type="tel" id='<?php echo $meccanico["codice_fiscale"];?>' pattern="[0-9]{10}" maxlength="10" name="meccanicoTelefono" placeholder="Inserisci Telefono" value=<?php echo $meccanico["telefono"]?> required></td>
+					<td><input type="email" id='<?php echo $meccanico["codice_fiscale"];?>' maxlength="80" name="meccanicoMail" placeholder="Inserisci email" value=<?php echo $meccanico["email"]?>></td>
+					<td><input type="number" id='<?php echo $meccanico["codice_fiscale"];?>' min="1" name="meccanicoPaga" placeholder="Inserisci paga oraria" value=<?php echo $meccanico["paga_oraria"]?> required></td>
+					<td>
+						<input disabled type="submit" id='<?php echo $meccanico["codice_fiscale"];?>' name="aggiornaTelefono" value="Aggiorna Telefono">
+						<input disabled type="submit" id='<?php echo $meccanico["codice_fiscale"];?>' name="aggiornaMail" value="Aggiorna Mail">
+						<input disabled type="submit" id='<?php echo $meccanico["codice_fiscale"];?>' name="aggiornaPaga" value="Aggiorna Paga">
+						<input disabled type="submit" id='<?php echo $meccanico["codice_fiscale"];?>' name="aggiornaTutto" value="Aggiorna Tutto">
+					</td>
 				</tr>
 			</form>
 			<?php endforeach; ?>

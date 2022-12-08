@@ -17,7 +17,6 @@
 		$db->updateTelephone( $_POST["clienteTelefono"], $_POST["clienteCF"], $type);
 	}
 	if(isset($_POST["aggiornaMail"])){
-		$type = 0;
 		$db->updateEmail($_POST["clienteMail"], $_POST["clienteCF"], $type);
 		echo "<meta http-equiv='refresh' content='0'>";
 	}
@@ -40,8 +39,6 @@
 			}
 			
 		}
-	} else{
-		echo 'Errore: ci sono dati mancanti.';
 	}
 
     require("template/base.php");

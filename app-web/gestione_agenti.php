@@ -20,7 +20,8 @@
 		$db->updateEmail($_POST["agenteMail"], $_POST["agenteCF"], $type);	
 	}
 	if(isset($_POST["aggiornaPaga"])){
-		$db->updatePagaOraria($_POST["agentePaga"], $_POST["agenteCF"], $type);
+        $paga = intval($_POST["agentePaga"]);
+		$db->updatePagaOraria($paga, $_POST["agenteCF"], $type);
 	}
 	if(isset($_POST["aggiornaTutto"])){
         $paga = intval($_POST["agentePaga"]);
@@ -39,9 +40,7 @@
 				echo 'Errore: è stato inserito un agente già presente. ';
 			}
 		}
-    } else{
-		echo 'Errore: ci sono dati mancanti.';
-	}
+    }
 
     require("template/base.php");
 

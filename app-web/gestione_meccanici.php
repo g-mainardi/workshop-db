@@ -20,15 +20,17 @@
 		$db->updateEmail($_POST["meccanicoMail"], $_POST["meccanicoCF"], $type);
 	}
 	if(isset($_POST["aggiornaPaga"])){
-		$db->updatePagaOraria($_POST["meccanicoMail"], $_POST["meccanicoCF"], $type);
+		$paga = intval($_POST["meccanicoPaga"]);
+		echo "La paga è ".$paga;
+		$db->updatePagaOraria($paga, $_POST["meccanicoCF"], $type);
 	}
 	if(isset($_POST["aggiornaTutto"])){
-		$paga = intval($_POST["agentePaga"]);
+		$paga = intval($_POST["meccanicoPaga"]);
 		$db->updateEverything($_POST["meccanicoMail"], $_POST["meccanicoTelefono"], $paga, $_POST["meccanicoCF"], $type);
 	}
 
 	// Controllo se tutto inserito
-    if(isset($_POST["meccanicoCF"]) && isset($_POST["meccanicoNome"]) && isset($_POST["meccanicoCognome"]) 
+    if(isset($_POST["inserisciMeccanico"]) && isset($_POST["meccanicoCF"]) && isset($_POST["meccanicoNome"]) && isset($_POST["meccanicoCognome"]) 
 		&& isset($_POST["meccanicoTelefono"]) && isset($_POST["meccanicoDataNascita"])  && isset($_POST["meccanicoPaga"])){
 		if(checkUserInputDigit($_POST["meccanicoNome"], $_POST["meccanicoCognome"], $_POST["meccanicoCF"], $_POST["meccanicoTelefono"], $_POST["meccanicoMail"])){
 			// Inserisco meccanico nel database
@@ -36,12 +38,10 @@
 				$paga = intval($_POST["meccanicoPaga"]);
 				$db->insertMeccanico($_POST["meccanicoCF"], $_POST["meccanicoNome"], $_POST["meccanicoCognome"], $_POST["meccanicoDataNascita"], $_POST["meccanicoTelefono"], $_POST["meccanicoMail"], $paga);
 			}catch(Exception $e) {
-				echo 'Errore: è stato inserito un agente già presente. ';
+				echo 'Errore: è stato inserito un meccanico già presente. ';
 			}
 		}
-    } else{
-		echo 'Errore: ci sono dati mancanti.';
-	}
+    }
 
     require("template/base.php");
 
