@@ -244,16 +244,15 @@ class DatabaseHelper {
 		return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    #stampa proprietario del veicolo se c'è sennò stampa che è di proprietà dell'officina(ovvero se scaduto=1)
-    public function getActualOwnerForCar($cod_veicolo, $data_acquisizione){
-        $statement = $this->db->prepare("SELECT CF_proprietario FROM ATTESTATO_PROPRIETA WHERE cod_veicolo = ? AND data_acquisizione = ? AND $scaduto = 0 ");
-		$statement->bind_param('is', $cod_veicolo, $data_acquisizione);
+    #stampa proprietario del veicolo se c'è sennò stampa che è di proprietà dell'officina(ovvero se tutti hanno scaduto=1)
+    public function getActualOwnerForCar($cod_veicolo){
+        $statement = $this->db->prepare("SELECT CF_proprietario FROM ATTESTATO_PROPRIETA WHERE cod_veicolo = ? AND scaduto = 0");
+		$statement->bind_param('i', $cod_veicolo);
 		$statement->execute();
 		$result = $statement->get_result();
 		$data = $result->fetch_array(MYSQLI_ASSOC);
         if(empty($data["CF_proprietario"])){
-            $sol = "officina";
-            return $sol;
+            return "officina";
         }else{
             return $data["CF_proprietario"];
         }
@@ -270,7 +269,11 @@ class DatabaseHelper {
     }
 
     public function getAllCar(){
-        $statement = $this->db->prepare("SELECT * FROM VEICOLO ");
+        $statement = $this->db->prepare("SELECT v.*,a.CF_proprietario, c.nome  AS 'nome_proprietario', c.cognome AS 'cognome_proprietario'
+        FROM ATTESTATO_PROPRIETA a 
+        JOIN VEICOLO v ON a.cod_veicolo = v.cod_veicolo 
+        JOIN CLIENTE c ON a.CF_proprietario = c.codice_fiscale
+        WHERE a.scaduto=0");
 		$statement->execute();
 		$result = $statement->get_result();
 		

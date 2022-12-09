@@ -25,20 +25,18 @@
 							$_POST["veicoloAnnoProd"], $_POST["veicoloCilindrata"]);
 					$cod_veicolo = $db->getCarCod( $_POST["veicoloModello"], $_POST["veicoloCasaProd"], $_POST["veicoloAnnoProd"]);
 					$scaduto = 0;
-					echo($dataAppropriazione);
 					$db->insertOwnershipCertificate($_POST["proprietarioVeicolo"], $cod_veicolo, $scaduto, $dataAppropriazione);
 				}catch (Exception $e) {
 					echo 'Errore: è stato inserito un veicolo già presente. ';
 				}
 			}
 		}
-    } else{
-		echo 'Errore: ci sono dati mancanti.';
-	}
+    }
 
 	// Leggo dati dal database
 	$SetParameters["proprietari"] = $db->getClients();
 	$SetParameters["veicoli"] = $db->getAllCar();
+	$SetParameters["veicoli_officina"] = $db->getGarageCar(1);
 
     require("template/base.php");
 

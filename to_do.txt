@@ -1,12 +1,6 @@
 Funzioni da implementare per gestione_transazioni.php:
 - getUser(Input: CF utente; Output: dati utente [nome, cognome, ecc.]) : per righe 15 e 16
-- getClientVehicles(Input: CF cliente; Output: i veicoli del cliente con tutti gli attributi) :  per riga 20
-- getWorkshopVehicles(Input: niente; Output: i veicoli dell'officina con tutti gli attributi) : per riga 28
 - changeCarOwner(Input: codice veicolo e CF cliente, Output: niente) : per riga 38
-- insertTransaction(Input: CF agente, CF cliente, codice veicolo, data_attuale, tipo selezionato e prezzo) : per riga 41
-- getAllTransactions(Input: niente; Output: tutte le transazioni) : per riga 44
 
-
-Funzioni da implementare per gestione_pezzi.php:
-- getAllParts(Input: niente; Output: tutte le parti registrate sul database)
-- insertPart(Input: dati pezzo; Output: niente) 
+FUNZIONI DA SISTEMARE
+getGarageCar prende tutti i veicoli con attestati scaduti, invece deve escludere quelli con almeno un attestato non scaduto

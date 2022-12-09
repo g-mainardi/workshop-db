@@ -12,10 +12,10 @@
 			</li>
 			<li>				
 				<label for="veicoloAnnoProd"> Anno di Produzione: </label>
-				<input type="number" min="1900" max="2022"  step="1" name="veicoloAnnoProd" required>
+				<input type="number" min="1900" max="2022"  step="1" name="veicoloAnnoProd" placeholder="Anno" required>
 			</li>
 			<li>				
-				<label for="veicoloCilindrata"> Cilindrata: </label>
+				<label for="veicoloCilindrata"> Cilindrata(cm3): </label>
 				<input type="number" maxlength="10" name="veicoloCilindrata" placeholder="Cilindrata" required>
 			</li>
 			<li>
@@ -37,7 +37,7 @@
 </section>
 
 <section class="tabelle">
-	<h2>Veicoli registrati</h2>
+	<h2>Veicoli registrati dei clienti</h2>
 	<table>
 		<thead>
 			<tr>
@@ -51,7 +51,26 @@
 					<td><?php echo $veicolo["modello"]; ?></td>
 					<td><?php echo $veicolo["data_produzione"]; ?></td>
 					<td><?php echo $veicolo["cilindrata"]; ?></td>
-					<td><?php echo "da implementare"#$veicolo["proprietario"]["nome"]." ".$veicolo["proprietario"]["cognome"]." - ".$veicolo["proprietario"]["codice_fiscale"]; ?></td>
+					<td><?php echo $veicolo["nome_proprietario"]." ".$veicolo["cognome_proprietario"]." - ".$veicolo["CF_proprietario"]; ?></td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+	<h2>Veicoli registrati dell'officina</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>CASA PRODUZIONE</th><th>MODELLO</th><th>ANNO DI PRODUZIONE</th><th>CILINDRATA(CM3)</th><th>OPERAZIONI</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach($SetParameters["veicoli_officina"] as $veicolo) :?>
+				<tr class="noform">
+					<td><?php echo $veicolo["casa_produttrice"]; ?></td>
+					<td><?php echo $veicolo["modello"]; ?></td>
+					<td><?php echo $veicolo["data_produzione"]; ?></td>
+					<td><?php echo $veicolo["cilindrata"]; ?></td>
+					<td><a href="gestione_transazioni.php">Acquista</a></td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>

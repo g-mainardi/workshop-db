@@ -211,3 +211,14 @@ header > ul {
 section.prova > ul > li{
 	width: 33%;
 }
+
+td > a {
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+td > a:hover {
+	color: green;
+}
