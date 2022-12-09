@@ -49,7 +49,7 @@
 				<label for="selezioneVeicolo"> Seleziona Veicolo: </label>
 				<select name="selezioneVeicolo" required>
 				<?php foreach($SetParameters["veicoli"] as $veicolo) :?>
-					<option value=<?php echo $veicolo["cod_veicolo"]?>><?php echo $veicolo["casa_produttrice"]." - ".$veicolo["modello"]?></option>
+					<option value=<?php echo $veicolo["cod_veicolo"]?>><?php echo $veicolo["casa_produttrice"]." - ".$veicolo["modello"]." (".$veicolo["data_produzione"].")"?></option>
 				<?php endforeach; ?>
 				</select>
 			</li>

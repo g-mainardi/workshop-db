@@ -24,12 +24,12 @@
 				<?php if($SetParameters["selezionatoVeicolo"]):?>
 					<select name="selezioneVeicolo" required disabled>
 					<?php foreach($SetParameters["veicoli"] as $veicolo) :?>
-						<option value=<?php echo $veicolo["cod_veicolo"]?>><?php echo $veicolo["casa_produttrice"]." - ".$veicolo["modello"]?></option>
+						<option value=<?php echo $veicolo["cod_veicolo"]?>><?php echo $veicolo["casa_produttrice"]." - ".$veicolo["modello"]." (".$veicolo["data_produzione"].")"?></option>
 					<?php endforeach; ?>
 				<?php else:?>
 					<select name="selezioneVeicolo" required>
 					<?php foreach($SetParameters["veicoli"] as $veicolo) :?>
-						<option value=<?php echo $veicolo["cod_veicolo"]?>><?php echo $veicolo["casa_produttrice"]." - ".$veicolo["modello"]?></option>
+						<option value=<?php echo $veicolo["cod_veicolo"]?>><?php echo $veicolo["casa_produttrice"]." - ".$veicolo["modello"]." (".$veicolo["data_produzione"].")"?></option>
 					<?php endforeach; endif; ?>
 				</select>
 			</li>
