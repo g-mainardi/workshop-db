@@ -74,9 +74,10 @@ create table RIPARAZIONE (
 );
 
 create table TRANSAZIONE (
+	 id_transazione int not null AUTO_INCREMENT primary key,
      CF_cliente char(16) not null,
      CF_agente char(16) not null,
-     cod_veicolo int(3) not null AUTO_INCREMENT primary key,
+     cod_veicolo int(3) not null,
      prezzo int(6) not null,
      tipologia char(8) not null,
      data_transazione date not null
