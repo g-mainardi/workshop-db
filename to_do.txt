@@ -4,3 +4,6 @@ Funzioni da implementare per gestione_transazioni.php:
 
 FUNZIONI DA SISTEMARE
 getGarageCar prende tutti i veicoli con attestati scaduti, invece deve escludere quelli con almeno un attestato non scaduto, controllare se funziona
+
+Elisa:
+!pushare sistemaioni db e app-web!
