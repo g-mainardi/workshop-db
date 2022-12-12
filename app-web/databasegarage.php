@@ -58,6 +58,7 @@ class DatabaseHelper {
         echo "<meta http-equiv='refresh' content='0'>";
     }
 
+    #s
     public function updateCertificate($scaduto, $cod_veicolo, $CF_proprietario){
             $statement = $this->db->prepare("UPDATE ATTESTATO_PROPRIETA
                                             SET scaduto = ? 
@@ -268,7 +269,7 @@ class DatabaseHelper {
         return $data["cod_veicolo"];
     }
 
-    public function getAllCar(){
+    public function getAllClientsCar(){
         $statement = $this->db->prepare("SELECT v.*,a.CF_proprietario, c.nome  AS 'nome_proprietario', c.cognome AS 'cognome_proprietario'
         FROM ATTESTATO_PROPRIETA a 
         JOIN VEICOLO v ON a.cod_veicolo = v.cod_veicolo 
@@ -359,6 +360,32 @@ class DatabaseHelper {
 		$result = $statement->get_result();
 		$data = $result->fetch_array(MYSQLI_ASSOC);
         return $data["modello"]." - ".$data["casa_produttrice"];
+    }
+
+    public function getUser($codice_fiscale){
+        $statement = $this->db->prepare("SELECT * FROM CLIENTE WHERE codice_fiscale = ? ");
+        $statement->bind_param('s', $codice_fiscale);
+        $statement->execute();
+		$result = $statement->get_result();
+		
+		return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function checkActiveCertificate($cod_veicolo, $scaduto){
+        $statement = $this->db->prepare("SELECT * FROM ATTESTATO_PROPRIETA WHERE cod_veicolo = ? AND scaduto = ? ");
+        $statement->bind_param('ii', $cod_veicolo, $scaduto);
+        $statement->execute();
+		$result = $statement->get_result();
+		
+		return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getAllCar(){
+        $statement = $this->db->prepare("SELECT * FROM VEICOLO ");
+        $statement->execute();
+		$result = $statement->get_result();
+		
+		return $result->fetch_all(MYSQLI_ASSOC);
     }
 
 }
