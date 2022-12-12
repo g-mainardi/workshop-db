@@ -47,7 +47,7 @@ create table CLIENTE (
 );
 
 create table COMPRENDE_MECCANICO (
-     codice_fiscale char(16) int not null,
+     codice_fiscale char(16) not null,
      id_riparazione int not null
 );
 
