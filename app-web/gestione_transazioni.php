@@ -22,7 +22,24 @@
 			$SetParameters["veicoli"] = $db->getClientValidCar($_POST["selezioneCliente"], $scaduto);
 		} else{
 			$scaduto = 1;
-			$SetParameters["veicoli"] = $db->getGarageCar($scaduto); # i veicoli dell'officina
+			$arrayProva =  $db->getGarageCar(1);
+			$SetParameters["veicoli"] = array();
+			$arrayname = array();
+			for ($i = 0; $i < count($arrayProva); ++$i) {
+				if (!in_array($arrayProva[$i]["cod_veicolo"], $arrayname)){
+					array_push($arrayname, $arrayProva[$i]["cod_veicolo"]);
+					$result = $db->checkActiveCertificate($arrayProva[$i]["cod_veicolo"], 0);
+					if (!empty($result)){
+						array_splice($arrayProva, $i, 1);
+						#unset($arrayProva[$i]);
+					}else{
+						array_push($SetParameters["veicoli"], $arrayProva[$i]);
+					}
+				}
+	}
+	#print_r($arrayname);
+	#print_r($arrayProva);
+	#$SetParameters["veicoli_officina"] = $arrayProva;
 		}
 	}
 	else if($_SESSION["selezionati"] && isset($_POST["inserisciTransazione"]) && isset($_POST["selezioneVeicolo"]) && isset($_POST["selezionePrezzo"])){
