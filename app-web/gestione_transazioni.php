@@ -6,6 +6,9 @@
     $SetParameters["file"] = "nuova_transazione.php";
     
 	$SetParameters["selezionati"] = false;
+	if (!isset($_SESSION["selezionati"])) {
+		$_SESSION["selezionati"] = false;	
+	}
 
 	// Fase controllo primi 3 input: Agente, Cliente e Tipo di transazione
 	if(isset($_POST["avanti"]) && isset($_POST["selezioneAgente"]) && isset($_POST["selezioneCliente"]) && isset($_POST["selezioneTipo"])){
@@ -36,10 +39,7 @@
 						array_push($SetParameters["veicoli"], $arrayProva[$i]);
 					}
 				}
-	}
-	#print_r($arrayname);
-	#print_r($arrayProva);
-	#$SetParameters["veicoli_officina"] = $arrayProva;
+			}
 		}
 	}
 	else if($_SESSION["selezionati"] && isset($_POST["inserisciTransazione"]) && isset($_POST["selezioneVeicolo"]) && isset($_POST["selezionePrezzo"])){
