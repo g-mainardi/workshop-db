@@ -35,9 +35,22 @@
 
 	// Leggo dati dal database
 	$SetParameters["proprietari"] = $db->getClients();
-	$SetParameters["veicoli"] = $db->getAllCar();
-	$SetParameters["veicoli_officina"] = $db->getGarageCar(1);
-
+	$SetParameters["veicoli"] = $db->getAllClientsCar();
+	$arrayProva =  $db->getGarageCar(1);
+	$SetParameters["veicoli_officina"] = array();
+	$arrayname = array();
+	for ($i = 0; $i < count($arrayProva); ++$i) {
+		if (!in_array($arrayProva[$i]["cod_veicolo"], $arrayname)){
+			array_push($arrayname, $arrayProva[$i]["cod_veicolo"]);
+			$result = $db->checkActiveCertificate($arrayProva[$i]["cod_veicolo"], 0);
+			if (!empty($result)){
+				array_splice($arrayProva, $i, 1);
+			}else{
+				array_push($SetParameters["veicoli_officina"], $arrayProva[$i]);
+			}
+		}
+	}
+	
     require("template/base.php");
 
 ?>
