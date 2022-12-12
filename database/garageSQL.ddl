@@ -46,6 +46,17 @@ create table CLIENTE (
      email varchar(30)
 );
 
+create table COMPRENDE_MECCANICO (
+     codice_fiscale char(16) int not null,
+     id_riparazione int not null
+);
+
+create table COMPRENDE_PEZZO (
+     id_pezzo int not null,
+     quantita int(3) not null,
+     id_riparazione int not null
+);
+
 create table MECCANICO (
      codice_fiscale char(16) not null primary key,
      nome char(20) not null,
@@ -60,7 +71,8 @@ create table PEZZO_RICAMBIO (
      nome char(20) not null,
      cod_veicolo int(3) not null,
      descrizione char(40),
-     costo_unitario int(5) not null
+     costo_unitario int(5) not null, 
+     CONSTRAINT id_pezzo primary key (nome, cod_veicolo)
 );
 
 create table RIPARAZIONE (
@@ -74,7 +86,7 @@ create table RIPARAZIONE (
 );
 
 create table TRANSAZIONE (
-	 id_transazione int not null AUTO_INCREMENT primary key,
+     id_transazione int not null AUTO_INCREMENT primary key,
      CF_cliente char(16) not null,
      CF_agente char(16) not null,
      cod_veicolo int(3) not null,
