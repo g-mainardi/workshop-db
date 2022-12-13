@@ -19,4 +19,9 @@ $(document).ready(() => {
         $("input[name='aggiornaPaga'][id='"+ id +"']").removeAttr("disabled");
         $("input[name='aggiornaTutto'][id='"+ id +"']").removeAttr("disabled");
     })
+
+    $("input[name='dataInizio']").change(function(e){
+        e.preventDefault();
+        $("input[name='dataFine']").removeAttr("disabled");
+    })
 });
