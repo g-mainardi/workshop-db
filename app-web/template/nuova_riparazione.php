@@ -48,18 +48,20 @@
 				<label for="nomeRiparazione"> Nome o breve descrizione della riparazione: </label>
 				<input type="text" name="nomeRiparazione" placeholder="Nome riparazione" maxlength="50" required>
 			</li>
-			<li>
-				<label for="selezionePezzi"> Seleziona gli eventuali pezzi di ricambio usati: </label>
-				<fieldset>
-					<ul>
-					<?php foreach($_SESSION["pezzi"] as $pezzo) : ?>
-						<li>
-							<input type="checkbox" name='pezziSelezionati[]' value='<?php echo($pezzo["nome"])?>'><?php echo $pezzo["nome"]?>
-						</li>
-					<?php endforeach; ?>
-					</ul>
-				</fieldset>
-			</li>
+			<?php if(!empty($_SESSION["pezzi"])) : ?>
+				<li>
+					<label for="selezionePezzi"> Seleziona gli eventuali pezzi di ricambio usati: </label>
+					<fieldset>
+						<ul>
+						<?php foreach($_SESSION["pezzi"] as $pezzo) : ?>
+							<li>
+								<input type="checkbox" name='pezziSelezionati[]' value='<?php echo($pezzo["id_pezzo"])?>'><?php echo $pezzo["nome"]?>
+							</li>
+						<?php endforeach; ?>
+						</ul>
+					</fieldset>
+				</li>
+			<?php endif; ?>
 			<li>				
 				<label for="dataInizio"> Data di inizio: </label>
 				<input type="date" name="dataInizio" required>
@@ -67,6 +69,10 @@
 			<li>				
 				<label for="dataFine"> Data di fine: </label>
 				<input type="date" name="dataFine" required disabled>
+			</li>
+			<li>
+				<label for="costo_totale"> Costo totale: </label>
+				<input type="number" name="costo_totale" required >
 			</li>
 			<?php endif;?>
 
@@ -82,18 +88,17 @@
 	<table>
 		<thead>
 			<tr>
-				<th>MECCANICI</th><th>CLIENTE</th><th>VEICOLO</th><th>DATA</th><th>TIPO</th><th>PREZZO</th>
+				<th>CLIENTE</th><th>VEICOLO</th><th>DATA_INIZIO</th><th>DATA_FINE</th><th>COSTO</th>
 			</tr>
 		</thead>
 		<tbody>
 		<?php foreach($SetParameters["riparazioni"] as $riparazione) :?>
 				<tr class="noform">
-					<td><?php echo $riparazione["CF_meccanico"]; ?></td>
-					<td><?php echo $riparazione["CF_cliente"]; ?></td>
-					<td><?php echo $riparazione["cod_veicolo"]; ?></td>
-					<td><?php echo $riparazione["data_riparazione"]; ?></td>
-					<td><?php echo $riparazione["tipologia"]; ?></td>
-					<td><?php echo $riparazione["prezzo"]; ?></td>
+					<td><?php echo $db->getUser($riparazione["CF_cliente"])[0]["nome"]." ".$db->getUser($riparazione["CF_cliente"])[0]["cognome"]; ?></td>
+					<td><?php echo $db->getCarSpecific($riparazione["cod_veicolo"]); ?></td>
+					<td><?php echo $riparazione["data_inizio"]; ?></td>
+					<td><?php echo $riparazione["data_fine"]; ?></td>
+					<td><?php echo $riparazione["costo_totale"]; ?></td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
