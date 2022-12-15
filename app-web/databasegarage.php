@@ -58,7 +58,24 @@ class DatabaseHelper {
         echo "<meta http-equiv='refresh' content='0'>";
     }
 
-    #s
+    public function insertRepair($CF_cliente, $cod_veicolo, $data_inizio, $data_fine, $costo_totale){
+        $statement = $this->db->prepare('INSERT INTO RIPARAZIONE(CF_cliente, cod_veicolo, data_inizio, data_fine, costo_totale) VALUES(?, ?, ?, ?, ?)');
+        $statement->bind_param('sissi', $CF_cliente, $cod_veicolo, $data_inizio, $data_fine, $costo_totale);
+        $statement->execute();
+    }
+    
+    public function insertMechanicIntoReparation($CF_meccanico, $id_riparazione){
+        $statement = $this->db->prepare('INSERT INTO COMPRENDE_MECCANICO(CF_meccanico, id_riparazione) VALUES(?, ?)');
+        $statement->bind_param('si', $CF_meccanico, $id_riparazione);
+        $statement->execute();
+    }
+
+    public function insertPieceIntoReparation($id_pezzo, $id_riparazione){
+        $statement = $this->db->prepare('INSERT INTO COMPRENDE_PEZZO(id_pezzo, id_riparazione) VALUES(?, ?)');
+        $statement->bind_param('ii', $id_pezzo, $id_riparazione);
+        $statement->execute();
+    }
+
     public function updateCertificate($scaduto, $cod_veicolo, $CF_proprietario){
             $statement = $this->db->prepare("UPDATE ATTESTATO_PROPRIETA
                                             SET scaduto = ? 
@@ -66,14 +83,6 @@ class DatabaseHelper {
         $statement->bind_param("iis", $scaduto, $cod_veicolo, $CF_proprietario);
         $statement->execute();
     }
-    /*
-    public fuction insertRepair($CF_cliente, $CF_meccanico, $data_inizio, $data_fine, $costo_totale, $cod_veicolo){
-        $statement = $this->db->prepare('INSERT INTO RIPARAZIONE(CF_cliente, CF_meccanico, data_inizio, data_fine, costo_totale, cod_veicolo) VALUES(?, ?, ?, ?, ?, ?, ?, ?)');
-        $statement->bind_param('ssssi', $CF_cliente, $CF_meccanico, $data_inizio, $data_fine, $costo_totale, $cod_veicolo);
-        $statement->execute();
-        echo "<meta http-equiv='refresh' content='0'>";
-    }
-    */
 
     public function getDependentType($CF){
         if (!empty($this->checkClient($CF))){
@@ -388,6 +397,30 @@ class DatabaseHelper {
 		return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getRepairId($CF_cliente, $cod_veicolo, $data_inizio, $data_fine, $costo_totale){
+        $statement = $this->db->prepare("SELECT id_riparazione FROM RIPARAZIONE WHERE CF_cliente = ? AND cod_veicolo = ? AND data_inizio = ? AND data_fine = ? AND costo_totale = ?");
+        $statement->bind_param('sissi', $CF_cliente, $cod_veicolo, $data_inizio, $data_fine, $costo_totale);
+        $statement->execute();
+		$result = $statement->get_result();
+		return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getCarPieces($cod_veicolo){
+        $statement = $this->db->prepare("SELECT * FROM PEZZO_RICAMBIO WHERE cod_veicolo = ? ");
+        $statement->bind_param('i', $cod_veicolo);
+        $statement->execute();
+		$result = $statement->get_result();
+		
+		return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getAllRepairs(){
+        $statement = $this->db->prepare("SELECT * FROM RIPARAZIONE ");
+        $statement->execute();
+		$result = $statement->get_result();
+		
+		return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 
 
