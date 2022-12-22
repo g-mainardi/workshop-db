@@ -1,0 +1,186 @@
+\documentclass[a4paper,12pt]{report}
+
+% Regolazione margini
+\usepackage{geometry}
+\geometry{a4paper, top=1.9cm, bottom=2cm, left=2cm, right=2cm}
+
+\usepackage{alltt, fancyvrb, url}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{float}
+
+\usepackage[italian]{babel}
+
+\usepackage[italian]{cleveref}
+
+% Grafica e personalizzazione
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{keyval}
+\usepackage{sidecap}
+\usepackage{caption}
+\usepackage{wrapfig}
+\usepackage{floatflt}
+\usepackage{imakeidx}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage[dvipsnames,usenames]{xcolor}
+\usepackage{tikz}
+
+% Colorare e modificare le tabelle
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{multirow}
+%tabella senza linee 
+\newcommand{\quantities}[1]{ %serve per inserire dati nella tabella   
+	\begin{tabular}{@{}c@{}}\strut#1\strut\end{tabular}%
+}
+
+\title{\textbf{DB-Garage}\\Relazione per\\``Elaborato di Basi di Dati''}
+
+\author{Barberini Elisa\\Mainardi Giosuè Giocondo}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Analisi dei requisiti}
+L'autofficina \textbf{DB-Garage}$^{\copyright}$ richiede la realizzazione di un database per la gestione di
+%
+clienti, dipendenti e delle loro interazioni, ovvero riparazioni e acquisto o vendita di automobili.
+
+\section{Intervista}
+Vengono di seguito analizzati aspetti caratterizzanti del dominio.
+
+Di ogni utente del portale (cliente o impiegato) si vogliono memorizzare: codice fiscale, nome, cognome,
+%
+data di nascita e telefono. Si può inoltre aggiungere preferibilmente anche una email per le eventuali comunicazioni. 
+%
+I dipendenti si differenziano in base al reparto di appartenenza, che può essere quello di riparazioni o quello di compravendita.
+%
+Il primo formato da meccanici ed il secondo da agenti automobilistici, di entrambi si vuole memorizzare anche la retribuzione oraria.
+
+Le automobili sono identificate da modello e casa produttrice, ma hanno anche cilindrata e anno di produzione.
+%
+Ciascun veicolo può essere oggetto di molteplici attestati di proprietà con il suo utente proprietario, 
+%
+ma un auto potrà avere solo un attestato non scaduto, altrimenti vorrà dire che è di proprietà dell'officina.
+
+Ogni riparazione ad una determinata automobile coinvolge uno o più meccanici per ciascuno dei quali deve 
+%
+essere tenuta traccia del numero di ore dedicate.
+%
+Inoltre, il sistema deve considerare gli eventuali pezzi di ricambio utilizzati che sono individuati da 
+%
+casa produttrice e modello di riferimento, con l'aggiunta del costo unitario e, se necessaria, una breve descrizione .
+%
+Il costo totale di ciascuna riparazione viene stabilito a lavoro finito, basandosi sul conto delle ore 
+%
+impiegate di ciascun meccanico e dell’utilizzo di eventuali pezzi di ricambio.
+
+Ogni transazione nel reparto compravendita viene effettuata da un agente automobilistico con un cliente 
+%
+e riguarda uno specifico veicolo, di essa si vogliono memorizzare se sia acquisto(l'officina compra l'auto 
+%
+dall'utente) o vendita(l'officina vende l'auto ad un utente), prezzo concordato e la data.
+
+La base di dati deve mantenere in memoria sia la data di inizio che la data di fine di ogni riparazione effettuata,
+%
+di ogni transazione e di ogni attestato di proprietà, così da poter essere mostrati in caso di richiesta dai clienti.
+
+\section{Rilevamento ambiguità e correzioni proposte}
+
+\begin{figure}[H]
+	\fontsize{10pt}{12pt}\selectfont
+	\advance\leftskip-4cm
+	\centering
+	\arrayrulecolor{GreenYellow}
+	\begin{tabular}{l c c }
+		\rowcolor{GreenYellow}
+		\rule[-3mm]{0mm}{0.85cm}
+		\textbf{Termine} & \textbf{Eventuali sinonimi} &\textbf{Breve descrizione} \\
+		\hline\rule[-3mm]{0mm}{0.85cm}
+		Utente & & \quantities{Persona registrata nel sistema.} \\
+		\hline\rule[-3mm]{0mm}{0.85cm}
+		Dipendente & Impiegato & \quantities{Persona che lavora per l'officina \\come meccanico o agente.} \\
+		\hline\rule[-3mm]{0mm}{0.85cm}
+		Cliente & & \quantities{Persona che deve eseguire o ha eseguito una \\riparazione o una transazione con l'officina. }\\
+		\hline\rule[-3mm]{0mm}{0.85cm}
+		Meccanico & & \quantities{Dipendente dell'officina che esegue riparazioni.} \\
+		\hline\rule[-3mm]{0mm}{0.85cm}
+		Agente automobilistico & & \quantities{Dipendente dell'officina che esegue transazioni.}\\
+		\hline\rule[-3mm]{0mm}{0.85cm}
+		Riparazione & Lavoro & \quantities{Servizio di uno o più meccanici riguardo a un \\veicolo, su richiesta di un cliente.}\\
+		\hline\rule[-3mm]{0mm}{0.85cm}
+		Transazione & & \quantities{Servizio di un agente per l'acquisto o la \\vendita di un auto da parte di un cliente.}\\
+		\hline\rule[-3mm]{0mm}{0.85cm}
+		Veicolo & \quantities{Auto, \\ Automobile} & Oggetto dei servizi dell'officina.  \\
+		\hline\rule[-3mm]{0mm}{0.85cm}
+		Attestato di proprietà && \quantities{Documento che certifica l'appartenenza di \\un auto ad una determinata persona.} \\
+		\hline\rule[-3mm]{0mm}{0.85cm}
+		Acquisto &  & \quantities{Transazione che determina il passaggio di \\proprietà di un auto da un cliente all'officina.} \\
+		\hline\rule[-3mm]{0mm}{0.85cm}
+		Vendita &  & \quantities{Transazione che determina il passaggio di \\proprietà di un auto dall'officina ad un cliente.} \\
+		\hline\rule[-3mm]{0mm}{0.85cm}
+		Pezzo di ricambio &  & \quantities{Articolo che può essere necessario \\per la riparazione di un auto.} \\
+		\hline
+	\end{tabular}
+\end{figure}
+
+\section{Definizione specifiche linguaggio naturale e estrazione concetti principali}
+
+\subsection*{Principali azioni richieste:}
+\begin{enumerate}
+	\item Inserimento nuovo utente (cliente, agente o meccanico)
+	\item Inserimento nuovo veicolo
+	\item Inserimento riparazione
+	\item Inserimento transazione 
+	\item Visualizza elenco meccanici
+	\item Visualizza elenco agenti
+	\item Visualizza elenco riparazioni effettuate da un meccanico
+	\item Visualizza elenco veicoli che possiede un determinato cliente
+	\item Visualizza elenco pezzi ricambi usati per una certa riparazione
+	\item Visualizza elenco solo veicoli in vendita
+	\item Aggiorna mail utente
+	\item Aggiorna telefono utente
+	\item Aggiorna attributo scaduto su atto di proprietà
+\end{enumerate}
+
+\chapter{Progettazione Concettuale}
+
+\section{Schema Scheletro}
+
+\section{Raffinamenti}
+
+\section{Schema Finale}
+
+\chapter{Progettazione Logica}
+
+\section{Stima Volume dati}
+
+\section{Descrizione operazioni principali e stima frequenza}
+
+\section{Schemi di navigazione e tabelle accessi}
+
+\section{Raffinamento schema}
+...eliminazione di identificatori esterni, attributi composti e gerarchie, scelta delle chiavi
+
+\section{Analisi ridondanze}
+
+\section{Traduzione di entità e associazioni in relazioni}
+
+\section{Schema relazionale finale}
+
+\section{Traduzione delle operazioni in query SQL}
+
+\chapter{Progettazione Applicazione}
+
+\section{Descrizione applicazione}
+
+DA INSERIRE: Screenshot interfaccia utente
+
+\end{document}
