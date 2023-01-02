@@ -105,9 +105,9 @@ di ogni transazione e di ogni attestato di proprietà, così da poter essere mos
 	\fontsize{10pt}{12pt}\selectfont
 	\advance\leftskip-4cm
 	\centering
-	\arrayrulecolor{GreenYellow}
+	\arrayrulecolor{BlueGreen}
 	\begin{tabular}{l c c }
-		\rowcolor{GreenYellow}
+		\rowcolor{BlueGreen}
 		\rule[-3mm]{0mm}{0.85cm}
 		\textbf{Termine} & \textbf{Eventuali sinonimi} &\textbf{Breve descrizione} \\
 		\hline\rule[-3mm]{0mm}{0.85cm}
@@ -190,7 +190,7 @@ ogni Attestato.
 
 \subsection*{Principali azioni richieste:}
 \begin{enumerate}
-	\item Inserimento nuovo utente (cliente, agente o meccanico)
+	\item Inserimento nuovo cliente
 	\item Inserimento nuovo veicolo
 	\item Inserimento riparazione
 	\item Inserimento transazione
@@ -216,8 +216,100 @@ ogni Attestato.
 \chapter{Progettazione Logica}
 
 \section{Stima Volume dati}
+\begin{figure}[H]
+	\fontsize{14pt}{12pt}\selectfont
+	\advance\leftskip-15cm
+	\centering
+	\arrayrulecolor{BlueGreen}
+	\begin{tabular}{l c c }
+		\rowcolor{BlueGreen}
+		\rule[-3mm]{0mm}{0.85cm}
+		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Volume} \\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Utente & E & 3050\\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Cliente & E & 3000 \\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Dipendente & E & 50\\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Agente & E & 20\\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Meccanico & E & 30\\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Possesso & R & 6000 \\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Attestato & R & 6000\\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Riguardo & R & 6000 \\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Veicolo & E & 5000 \\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Coinvolgimento & R & 1000\\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Transazione & R & 1000\\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Transazione d'acquisto& R & 400\\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Transazione di vendita& R & 600\\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Perseguimento & R & 1000\\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Esecuzione & R & 1000\\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Lavorazione & R & 12000\\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Riparazione & E & 12000\\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Richiesta & R & 12000\\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Sottoposizione & R & 12000\\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Utilizzo & R & 15000\\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Pezzo di ricambio & E &  9000\\
+		\hline
+	\end{tabular}
+\end{figure}
 
 \section{Descrizione operazioni principali e stima frequenza}
+\begin{figure}[H]
+	\fontsize{14pt}{12pt}\selectfont
+	\advance\leftskip-15cm
+	\centering
+	\arrayrulecolor{BlueGreen}
+	\begin{tabular}{c c c }
+		\rowcolor{BlueGreen}
+		\rule[-6mm]{0mm}{1.5cm}
+		\textbf{Codice} & \textbf{Operazione} &\textbf{Frequenza} \\
+		\hline\rule[-5mm]{0mm}{1.4cm}
+		1 & Inserimento nuovo cliente & 5 al giorno \\
+		\hline\rule[-5mm]{0mm}{1.4cm}
+		2 & Inserimento nuovo veicolo & 6 al giorno \\
+		\hline\rule[-5mm]{0mm}{1.4cm}
+		3 & Inserimento riparazione & 20 al giorno \\
+		\hline\rule[-5mm]{0mm}{1.4cm}
+		4 & Inserimento transazione & 2 a settimana \\
+		\hline\rule[-5mm]{0mm}{1.4cm}
+		5 & Inserimento atto di proprietà & 4 a settimana \\
+		\hline\rule[-5mm]{0mm}{1.4cm}
+		6 & Visualizza elenco clienti & 25 al giorno \\
+		\hline\rule[-5mm]{0mm}{1.4cm}
+		7 & Visualizza elenco meccanici & 22 al giorno \\
+		\hline\rule[-5mm]{0mm}{1.4cm}
+		8 & Visualizza elenco agenti & 3 a settimana \\
+		\hline\rule[-5mm]{0mm}{1.4cm}
+		9 & \quantities{Visualizza elenco riparazioni\\effettuate da un meccanico} & 1 al giorno \\
+		\hline\rule[-5mm]{0mm}{1.4cm}
+		10 & \quantities{Visualizza elenco pezzi ricambi\\usati per una certa riparazione} & 1 al giorno \\
+		\hline\rule[-5mm]{0mm}{1.4cm}
+		11 & \quantities{Visualizza elenco veicoli che\\possiede un determinato cliente} & 22 al giorno \\
+		\hline\rule[-5mm]{0mm}{1.4cm}
+		12 & \quantities{Visualizza elenco solo\\veicoli in vendita} & 3 al giorno\\
+		\hline\rule[-5mm]{0mm}{1.4cm}
+		13 & \quantities{Aggiorna attributo scaduto\\su atto di proprietà} & 2 a settimana \\
+		\hline
+	\end{tabular}
+\end{figure}
 
 \section{Schemi di navigazione e tabelle accessi}
 
