@@ -30,6 +30,9 @@
 
 % Colorare e modificare le tabelle
 \usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
 \usepackage{colortbl}
 \usepackage{multirow}
 %tabella senza linee 
@@ -212,6 +215,11 @@ ogni Attestato.
 \section{Raffinamenti}
 
 \section{Schema Finale}
+\addcontentsline{toc}{section}{Schema Finale}	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[scale=0.56]{img/schema_finale.png}
+	\end{figure}
 
 \chapter{Progettazione Logica}
 
@@ -310,8 +318,59 @@ ogni Attestato.
 		\hline
 	\end{tabular}
 \end{figure}
-
+\newpage
 \section{Schemi di navigazione e tabelle accessi}
+\subsection*{Operazione 1: Inserimento cliente}
+\begin{figure}[ht]
+	\centering
+	\arrayrulecolor{BlueGreen}
+	\begin{tabular}{L{3cm}C{2.5cm}C{4.5cm}C{2.5cm}}
+		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.65cm}{}
+		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\	
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Cliente & E & 1 & S \\
+	\end{tabular}
+	
+	\begin{tabular}{C{13.9cm}}
+		\rule[-2.5mm]{0mm}{0.8cm}{}	
+		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 1 S $\to$ 2 x 5 = 10 accessi al giorno}
+	\end{tabular}
+\end{figure}
+
+\subsection*{Operazione 2: Inserimento veicolo}
+\begin{figure}[ht]
+	\centering
+	\arrayrulecolor{BlueGreen}
+	\begin{tabular}{L{3cm}C{2.5cm}C{4.5cm}C{2.5cm}}
+		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.65cm}{}
+		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Cliente & E & 3 000 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Veicolo & E & 1 & S \\
+	\end{tabular}
+	
+	\begin{tabular}{C{13.9cm}}
+		\rule[-2.5mm]{0mm}{0.8cm}{}	
+		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 1 S + 3 000 L $\to$ 3 002 x 6 = 18 012 accessi al giorno}
+	\end{tabular}
+\end{figure}
+
+\subsection*{Operazione 3: Inserimento riparazione}
+\begin{figure}[ht]
+	\centering
+	\arrayrulecolor{BlueGreen}
+	\begin{tabular}{L{3cm}C{2.5cm}C{4.5cm}C{2.5cm}}
+		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.65cm}{}
+		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\
+
+	\end{tabular}
+	
+	\begin{tabular}{C{13.9cm}}
+		\rule[-2.5mm]{0mm}{0.8cm}{}	
+		\cellcolor{BlueGreen} \textbf{\underline{Totale:} S + L $\to$  accessi al giorno}
+	\end{tabular}
+\end{figure}
 
 \section{Raffinamento schema}
 ...eliminazione di identificatori esterni, attributi composti e gerarchie, scelta delle chiavi
