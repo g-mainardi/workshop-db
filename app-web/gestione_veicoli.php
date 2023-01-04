@@ -44,6 +44,7 @@
 			array_push($arrayname, $arrayProva[$i]["cod_veicolo"]);
 			$result = $db->checkActiveCertificate($arrayProva[$i]["cod_veicolo"], 0);
 			if (!empty($result)){
+				print_r("il risultato non è vuott");
 				array_splice($arrayProva, $i, 1);
 			}else{
 				array_push($SetParameters["veicoli_officina"], $arrayProva[$i]);
