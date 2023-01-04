@@ -77,7 +77,7 @@
 				<tr class="noform">
 					<td><?php echo $transazione["CF_agente"]; ?></td>
 					<td><?php echo $transazione["CF_cliente"]; ?></td>
-					<td><?php echo $transazione["cod_veicolo"]; ?></td>
+					<td><?php echo $db->getCarSpecific($transazione["cod_veicolo"]); ?></td>
 					<td><?php echo $transazione["data_transazione"]; ?></td>
 					<td><?php echo $transazione["tipologia"]; ?></td>
 					<td><?php echo $transazione["prezzo"]; ?></td>
