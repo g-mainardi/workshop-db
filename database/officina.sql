@@ -59,7 +59,7 @@ CREATE TABLE `attestato_proprieta` (
   `CF_proprietario` char(16) NOT NULL,
   `cod_veicolo` int(3) NOT NULL,
   `scaduto` int(1) NOT NULL,
-  `data_produzione` date NOT NULL,
+  `data_attestato` date NOT NULL,
   `id_attestato` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
