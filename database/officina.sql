@@ -23,6 +23,8 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
+CREATE DATABASE `officina`;
+
 --
 -- Struttura della tabella `agente`
 --
@@ -67,7 +69,7 @@ CREATE TABLE `attestato_proprieta` (
 -- Dump dei dati per la tabella `attestato_proprieta`
 --
 
-INSERT INTO `attestato_proprieta` (`CF_proprietario`, `cod_veicolo`, `scaduto`, `data_produzione`, `id_attestato`) VALUES
+INSERT INTO `attestato_proprieta` (`CF_proprietario`, `cod_veicolo`, `scaduto`, `data_attestato`, `id_attestato`) VALUES
 ('BSTDMR84H01C046C', 20, 1, '2022-12-10', 15),
 ('LRSBBR79A01H294E', 21, 0, '2022-09-12', 16),
 ('CRIRCH0571200678', 22, 0, '2018-06-05', 17),
