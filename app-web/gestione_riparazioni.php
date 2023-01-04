@@ -26,8 +26,7 @@
 		// Cliente inserito
 		$_SESSION["selezionatoCliente"] = true;
 		$_SESSION["cliente"] = $db->checkClient($_POST["selezioneCliente"])[0]; 
-		$scaduto = 0;
-		$_SESSION["veicoli"] = $db->getClientValidCar($_POST["selezioneCliente"], $scaduto);
+		$_SESSION["veicoli"] = $db->getClientValidCar(0, $_POST["selezioneCliente"]);
 	} else if($_SESSION["selezionatoCliente"] && !$_SESSION["selezionatoVeicolo"] && isset($_POST["avanti"]) && isset($_POST["selezioneVeicolo"])) {
 		// Veicolo inserito
 		$_SESSION["selezionatoVeicolo"] = true;
