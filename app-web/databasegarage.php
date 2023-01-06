@@ -421,6 +421,19 @@ class DatabaseHelper {
 		
 		return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function searchAgentOfMonth($anno, $mese) {
+        $statement = $this->db->prepare("SELECT agente.codice_fiscale, agente.nome, agente.cognome, COUNT(DATE_FORMAT(data_transazione, '%m-%Y')) AS n_vendite
+        FROM transazione, agente
+        WHERE transazione.CF_agente=agente.codice_fiscale AND YEAR(data_transazione)=? AND MONTH(data_transazione)=?
+        GROUP BY agente.codice_fiscale
+        ORDER BY COUNT(DATE_FORMAT(data_transazione, '%m-%Y')) DESC
+        LIMIT 1");
+		$statement->bind_param('ss', $anno, $mese);
+		$statement->execute();
+		$result = $statement->get_result();
+		return $result->fetch_array(MYSQLI_ASSOC);
+    }
 }
 
 

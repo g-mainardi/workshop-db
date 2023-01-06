@@ -35,6 +35,36 @@
 	</form>
 </section>
 
+<section>
+	<h2>Cerca l'agente del mese</h2>
+	<?php if(isset($agenteDelMese)):?>
+		<table class="singola">
+			<thead>
+				<tr>
+					<th>L'agente che ha fatto più vendite in <?php echo monthName($mese)." ".$anno." è ";?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+					<?php echo $agenteDelMese["nome"]." ".$agenteDelMese["cognome"]." (".$agenteDelMese["codice_fiscale"].")"?>  
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	<p>
+		<br>
+	</p>
+	<?php else:?>
+	<p>Ottieni l'agente che ha fatto più vendite nel periodo selezionato</p>
+	<form action="#" method="POST">
+		<label for="periodo"> Periodo da ricercare: </label>
+		<input type="month" name="periodo" required>
+		<input type="submit" name="ricercaAgente"  value="Cerca agente del mese">
+	</form>
+	<?php endif;?>
+</section>
+
 <section class="tabelle">
 	<h2>Agenti registrati</h2>
 	<p>È possibile modificare Telefono, Mail e Paga Oraria di un agente</p>
