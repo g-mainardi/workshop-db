@@ -27,14 +27,6 @@
         $paga = intval($_POST["agentePaga"]);
 		$db->updateEverything($_POST["agenteMail"], $_POST["agenteTelefono"], $paga, $_POST["agenteCF"], $type);
 	}
-	
-	// Controllo ricerca agente del mese
-	if(isset($_POST["ricercaAgente"])){
-		$periodo = explode("-", $_POST["periodo"]);
-		$anno = $periodo[0];
-		$mese = $periodo[1];
-		$agenteDelMese = $db->searchAgentOfMonth($anno, $mese);
-	}
 
 	// Controllo se tutto inserito
     if(isset($_POST["inserisciAgente"]) && isset($_POST["agenteCF"]) && isset($_POST["agenteNome"]) && isset($_POST["agenteCognome"]) 
