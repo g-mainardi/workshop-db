@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 07, 2023 alle 12:32
+-- Creato il: Gen 07, 2023 alle 13:42
 -- Versione del server: 10.4.22-MariaDB
 -- Versione PHP: 8.1.2
 
@@ -266,20 +266,19 @@ CREATE TABLE `veicolo_usato` (
   `modello` char(20) NOT NULL,
   `anno_produzione` year(4) NOT NULL,
   `cilindrata` char(10) NOT NULL,
-  `km_percorsi` int(6) DEFAULT NULL,
-  `condizione` char(20) NOT NULL
+  `km_percorsi` int(6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dump dei dati per la tabella `veicolo_usato`
 --
 
-INSERT INTO `veicolo_usato` (`cod_veicolo_usato`, `casa_produttrice`, `modello`, `anno_produzione`, `cilindrata`, `km_percorsi`, `condizione`) VALUES
-(9, 'Audi', 'Q8', 2018, '2200', 80000, ''),
-(17, 'KIA', 'Kangoo', 2020, '1600', 0, ''),
-(18, 'Dacha', 'Duster', 2018, '2000', 0, ''),
-(19, 'Volkswagen', 'T-Roc', 2022, '1800', 50000, ''),
-(20, 'Yunday', 'Hi10', 2016, '1450', 30700, '');
+INSERT INTO `veicolo_usato` (`cod_veicolo_usato`, `casa_produttrice`, `modello`, `anno_produzione`, `cilindrata`, `km_percorsi`) VALUES
+(9, 'Audi', 'Q8', 2018, '2200', 80000),
+(18, 'Dacha', 'Duster', 2018, '2000', 0),
+(17, 'KIA', 'Kangoo', 2020, '1600', 0),
+(19, 'Volkswagen', 'T-Roc', 2022, '1800', 50000),
+(20, 'Yunday', 'Hi10', 2016, '1450', 30700);
 
 --
 -- Indici per le tabelle scaricate
