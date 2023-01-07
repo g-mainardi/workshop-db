@@ -1,5 +1,5 @@
 <section>
-	<h2>Registra un veicolo</h2>
+	<h2>Registra un veicolo usato</h2>
 	<form action="#" method="POST">
 		<ul>
 			<li>
@@ -22,13 +22,17 @@
 				<label for="proprietario"> Proprietario del veicolo: </label>
 				<select name="proprietarioVeicolo"> 
 				<?php foreach($SetParameters["proprietari"] as $proprietario) :?>
-					<option value="<?php echo $proprietario["codice_fiscale"]; ?>"><?php echo $proprietario["nome"]." ".$proprietario["cognome"]." - ".$proprietario["codice_fiscale"]; ?></option> 
+					<option value="<?php echo $proprietario["CF_cliente"]; ?>"><?php echo $proprietario["nome"]." ".$proprietario["cognome"]." - ".$proprietario["CF_cliente"]; ?></option> 
 				<?php endforeach; ?>
 				</select> 
 			</li>
 			<li>
-				<label for="dataAppropriazione"> Data di acquisizione: </label>
-				<input type="date" maxlength="10" name="dataAppropriazione" placeholder="dataAppropriazione" required>
+				<label for="dataAppropriazione"> Data acquisto veicolo: </label>
+				<input type="date" name="dataAppropriazione" placeholder="dataAppropriazione" required>
+			</li>
+			<li>
+				<label for="veicoloKmPercorsi">KM Percorsi</label>
+				<input type="number" maxlength="10" name="veicoloKmPercorsi" placeholder="KM Percorsi" required>
 			</li>
 		</ul>		
 		<input type="submit" name="inserisciVeicolo"  value="Inserisci veicolo">
@@ -37,11 +41,11 @@
 </section>
 
 <section class="tabelle">
-	<h2>Veicoli registrati dei clienti</h2>
+	<h2>Veicoli usati di proprietà dei clienti</h2>
 	<table>
 		<thead>
 			<tr>
-				<th>CASA PRODUZIONE</th><th>MODELLO</th><th>ANNO DI PRODUZIONE</th><th>CILINDRATA(CM3)</th><th>PROPRIETARIO</th>
+				<th>CASA PRODUZIONE</th><th>MODELLO</th><th>ANNO DI PRODUZIONE</th><th>CILINDRATA(CM3)</th><th>PROPRIETARIO</th><th>KM PERCORSI</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -49,18 +53,19 @@
 				<tr class="noform">
 					<td><?php echo $veicolo["casa_produttrice"]; ?></td>
 					<td><?php echo $veicolo["modello"]; ?></td>
-					<td><?php echo $veicolo["data_produzione"]; ?></td>
+					<td><?php echo $veicolo["anno_produzione"]; ?></td>
 					<td><?php echo $veicolo["cilindrata"]; ?></td>
 					<td><?php echo $veicolo["nome_proprietario"]." ".$veicolo["cognome_proprietario"]." - ".$veicolo["CF_proprietario"]; ?></td>
+					<td><?php echo $veicolo["km_percorsi"]; ?></td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-	<h2>Veicoli registrati dell'officina</h2>
+	<h2>Veicoli usati di proprietà dell'officina</h2>
 	<table>
 		<thead>
 			<tr>
-				<th>CASA PRODUZIONE</th><th>MODELLO</th><th>ANNO DI PRODUZIONE</th><th>CILINDRATA(CM3)</th><th>OPERAZIONI</th>
+			<th>CASA PRODUZIONE</th><th>MODELLO</th><th>ANNO DI PRODUZIONE</th><th>CILINDRATA(CM3)</th><th>PROPRIETARIO</th><th>KM PERCORSI</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -68,8 +73,10 @@
 				<tr class="noform">
 					<td><?php echo $veicolo["casa_produttrice"]; ?></td>
 					<td><?php echo $veicolo["modello"]; ?></td>
-					<td><?php echo $veicolo["data_produzione"]; ?></td>
+					<td><?php echo $veicolo["anno_produzione"]; ?></td>
 					<td><?php echo $veicolo["cilindrata"]; ?></td>
+					<td><?php echo $veicolo["nome_proprietario"]." ".$veicolo["cognome_proprietario"]." - ".$veicolo["CF_proprietario"]; ?></td>
+					<td><?php echo $veicolo["km_percorsi"]; ?></td>
 					<td><a href="gestione_transazioni.php">Acquista</a></td>
 				</tr>
 			<?php endforeach; ?>
