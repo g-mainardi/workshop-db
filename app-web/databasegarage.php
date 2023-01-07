@@ -9,43 +9,50 @@ class DatabaseHelper {
 		}
 	}
     
-    public function insertCliente($CF, $nome, $cognome, $data_di_nascita, $telefono, $email) {
-        $statement = $this->db->prepare('INSERT INTO CLIENTE(codice_fiscale, nome, cognome, data_nascita, telefono, email) VALUES(?, ?, ?, ?, ?, ?)');
+    public function insertCliente($CF_cliente, $nome, $cognome, $data_di_nascita, $telefono, $email) {
+        $statement = $this->db->prepare('INSERT INTO CLIENTE(CF_cliente, nome, cognome, data_nascita, telefono, email) VALUES(?, ?, ?, ?, ?, ?)');
         $statement->bind_param('ssssss', $CF, $nome, $cognome, $data_di_nascita, $telefono, $email);
         $statement->execute();
         echo "<meta http-equiv='refresh' content='0'>";
     }
 
     public function insertAgente($CF, $nome, $cognome, $data_di_nascita, $telefono, $mail, $paga_oraria) {
-        $statement = $this->db->prepare('INSERT INTO AGENTE(codice_fiscale, nome, cognome, data_nascita, telefono, email, paga_oraria) VALUES(?, ?, ?, ?, ?, ?, ?)');
+        $statement = $this->db->prepare('INSERT INTO AGENTE(CF_agente, nome, cognome, data_nascita, telefono, email, paga_oraria) VALUES(?, ?, ?, ?, ?, ?, ?)');
         $statement->bind_param('ssssisi', $CF, $nome, $cognome, $data_di_nascita, $telefono, $mail, $paga_oraria);
         $statement->execute();
         echo "<meta http-equiv='refresh' content='0'>";
     }
 
     public function insertMeccanico($CF, $nome, $cognome, $data_di_nascita, $telefono, $mail, $paga_oraria) {
-        $statement = $this->db->prepare('INSERT INTO MECCANICO(codice_fiscale, nome, cognome, data_nascita, telefono, email, paga_oraria) VALUES(?, ?, ?, ?, ?, ?, ?)');
+        $statement = $this->db->prepare('INSERT INTO MECCANICO(CF_meccanico, nome, cognome, data_nascita, telefono, email, paga_oraria) VALUES(?, ?, ?, ?, ?, ?, ?)');
         $statement->bind_param('ssssisi', $CF, $nome, $cognome, $data_di_nascita, $telefono, $mail, $paga_oraria);
         $statement->execute();
         echo "<meta http-equiv='refresh' content='0'>";
     }
 
     #avro un metodo per ottenere un codice veicolo passando una casa produtrrive un modello e una data di produzione
-    public function insertCar($casa_produttrice, $modello, $data_produzione, $cilindrata){
-        $statement = $this->db->prepare('INSERT INTO VEICOLO(casa_produttrice, modello, data_produzione, cilindrata) VALUES(?, ?, ?, ?)');
-        $statement->bind_param('ssis', $casa_produttrice, $modello, $data_produzione, $cilindrata);
+    public function insertVeicoloNuovo($casa_produttrice, $modello, $anno_produzione, $cilindrata){
+        $statement = $this->db->prepare('INSERT INTO VEICOLO_NUOVO(casa_produttrice, modello, anno_produzione, cilindrata) VALUES(?, ?, ?, ?)');
+        $statement->bind_param('ssis', $casa_produttrice, $modello, $anno_produzione, $cilindrata);
         $statement->execute();
     }
 
+    public function insertVeicoloUsato($casa_produttrice, $modello, $anno_produzione, $cilindrata, $km_percorsi){
+        $statement = $this->db->prepare('INSERT INTO VEICOLO_USATO(casa_produttrice, modello, anno_produzione, cilindrata, km_percorsi) VALUES(?, ?, ?, ?, ?)');
+        $statement->bind_param('ssiii', $casa_produttrice, $modello, $anno_produzione, $cilindrata, $km_percorsi);
+        $statement->execute();
+        #echo "<meta http-equiv='refresh' content='0'>";
+    }
+
     #per ogni transazione fare l'update dell'attestao ovvero cambiare il CF_proprietario
-    public function insertTransaction($CF_cliente, $cod_veicolo, $CF_agente, $prezzo, $data_transazione, $tipologia){
-        $statement = $this->db->prepare('INSERT INTO TRANSAZIONE(CF_cliente, cod_veicolo, CF_agente, prezzo, data_transazione, tipologia) VALUES(?, ?, ?, ?, ?, ?)');
-        $statement->bind_param('sisiss', $CF_cliente, $cod_veicolo, $CF_agente, $prezzo, $data_transazione, $tipologia);
+    public function insertTransaction($CF_cliente, $cod_veicolo, $CF_agente, $prezzo, $data_transazione, $tipologia, $ora_transazione){
+        $statement = $this->db->prepare('INSERT INTO TRANSAZIONE(CF_cliente, cod_veicolo, CF_agente, prezzo, data_transazione, tipologia, ora) VALUES(?, ?, ?, ?, ?, ?, ?)');
+        $statement->bind_param('sisisss', $CF_cliente, $cod_veicolo, $CF_agente, $prezzo, $data_transazione, $tipologia, $ora_transazione);
         $statement->execute();
         echo "<meta http-equiv='refresh' content='0'>";
     }
 
-    public function insertOwnershipCertificate($CF_proprietario, $cod_veicolo, $scaduto, $data_attestato){
+    public function insertAttestatoProprieta($CF_proprietario, $cod_veicolo, $scaduto, $data_attestato){
         $statement = $this->db->prepare('INSERT INTO ATTESTATO_PROPRIETA(CF_proprietario, cod_veicolo, scaduto, data_attestato	) VALUES(?, ?, ?, ?)');
         $statement->bind_param('siis', $CF_proprietario, $cod_veicolo, $scaduto, $data_attestato);
         $statement->execute();
@@ -119,8 +126,24 @@ class DatabaseHelper {
 		return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getAllVeicoliUsati(){
+        $statement = $this->db->prepare("SELECT * FROM VEICOLO_USATO ");
+		$statement->execute();
+		$result = $statement->get_result();
+		
+		return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getAllVeicoliNuovi(){
+        $statement = $this->db->prepare("SELECT * FROM VEICOLO_NUOVO ");
+		$statement->execute();
+		$result = $statement->get_result();
+		
+		return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function checkAgent($CF){
-		$statement = $this->db->prepare("SELECT * FROM AGENTE WHERE codice_fiscale = ?");
+		$statement = $this->db->prepare("SELECT * FROM AGENTE WHERE CF_agente = ?");
 		$statement->bind_param('s', $CF);
 		$statement->execute();
 		$result = $statement->get_result();
@@ -129,7 +152,7 @@ class DatabaseHelper {
 	}
 
     public function checkClient($codice_fiscale){
-		$statement = $this->db->prepare("SELECT * FROM cliente WHERE codice_fiscale = ?");
+		$statement = $this->db->prepare("SELECT * FROM cliente WHERE CF_cliente = ?");
 		$statement->bind_param('s', $codice_fiscale);
 		$statement->execute();
 		$result = $statement->get_result();
@@ -138,7 +161,7 @@ class DatabaseHelper {
 	}
 
     public function checkMechanic($CF){
-		$statement = $this->db->prepare("SELECT * FROM MECCANICO WHERE codice_fiscale = ?");
+		$statement = $this->db->prepare("SELECT * FROM MECCANICO WHERE CF_meccanico = ?");
 		$statement->bind_param('s', $CF);
 		$statement->execute();
 		$result = $statement->get_result();
@@ -148,17 +171,17 @@ class DatabaseHelper {
 
     public function updateEmail($email, $CF, $type){
         if ($type == 0){
-            $statement = $this->db->prepare("UPDATE CLIENTE SET CLIENTE.email = ? WHERE CLIENTE.codice_fiscale = ? ");
+            $statement = $this->db->prepare("UPDATE CLIENTE SET CLIENTE.email = ? WHERE CLIENTE.CF_cliente = ? ");
         }else if ($type == 1){
             echo($email);
             echo($CF);
             $statement = $this->db->prepare("UPDATE AGENTE
                                             SET email = ? 
-                                            WHERE AGENTE.codice_fiscale = ?");
+                                            WHERE AGENTE.CF_agente = ?");
         }else if ($type == 2){
             $statement = $this->db->prepare("UPDATE MECCANICO
                                             SET email = ? 
-                                            WHERE MECCANICO.codice_fiscale = ?");
+                                            WHERE MECCANICO.CF_meccanico = ?");
         }
         $statement->bind_param('ss', $email, $CF);
         $statement->execute();
@@ -169,15 +192,15 @@ class DatabaseHelper {
         if ($type == 0){
             $statement = $this->db->prepare("UPDATE CLIENTE
                                             SET telefono = ? 
-                                            WHERE codice_fiscale =  ?");
+                                            WHERE CF_cliente =  ?");
         }else if ($type == 1){
             $statement = $this->db->prepare("UPDATE AGENTE
                                             SET telefono = ?  
-                                            WHERE codice_fiscale =  ?");
+                                            WHERE CF_agente =  ?");
         }else if ($type == 2){
             $statement = $this->db->prepare("UPDATE MECCANICO
                                             SET telefono = ? 
-                                            WHERE codice_fiscale =  ?");
+                                            WHERE CF_meccanico =  ?");
         }
             $statement->bind_param('ss', $telefono, $CF);
             $statement->execute();
@@ -188,11 +211,11 @@ class DatabaseHelper {
         if ($type == 1){
             $statement = $this->db->prepare("UPDATE AGENTE
                                             SET paga_oraria = ? 
-                                            WHERE codice_fiscale =  ?");
+                                            WHERE CF_agente =  ?");
         }else if ($type == 2){
             $statement = $this->db->prepare("UPDATE MECCANICO
                                             SET paga_oraria = ? 
-                                            WHERE codice_fiscale =  ?");
+                                            WHERE CF_meccanico =  ?");
         }
         $statement->bind_param('is', $paga_oraria, $CF);
         $statement->execute();
@@ -202,7 +225,7 @@ class DatabaseHelper {
     public function updateEverythingClient($email, $telefono, $CF){
         $statement = $this->db->prepare("UPDATE CLIENTE
                                             SET email = ?, telefono = ?
-                                            WHERE codice_fiscale =  ?");
+                                            WHERE CF_cliente =  ?");
         $statement->bind_param('sss', $email, $telefono, $CF);
         $statement->execute();
         echo "<meta http-equiv='refresh' content='0'>";
@@ -223,6 +246,13 @@ class DatabaseHelper {
         echo "<meta http-equiv='refresh' content='0'>";
     }
     
+    public function deleteNuovoVeicolo($cod_veicolo_nuovo){
+        $statement = $this->db->prepare("DELETE FROM VEICOLO_NUOVO WHERE cod_veicolo_nuovo = ?");
+        $statement->bind_param('i', $cod_veicolo_nuovo);
+        $statement->execute();
+        #fvecho "<meta http-equiv='refresh' content='0'>";
+    }
+
     #visualizzazione attestati per un determinato utente, sia scaduti che non
     public function getOwnershipForClient($CF){
         $statement = $this->db->prepare("SELECT cod_veicolo, data_attestato FROM ATTESTATO_PROPRIETA WHERE CF_proprietario = ?");
@@ -269,20 +299,32 @@ class DatabaseHelper {
     }
 
     #dal modello data di produzione e casa produttrice individuare il codice veicolo
-    public function getCarCod($modello, $casa_produttrice, $data_produzione){
-        $statement = $this->db->prepare("SELECT cod_veicolo FROM VEICOLO WHERE modello = ? AND casa_produttrice = ? AND data_produzione = ? ");
-		$statement->bind_param('ssi', $modello, $casa_produttrice, $data_produzione);
+    public function getCarCod($modello, $casa_produttrice, $data_produzione, $cilindrata, $km_percorsi){
+        $statement = $this->db->prepare("SELECT cod_veicolo_usato FROM VEICOLO_USATO WHERE modello = ? AND casa_produttrice = ? AND anno_produzione = ? AND cilindrata = ? AND km_percorsi = ?");
+		$statement->bind_param('ssiii', $modello, $casa_produttrice, $data_produzione, $cilindrata, $km_percorsi);
 		$statement->execute();
 		$result = $statement->get_result();
 		$data = $result->fetch_array(MYSQLI_ASSOC);
-        return $data["cod_veicolo"];
+        return $data["cod_veicolo_usato"];
+    }
+
+    public function getAllGarageCar(){
+        $statement = $this->db->prepare("SELECT v.*,a.CF_proprietario, c.nome  AS 'nome_proprietario', c.cognome AS 'cognome_proprietario'
+        FROM ATTESTATO_PROPRIETA a 
+        JOIN VEICOLO_USATO v ON a.cod_veicolo = v.cod_veicolo_usato
+        JOIN CLIENTE c ON a.CF_proprietario = c.CF_cliente
+        WHERE a.scaduto=1");
+		$statement->execute();
+		$result = $statement->get_result();
+		
+		return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function getAllClientsCar(){
         $statement = $this->db->prepare("SELECT v.*,a.CF_proprietario, c.nome  AS 'nome_proprietario', c.cognome AS 'cognome_proprietario'
         FROM ATTESTATO_PROPRIETA a 
-        JOIN VEICOLO v ON a.cod_veicolo = v.cod_veicolo 
-        JOIN CLIENTE c ON a.CF_proprietario = c.codice_fiscale
+        JOIN VEICOLO_USATO v ON a.cod_veicolo = v.cod_veicolo_usato
+        JOIN CLIENTE c ON a.CF_proprietario = c.CF_cliente
         WHERE a.scaduto=0");
 		$statement->execute();
 		$result = $statement->get_result();
@@ -321,7 +363,7 @@ class DatabaseHelper {
     }
 
     public function getClientValidCar($scaduto, $CF_cliente){
-        $statement = $this->db->prepare("SELECT v.* FROM attestato_proprieta a, veicolo v WHERE a.cod_veicolo = v.cod_veicolo AND scaduto=? AND CF_proprietario=?");
+        $statement = $this->db->prepare("SELECT v.* FROM attestato_proprieta a, veicolo_usato v WHERE a.cod_veicolo = v.cod_veicolo_usato AND scaduto=? AND CF_proprietario=?");
         $statement->bind_param('is', $scaduto, $CF_cliente);
         $statement->execute();
         $result = $statement->get_result();
@@ -329,8 +371,17 @@ class DatabaseHelper {
 		return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getVeicoloNuovo($cod_veicolo_nuovo){
+        $statement = $this->db->prepare("SELECT * FROM VEICOLO_NUOVO WHERE cod_veicolo_nuovo = ?");
+        $statement->bind_param('i', $cod_veicolo_nuovo);
+        $statement->execute();
+        $result = $statement->get_result();
+       
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getGarageCar($scaduto){
-        $statement = $this->db->prepare("SELECT *  FROM ATTESTATO_PROPRIETA a JOIN VEICOLO v ON a.cod_veicolo = v.cod_veicolo WHERE a.scaduto=? ");
+        $statement = $this->db->prepare("SELECT *  FROM ATTESTATO_PROPRIETA a JOIN VEICOLO_USATO v ON a.cod_veicolo = v.cod_veicolo_usato WHERE a.scaduto=? ");
         $statement->bind_param('i', $scaduto);
         $statement->execute();
         $result = $statement->get_result();
@@ -362,17 +413,26 @@ class DatabaseHelper {
 		return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getCarSpecific($cod_veicolo){
-        $statement = $this->db->prepare("SELECT * FROM VEICOLO WHERE cod_veicolo = ?");
+    public function getVeicoloUsatoSpecifico($cod_veicolo){
+        $statement = $this->db->prepare("SELECT * FROM VEICOLO_USATO WHERE cod_veicolo_usato = ?");
         $statement->bind_param('i', $cod_veicolo);
 		$statement->execute();
 		$result = $statement->get_result();
-		$data = $result->fetch_array(MYSQLI_ASSOC);
+        $data = $result->fetch_array(MYSQLI_ASSOC);
+        return $data["modello"]." - ".$data["casa_produttrice"];
+    }
+
+    public function getVeicoloNuovoSpecifico($cod_veicolo){
+        $statement = $this->db->prepare("SELECT * FROM VEICOLO_NUOVO WHERE cod_veicolo_nuovo = ?");
+        $statement->bind_param('i', $cod_veicolo);
+		$statement->execute();
+		$result = $statement->get_result();
+        $data = $result->fetch_array(MYSQLI_ASSOC);
         return $data["modello"]." - ".$data["casa_produttrice"];
     }
 
     public function getUser($codice_fiscale){
-        $statement = $this->db->prepare("SELECT * FROM CLIENTE WHERE codice_fiscale = ? ");
+        $statement = $this->db->prepare("SELECT * FROM CLIENTE WHERE CF_cliente = ? ");
         $statement->bind_param('s', $codice_fiscale);
         $statement->execute();
 		$result = $statement->get_result();
@@ -422,17 +482,17 @@ class DatabaseHelper {
 		return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function searchAgentOfMonth($anno, $mese) {
-        $statement = $this->db->prepare("SELECT agente.codice_fiscale, agente.nome, agente.cognome, COUNT(DATE_FORMAT(data_transazione, '%m-%Y')) AS n_vendite
-        FROM transazione, agente
-        WHERE transazione.CF_agente=agente.codice_fiscale AND YEAR(data_transazione)=? AND MONTH(data_transazione)=?
-        GROUP BY agente.codice_fiscale
-        ORDER BY COUNT(DATE_FORMAT(data_transazione, '%m-%Y')) DESC
-        LIMIT 1");
-		$statement->bind_param('ss', $anno, $mese);
-		$statement->execute();
+    public function updateTransazioni($cod_veicolo_usato, $usato ,$cod_veicolo_nuovo, $nuovo){
+        $statement = $this->db->prepare("UPDATE TRANSAZIONE
+                                        SET cod_veicolo = ?,
+                                        tipo_veicolo = ?
+                                        WHERE cod_veicolo =  ?
+                                        AND tipo_veicolo = ? ");
+        $statement->bind_param('isis', $cod_veicolo_usato, $usato ,$cod_veicolo_nuovo, $nuovo);
+        $statement->execute();
 		$result = $statement->get_result();
-		return $result->fetch_array(MYSQLI_ASSOC);
+		
+		return $result->fetch_all(MYSQLI_ASSOC);
     }
 }
 
