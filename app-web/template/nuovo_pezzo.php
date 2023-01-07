@@ -6,7 +6,7 @@
 				<label for="pezzoVeicolo"> Seleziona Veicolo: </label>
 				<select name="pezzoVeicolo" required>
 				<?php foreach($SetParameters["veicoli"] as $veicolo) :?>
-					<option value='<?php echo $db->getCarCod($veicolo["modello"], $veicolo["casa_produttrice"],$veicolo["data_produzione"]);?>'><?php echo $veicolo["casa_produttrice"]." - ".$veicolo["modello"]." (".$veicolo["data_produzione"].")"?></option>
+					<option value='<?php echo $db->getCarCod($veicolo["modello"], $veicolo["casa_produttrice"],$veicolo["anno_produzione"], $veicolo["cilindrata"], $veicolo["km_percorsi"]);?>'><?php echo $veicolo["casa_produttrice"]." - ".$veicolo["modello"]." (".$veicolo["anno_produzione"].")"?></option>
 				<?php endforeach; ?>
 				</select>
 			</li>
@@ -39,7 +39,7 @@
 		<tbody>
 			<?php foreach($SetParameters["pezzi"] as $pezzo) :?>
 				<tr class="noform">
-					<td><?php echo $db->getCarSpecific($pezzo["cod_veicolo"]); ?></td>
+					<td><?php echo $db->getVeicoloUsatoSpecifico($pezzo["cod_veicolo"]); ?></td>
 					<td><?php echo $pezzo["nome"]; ?></td>
 					<td><?php echo $pezzo["descrizione"]; ?></td>
 					<td><?php echo $pezzo["costo_unitario"]; ?></td>
