@@ -45,7 +45,7 @@
 				</select>
 			</li>
 			<li>
-				<label for="selezioneTipoVeicolo"> Seleziona il tipo di transazione: </label>
+				<label for="selezioneTipoVeicolo"> Seleziona il tipo di veicolo: </label>
 				<?php if(isset($SetParameters["selezionati"])):?>
 					<select name="selezioneTipoVeicolo" required disabled>
 						<option value=<?php echo $SetParameters["tipoVeicolo"]; ?>><?php echo $SetParameters["tipoVeicolo"]; ?></option>
@@ -57,6 +57,9 @@
 				</select>
 			</li>
 			<?php if(isset($SetParameters["selezionati"])): ?>
+			<?php if($SetParameters["tipo"]=="acquisto" && $SetParameters["tipoVeicolo"]=="nuovo"): ?>
+				<h5> L'officina non può acquistare veicoli nuovi poichè sono già di sua proprietà!</h5>
+			<?php else: ?>
 			<li>				
 				<label for="selezioneVeicolo"> Seleziona Veicolo: </label>
 				<select name="selezioneVeicolo" required>
@@ -75,6 +78,7 @@
 				<label for="selezionePrezzo"> Stabilisci il prezzo (€): </label>
 				<input type="number" min="0" step="5" name="selezionePrezzo" placeholder="Prezzo" required>
 			</li>
+			<?php endif; ?>
 			<?php endif; ?>
 		</ul>		
 		<input type="submit" name=<?php if(isset($SetParameters["selezionati"])): echo "inserisciTransazione";else: echo "avanti"; endif?> value=<?php if(isset($SetParameters["selezionati"])): echo "Inserisci transazione";else: echo "Avanti"; endif?> >
