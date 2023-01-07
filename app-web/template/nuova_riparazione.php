@@ -6,11 +6,11 @@
 				<label for="selezioneCliente"> Seleziona Cliente: </label>
 				<?php if($_SESSION["selezionatoCliente"]): ?>
 					<select name="selezioneCliente" required disabled>
-						<option value=<?php echo $_SESSION["cliente"]["codice_fiscale"]?>><?php echo $_SESSION["cliente"]["nome"]." ".$_SESSION["cliente"]["cognome"]." - ".$_SESSION["cliente"]["codice_fiscale"]?></option>			
+						<option value=<?php echo $_SESSION["cliente"]["CF_cliente"]?>><?php echo $_SESSION["cliente"]["nome"]." ".$_SESSION["cliente"]["cognome"]." - ".$_SESSION["cliente"]["CF_cliente"]?></option>			
 				<?php else: ?>
 					<select name="selezioneCliente" required>
 					<?php foreach($_SESSION["clienti"] as $cliente) :?>
-						<option value=<?php echo $cliente["codice_fiscale"]?>><?php echo $cliente["nome"]." ".$cliente["cognome"]." - ".$cliente["codice_fiscale"]?></option>
+						<option value=<?php echo $cliente["CF_cliente"]?>><?php echo $cliente["nome"]." ".$cliente["cognome"]." - ".$cliente["CF_cliente"]?></option>
 					<?php endforeach; ?>
 				<?php endif;?>
 				</select>
@@ -21,11 +21,11 @@
 				<label for="selezioneVeicolo"> Seleziona Veicolo: </label>
 				<?php if($_SESSION["selezionatoVeicolo"]):?>
 					<select name="selezioneVeicolo" required disabled>
-						<option value=<?php echo $_SESSION["veicoloCod"]?>><?php echo $_SESSION["veicoloSpecific"]?></option>
+						<option value=<?php echo $_SESSION["veicoloCod"]?>><?php echo $_SESSION["veicoloSpecifiche"]?></option>
 				<?php else:?>
 					<select name="selezioneVeicolo" required>
 					<?php foreach($_SESSION["veicoli"] as $veicolo) :?>
-						<option value=<?php echo $veicolo["cod_veicolo"]?>><?php echo $veicolo["casa_produttrice"]." - ".$veicolo["modello"]." (".$veicolo["data_produzione"].")"?></option>
+						<option value=<?php echo $veicolo["cod_veicolo_usato"]?>><?php echo $veicolo["casa_produttrice"]." - ".$veicolo["modello"]." (".$veicolo["anno_produzione"].")"?></option>
 					<?php endforeach; endif; ?>
 				</select>
 			</li>
@@ -38,7 +38,7 @@
 					<ul>
 					<?php foreach($_SESSION["meccanici"] as $meccanico) : ?>
 						<li>
-							<input type="checkbox" name='meccaniciSelezionati[]' value='<?php echo($meccanico["codice_fiscale"])?>'><?php echo $meccanico["nome"]." ".$meccanico["cognome"]?>
+							<input type="checkbox" name='meccaniciSelezionati[]' value='<?php echo($meccanico["CF_meccanico"])?>'><?php echo $meccanico["nome"]." ".$meccanico["cognome"]?>
 						</li>
 					<?php endforeach; ?>
 					</ul>
@@ -95,7 +95,7 @@
 		<?php foreach($SetParameters["riparazioni"] as $riparazione) :?>
 				<tr class="noform">
 					<td><?php echo $db->getUser($riparazione["CF_cliente"])[0]["nome"]." ".$db->getUser($riparazione["CF_cliente"])[0]["cognome"]; ?></td>
-					<td><?php echo $db->getCarSpecific($riparazione["cod_veicolo"]); ?></td>
+					<td><?php echo $db->getVeicoloUsatoSpecifico($riparazione["cod_veicolo"]); ?></td>
 					<td><?php echo $riparazione["data_inizio"]; ?></td>
 					<td><?php echo $riparazione["data_fine"]; ?></td>
 					<td><?php echo $riparazione["costo_totale"]; ?></td>
