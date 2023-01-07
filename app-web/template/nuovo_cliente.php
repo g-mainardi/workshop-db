@@ -45,16 +45,16 @@
 			<?php foreach($SetParameters["clienti"] as $cliente) :?>
 			<form action="#" method="POST">
 				<tr>
-					<td><input type="hidden" id='<?php echo $cliente["codice_fiscale"];?>' name="clienteCF" value=<?php echo $cliente["codice_fiscale"]; ?>> <?php echo $cliente["codice_fiscale"]?></td>
-					<td><input type="hidden" id='<?php echo $cliente["codice_fiscale"];?>' name="clienteNome" value=<?php echo $cliente["nome"]; ?>> <?php echo $cliente["nome"]?></td>
-					<td><input type="hidden" id='<?php echo $cliente["codice_fiscale"];?>' name="clienteCognome" value=<?php echo $cliente["cognome"]; ?>> <?php echo $cliente["cognome"]?></td>
-					<td><input type="hidden" id='<?php echo $cliente["codice_fiscale"];?>' name="clienteDataNascita" value=<?php echo $cliente["data_nascita"]; ?>> <?php echo $cliente["data_nascita"]?></td>
-					<td><input type="tel" id='<?php echo $cliente["codice_fiscale"];?>' pattern="[0-9]{10}" maxlength="10" name="clienteTelefono" placeholder="Inserisci Telefono" value=<?php echo $cliente["telefono"]?> required></td>
-					<td><input type="email" id='<?php echo $cliente["codice_fiscale"];?>' maxlength="80" name="clienteMail" placeholder="Inserisci email" value=<?php echo $cliente["email"]?>></td>
+					<td><input type="hidden" id='<?php echo $cliente["CF_cliente"];?>' name="clienteCF" value=<?php echo $cliente["CF_cliente"]; ?>> <?php echo $cliente["CF_cliente"]?></td>
+					<td><input type="hidden" id='<?php echo $cliente["CF_cliente"];?>' name="clienteNome" value=<?php echo $cliente["nome"]; ?>> <?php echo $cliente["nome"]?></td>
+					<td><input type="hidden" id='<?php echo $cliente["CF_cliente"];?>' name="clienteCognome" value=<?php echo $cliente["cognome"]; ?>> <?php echo $cliente["cognome"]?></td>
+					<td><input type="hidden" id='<?php echo $cliente["CF_cliente"];?>' name="clienteDataNascita" value=<?php echo $cliente["data_nascita"]; ?>> <?php echo $cliente["data_nascita"]?></td>
+					<td><input type="tel" id='<?php echo $cliente["CF_cliente"];?>' pattern="[0-9]{10}" maxlength="10" name="clienteTelefono" placeholder="Inserisci Telefono" value=<?php echo $cliente["telefono"]?> required></td>
+					<td><input type="email" id='<?php echo $cliente["CF_cliente"];?>' maxlength="80" name="clienteMail" placeholder="Inserisci email" value=<?php echo $cliente["email"]?>></td>
 					<td>
-						<input disabled type="submit" id='<?php echo $cliente["codice_fiscale"];?>' name="aggiornaTelefono" value="Aggiorna Telefono">
-						<input disabled type="submit" id='<?php echo $cliente["codice_fiscale"];?>' name="aggiornaMail" value="Aggiorna Mail">
-						<input disabled type="submit" id='<?php echo $cliente["codice_fiscale"];?>' name="aggiornaTutto" value="Aggiorna Tutto">
+						<input disabled type="submit" id='<?php echo $cliente["CF_cliente"];?>' name="aggiornaTelefono" value="Aggiorna Telefono">
+						<input disabled type="submit" id='<?php echo $cliente["CF_cliente"];?>' name="aggiornaMail" value="Aggiorna Mail">
+						<input disabled type="submit" id='<?php echo $cliente["CF_cliente"];?>' name="aggiornaTutto" value="Aggiorna Tutto">
 					</td>
 				</tr>
 			</form>
