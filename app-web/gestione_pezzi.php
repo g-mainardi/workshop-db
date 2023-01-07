@@ -6,7 +6,7 @@
     $SetParameters["file"] = "nuovo_pezzo.php";
 
 	// Leggo dal database
-	$SetParameters["veicoli"] = $db->getAllCar();
+	$SetParameters["veicoli"] = $db->getAllVeicoliUsati();
 
 	$SetParameters["pezzi"] = $db->getAllPieces();
 	
