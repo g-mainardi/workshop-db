@@ -31,7 +31,7 @@
 		// Veicolo inserito
 		$_SESSION["selezionatoVeicolo"] = true;
 		$_SESSION["veicoloCod"] = $_POST["selezioneVeicolo"];
-		$_SESSION["veicoloSpecific"] = $db->getCarSpecific($_SESSION["veicoloCod"]);
+		$_SESSION["veicoloSpecifiche"] = $db->getVeicoloUsatoSpecifico($_SESSION["veicoloCod"]);
 		$_SESSION["meccanici"] = $db->getAllMechanics();
 		//gestire se è vuoto, mandare un messaggio di errore sull'inserire i pezzi
 		$_SESSION["pezzi"] = $db->getCarPieces($_SESSION["veicoloCod"]);
@@ -42,7 +42,7 @@
 		} else {
 			// Dati inseriti pronti da inviare al db
 			//okay quindi bosogna inserire la riparazione e fare join con comprende_pezzo e comprende_meccanico
-			$cliente = $_SESSION["cliente"]["codice_fiscale"];
+			$cliente = $_SESSION["cliente"]["CF_cliente"];
 			$veicolo = $_SESSION["veicoloCod"];
 			$meccanici = $_POST["meccaniciSelezionati"];  // array di CF di meccanici
 			$nome = $_POST["nomeRiparazione"];
