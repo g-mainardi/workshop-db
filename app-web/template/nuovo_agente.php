@@ -47,7 +47,7 @@
 			<tbody>
 				<tr>
 					<td>
-					<?php echo $agenteDelMese["nome"]." ".$agenteDelMese["cognome"]." (".$agenteDelMese["codice_fiscale"].")"?>  
+					<?php echo $agenteDelMese["nome"]." ".$agenteDelMese["cognome"]." (".$agenteDelMese["CF_agente"].")"?>  
 					</td>
 				</tr>
 			</tbody>

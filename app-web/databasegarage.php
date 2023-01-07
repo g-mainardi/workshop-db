@@ -234,12 +234,12 @@ class DatabaseHelper {
     public function updateEverything($email, $telefono, $paga_oraria, $CF, $type){
         if ($type == 1){
             echo($paga_oraria);
-            $statement = $this->db->prepare("UPDATE AGENTE SET email = ?, telefono = ?, paga_oraria = ? WHERE codice_fiscale =  ? ");
+            $statement = $this->db->prepare("UPDATE AGENTE SET email = ?, telefono = ?, paga_oraria = ? WHERE CF_agente =  ? ");
             $statement->bind_param('ssis', $email, $telefono, $paga_oraria, $CF);
         }else if ($type == 2){
             $statement = $this->db->prepare("UPDATE MECCANICO
                                             SET email = ?, telefono = ?, paga_oraria = ?
-                                            WHERE codice_fiscale =  ? ");
+                                            WHERE CF_meccanico =  ? ");
             $statement->bind_param('ssis', $email, $telefono, $paga_oraria, $CF);
         }
         $statement->execute();
@@ -496,10 +496,10 @@ class DatabaseHelper {
     }
 
     public function searchAgentOfMonth($anno, $mese) {
-        $statement = $this->db->prepare("SELECT agente.codice_fiscale, agente.nome, agente.cognome, COUNT(DATE_FORMAT(data_transazione, '%m-%Y')) AS n_vendite
+        $statement = $this->db->prepare("SELECT agente.CF_agente, agente.nome, agente.cognome, COUNT(DATE_FORMAT(data_transazione, '%m-%Y')) AS n_vendite
         FROM transazione, agente
-        WHERE transazione.CF_agente=agente.codice_fiscale AND YEAR(data_transazione)=? AND MONTH(data_transazione)=?
-        GROUP BY agente.codice_fiscale
+        WHERE transazione.CF_agente=agente.CF_agente AND YEAR(data_transazione)=? AND MONTH(data_transazione)=?
+        GROUP BY agente.CF_agente
         ORDER BY COUNT(DATE_FORMAT(data_transazione, '%m-%Y')) DESC
         LIMIT 1");
 		$statement->bind_param('ss', $anno, $mese);
