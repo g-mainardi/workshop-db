@@ -13,7 +13,7 @@
 			<p>Qui ci sono tre sezioni: per gestire meccanici, riparazioni e pezzi di ricambio</p>
 		</li>
 		<li>
-			<a href="gestione_veicoli.php">SEZIONE VEICOLI</a>
+			<a href="veicoli.php">SEZIONE VEICOLI</a>
 			<p>Qui puoi visualizzare la lista dei veicoli(in vendita o no) e registrarne uno nuovo</p>
 		</li>
 	</ul>
