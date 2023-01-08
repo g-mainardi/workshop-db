@@ -234,12 +234,12 @@ class DatabaseHelper {
     public function updateEverything($email, $telefono, $paga_oraria, $CF, $type){
         if ($type == 1){
             echo($paga_oraria);
-            $statement = $this->db->prepare("UPDATE AGENTE SET email = ?, telefono = ?, paga_oraria = ? WHERE codice_fiscale =  ? ");
+            $statement = $this->db->prepare("UPDATE AGENTE SET email = ?, telefono = ?, paga_oraria = ? WHERE CF_agente =  ? ");
             $statement->bind_param('ssis', $email, $telefono, $paga_oraria, $CF);
         }else if ($type == 2){
             $statement = $this->db->prepare("UPDATE MECCANICO
                                             SET email = ?, telefono = ?, paga_oraria = ?
-                                            WHERE codice_fiscale =  ? ");
+                                            WHERE CF_meccanico =  ? ");
             $statement->bind_param('ssis', $email, $telefono, $paga_oraria, $CF);
         }
         $statement->execute();
