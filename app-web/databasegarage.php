@@ -256,7 +256,7 @@ class DatabaseHelper {
     #visualizzazione attestato di proprietà valido per un determinato utente se c'è
     public function getValidOwnershipCertificate($CF){
         $scaduto = 0;
-        $statement = $this->db->prepare("SELECT cod_veicolo, data_attestato FROM ATTESTATO_PROPRIETA WHERE CF_proprietario = ? AND scaduto = $scaduto");
+        $statement = $this->db->prepare("SELECT targa, data_attestato FROM ATTESTATO_PROPRIETA WHERE CF_proprietario = ? AND scaduto = $scaduto");
 		$statement->bind_param('si', $CF, $scaduto);
 		$statement->execute();
 		$result = $statement->get_result();
@@ -288,21 +288,10 @@ class DatabaseHelper {
         }
     }
 
-    #dal modello data di produzione e casa produttrice individuare il codice veicolo
-    public function getCarCod($targa){
-        $statement = $this->db->prepare("SELECT cod_veicolo_usato FROM VEICOLO_USATO WHERE targa = ? ");
-		$statement->bind_param('s', $targa);
-		$statement->execute();
-		$result = $statement->get_result();
-		$data = $result->fetch_array(MYSQLI_ASSOC);
-        return $data["cod_veicolo_usato"];
-    }
-
     public function getAllGarageCar(){
-        $statement = $this->db->prepare("SELECT v.*,a.CF_proprietario, c.nome  AS 'nome_proprietario', c.cognome AS 'cognome_proprietario'
+        $statement = $this->db->prepare("SELECT v.*
         FROM ATTESTATO_PROPRIETA a 
         JOIN VEICOLO_USATO v ON a.targa = v.targa
-        JOIN CLIENTE c ON a.CF_proprietario = c.CF_cliente
         WHERE a.scaduto=1");
 		$statement->execute();
 		$result = $statement->get_result();
@@ -316,14 +305,6 @@ class DatabaseHelper {
         JOIN VEICOLO_USATO v ON a.targa = v.targa
         JOIN CLIENTE c ON a.CF_proprietario = c.CF_cliente
         WHERE a.scaduto=0");
-		$statement->execute();
-		$result = $statement->get_result();
-		
-		return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
-    public function getAllCarCodes(){
-        $statement = $this->db->prepare("SELECT cod_veicolo FROM VEICOLO ");
 		$statement->execute();
 		$result = $statement->get_result();
 		
@@ -370,7 +351,7 @@ class DatabaseHelper {
     }
 
     public function getGarageCar($scaduto){
-        $statement = $this->db->prepare("SELECT *  FROM ATTESTATO_PROPRIETA a JOIN VEICOLO_USATO v ON a.cod_veicolo = v.cod_veicolo_usato WHERE a.scaduto=? ");
+        $statement = $this->db->prepare("SELECT *  FROM ATTESTATO_PROPRIETA a JOIN VEICOLO_USATO v ON a.targa = v.targa WHERE a.scaduto=? ");
         $statement->bind_param('i', $scaduto);
         $statement->execute();
         $result = $statement->get_result();
@@ -429,17 +410,9 @@ class DatabaseHelper {
 		return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function checkActiveCertificate($cod_veicolo, $scaduto){
-        $statement = $this->db->prepare("SELECT * FROM ATTESTATO_PROPRIETA WHERE cod_veicolo = ? AND scaduto = ? ");
-        $statement->bind_param('ii', $cod_veicolo, $scaduto);
-        $statement->execute();
-		$result = $statement->get_result();
-		
-		return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
-    public function getAllCar(){
-        $statement = $this->db->prepare("SELECT * FROM VEICOLO ");
+    public function checkActiveCertificate($targa, $scaduto){
+        $statement = $this->db->prepare("SELECT * FROM ATTESTATO_PROPRIETA WHERE targa = ? AND scaduto = ? ");
+        $statement->bind_param('ii', $targa, $scaduto);
         $statement->execute();
 		$result = $statement->get_result();
 		
@@ -473,13 +446,10 @@ class DatabaseHelper {
 
     public function updateKmPercorsi($kmPercorsiVeicolo, $targa){
         $statement = $this->db->prepare("UPDATE VEICOLO_USATO
-                                        SET km_percorsi = ?,
+                                        SET km_percorsi = ?
                                         WHERE targa =  ?");
         $statement->bind_param('is', $kmPercorsiVeicolo, $targa);
         $statement->execute();
-		$result = $statement->get_result();
-		
-		return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function getCasaProduttriceConRiparazioni($anno_produzione){

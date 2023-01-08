@@ -18,6 +18,7 @@ $(document).ready(() => {
         const id = $(this).attr('id'); 
         $("input[name='aggiornaPaga'][id='"+ id +"']").removeAttr("disabled");
         $("input[name='aggiornaTutto'][id='"+ id +"']").removeAttr("disabled");
+        $("input[name='aggiornaKmPercorsi'][id='"+ id +"']").removeAttr("disabled");
     })
 
     $("input[name='dataInizio']").change(function(e){

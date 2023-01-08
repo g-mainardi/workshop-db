@@ -7,10 +7,8 @@
 	array_push($SetParameters["scripts"], "./js/script.js");
 
 	if(isset($_POST["aggiornaKmPercorsi"])){
-		$db->updateKmPercorsi($_POST["kmPercorsiVeicolo"], $_POST["veicoloCod"]);
-	}
-
-	if(isset($_POST["veicoloCasaProd"]) && isset($_POST["veicoloModello"]) && isset($_POST["veicoloCilindrata"]) && isset($_POST["veicoloAnnoProd"]) && isset($_POST["veicoloTarga"]))
+		$db->updateKmPercorsi($_POST["kmPercorsiVeicolo"], $_POST["veicoloTarga"]);
+	} else if(isset($_POST["veicoloCasaProd"]) && isset($_POST["veicoloModello"]) && isset($_POST["veicoloCilindrata"]) && isset($_POST["veicoloAnnoProd"]) && isset($_POST["veicoloTarga"]))
 	{
 		// Controllo se cilindrata inserita correttamente
 		if(!is_numeric($_POST['veicoloCilindrata'])){
