@@ -43,14 +43,17 @@
 		$ora_transazione = date("h:i:sa");
 		if($_SESSION["tipo"]  == "acquisto"){
 			if($_SESSION["tipoVeicolo"]=="usato"){
-				print_r("sono dentro");
-				$scaduto=1;
-				$db->updateCertificate($scaduto, $_SESSION["cliente"]["CF_cliente"], $_POST["selezioneVeicolo"]);
-				$db->insertTransaction($_SESSION["cliente"]["CF_cliente"], $_POST["selezioneVeicolo"], $_SESSION["agente"]["CF_agente"],  $_POST["selezionePrezzo"], $data_produzione , $_SESSION["tipo"], $ora_transazione);
+				try{
+					$scaduto=1;
+					$db->updateCertificate($scaduto, $_SESSION["cliente"]["CF_cliente"], $_POST["selezioneVeicolo"]);
+					$db->insertTransaction($_SESSION["cliente"]["CF_cliente"], $_POST["selezioneVeicolo"], $_SESSION["agente"]["CF_agente"],  $_POST["selezionePrezzo"], $data_produzione , $_SESSION["tipo"], $ora_transazione);
+				}catch(Exception $e){
+					print_r("è stato inserito un veicolo già presente");
+				}
+				
 			}
 		}else{
 			if($_SESSION["tipoVeicolo"]=="nuovo"){
-				#elimino il veicolo da i veicoli nuovi
 				$informazioni_veicolo = $db->getVeicoloNuovo($_POST["selezioneVeicolo"]);
 				$modello =$informazioni_veicolo[0]["modello"];
 				$casa_produttrice = $informazioni_veicolo[0]["casa_produttrice"];
@@ -58,21 +61,25 @@
 				$cilindrata = $informazioni_veicolo[0]["cilindrata"];
 				$km_percorsi = 0;
 				$scaduto = 0;
-				#in tutte le transaioni con tipo veicolo = nuovo e cod_veiolo = $_POST["selezioneVeicolo"]
-				#devo modificare il nuo
-				$db->deleteNuovoVeicolo($_POST["selezioneVeicolo"]);
-				print_r("eliminazione");
-				#inserisco il veicolo in quelli usati con km ercodi = 0 
-				$db->insertVeicoloUsato($casa_produttrice, $modello, $anno_produzione, $cilindrata, $km_percorsi);
-				print_r("veicolo nuovo");
-				$cod_veicolo = $db->getCarCod( $modello, $casa_produttrice,$anno_produzione, $cilindrata,$km_percorsi);
-				$db->insertAttestatoProprieta($_SESSION["cliente"]["CF_cliente"], $cod_veicolo, $scaduto, $data_produzione);
-				print_r("inserito attestato");
-				$db->insertTransaction($_SESSION["cliente"]["CF_cliente"], $cod_veicolo, $_SESSION["agente"]["CF_agente"],  $_POST["selezionePrezzo"], $data_produzione , $_SESSION["tipo"], $ora_transazione);
+				$targa = $_POST["targaNuovoVeicolo"];
+				try{
+					$db->deleteNuovoVeicolo($_POST["selezioneVeicolo"]);
+					$db->insertVeicoloUsato($casa_produttrice, $modello, $anno_produzione, $cilindrata, $km_percorsi, $targa);
+					$db->insertAttestatoProprieta($_SESSION["cliente"]["CF_cliente"], $targa, $scaduto, $data_produzione);
+					$db->insertTransaction($_SESSION["cliente"]["CF_cliente"], $targa, $_SESSION["agente"]["CF_agente"],  $_POST["selezionePrezzo"], $data_produzione , $_SESSION["tipo"], $ora_transazione);
+				}catch(Exception $e){
+					print_r("è stato inserito un veicolo già presente");
+				}
+				
 			}else{
-				$scaduto=0;
-				$db->updateCertificate($scaduto, $_SESSION["cliente"]["CF_cliente"], $_POST["selezioneVeicolo"]);
-				$db->insertTransaction($_SESSION["cliente"]["CF_cliente"], $_POST["selezioneVeicolo"], $_SESSION["agente"]["CF_agente"],  $_POST["selezionePrezzo"], $data_produzione , $_SESSION["tipo"], $ora_transazione);
+				try{
+					$scaduto=0;
+					$db->updateCertificate($scaduto, $_SESSION["cliente"]["CF_cliente"], $_POST["selezioneVeicolo"]);
+					$db->insertTransaction($_SESSION["cliente"]["CF_cliente"], $_POST["selezioneVeicolo"], $_SESSION["agente"]["CF_agente"],  $_POST["selezionePrezzo"], $data_produzione , $_SESSION["tipo"], $ora_transazione);
+				}catch(Exception $e){
+					print_r("è stato inserito un veicolo già presente");
+				}
+				
 			}
 		}
 	}
