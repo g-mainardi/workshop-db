@@ -21,6 +21,10 @@
 		$_SESSION["selezionatoVeicolo"] = false;
 	}
 
+	if(isset($_POST["ricerca"]) && isset($_POST["annoRicerca"])){
+		$SetParameters["ricercaCasaProd"] = $db->getCasaProduttriceConRiparazioni($_POST["annoRicerca"]);
+		print_r($SetParameters["ricercaCasaProd"]);
+	}
 	// Faccio i controlli per i 3 step d'inserimento
 	if(isset($_POST["avanti"]) && isset($_POST["selezioneCliente"])) {
 		// Cliente inserito
@@ -30,11 +34,11 @@
 	} else if($_SESSION["selezionatoCliente"] && !$_SESSION["selezionatoVeicolo"] && isset($_POST["avanti"]) && isset($_POST["selezioneVeicolo"])) {
 		// Veicolo inserito
 		$_SESSION["selezionatoVeicolo"] = true;
-		$_SESSION["veicoloCod"] = $_POST["selezioneVeicolo"];
-		$_SESSION["veicoloSpecifiche"] = $db->getVeicoloUsatoSpecifico($_SESSION["veicoloCod"]);
+		$_SESSION["veicoloTarga"] = $_POST["selezioneVeicolo"];
+		$_SESSION["veicoloSpecifiche"] = $db->getVeicoloUsatoSpecifico($_SESSION["veicoloTarga"]);
 		$_SESSION["meccanici"] = $db->getAllMechanics();
 		//gestire se è vuoto, mandare un messaggio di errore sull'inserire i pezzi
-		$_SESSION["pezzi"] = $db->getCarPieces($_SESSION["veicoloCod"]);
+		$_SESSION["pezzi"] = $db->getCarPieces($_SESSION["veicoloTarga"]);
 	} else if($_SESSION["selezionatoVeicolo"] && isset($_POST["inserisciRiparazione"]) && isset($_POST["nomeRiparazione"])){
 		// Controllo inserimento meccanici
 		if(!isset($_POST["meccaniciSelezionati"]) || (count($_POST["meccaniciSelezionati"]) <= 0)) {
@@ -43,7 +47,7 @@
 			// Dati inseriti pronti da inviare al db
 			//okay quindi bosogna inserire la riparazione e fare join con comprende_pezzo e comprende_meccanico
 			$cliente = $_SESSION["cliente"]["CF_cliente"];
-			$veicolo = $_SESSION["veicoloCod"];
+			$veicolo = $_SESSION["veicoloTarga"];
 			$meccanici = $_POST["meccaniciSelezionati"];  // array di CF di meccanici
 			$nome = $_POST["nomeRiparazione"];
 			$data_inizio = $_POST["dataInizio"];
