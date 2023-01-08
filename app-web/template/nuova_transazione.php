@@ -101,10 +101,12 @@
 			</tr>
 		</thead>
 		<tbody>
-		<?php foreach($SetParameters["transazioni"] as $transazione) :?>
+		<?php foreach($SetParameters["transazioni"] as $transazione) :
+			$agente = $db->checkAgent($transazione["CF_agente"])[0];
+			$cliente = $db->checkClient($transazione["CF_cliente"])[0];?>
 				<tr class="noform">
-					<td><?php echo $transazione["CF_agente"]; ?></td>
-					<td><?php echo $transazione["CF_cliente"]; ?></td>
+					<td><?php echo $agente["nome"]." ".$agente["cognome"]." (".$agente["CF_agente"].")"; ?></td>
+					<td><?php echo $cliente["nome"]." ".$cliente["cognome"]." (".$cliente["CF_cliente"].")"; ?></td>
 					<td><?php echo $db->getVeicoloUsatoSpecifico($transazione["targa"]); ?></td>
 					<td><?php echo $transazione["data_transazione"]; ?></td>
 					<td><?php echo $transazione["tipologia"]; ?></td>
