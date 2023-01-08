@@ -37,37 +37,37 @@ class DatabaseHelper {
         $statement->execute();
     }
 
-    public function insertVeicoloUsato($casa_produttrice, $modello, $anno_produzione, $cilindrata, $km_percorsi){
-        $statement = $this->db->prepare('INSERT INTO VEICOLO_USATO(casa_produttrice, modello, anno_produzione, cilindrata, km_percorsi) VALUES(?, ?, ?, ?, ?)');
-        $statement->bind_param('ssiii', $casa_produttrice, $modello, $anno_produzione, $cilindrata, $km_percorsi);
+    public function insertVeicoloUsato($casa_produttrice, $modello, $anno_produzione, $cilindrata, $km_percorsi, $targa){
+        $statement = $this->db->prepare('INSERT INTO VEICOLO_USATO(casa_produttrice, modello, anno_produzione, cilindrata, km_percorsi, targa) VALUES(?, ?, ?, ?, ?, ?)');
+        $statement->bind_param('ssiiis', $casa_produttrice, $modello, $anno_produzione, $cilindrata, $km_percorsi, $targa);
         $statement->execute();
         #echo "<meta http-equiv='refresh' content='0'>";
     }
 
     #per ogni transazione fare l'update dell'attestao ovvero cambiare il CF_proprietario
-    public function insertTransaction($CF_cliente, $cod_veicolo, $CF_agente, $prezzo, $data_transazione, $tipologia, $ora_transazione){
-        $statement = $this->db->prepare('INSERT INTO TRANSAZIONE(CF_cliente, cod_veicolo, CF_agente, prezzo, data_transazione, tipologia, ora) VALUES(?, ?, ?, ?, ?, ?, ?)');
-        $statement->bind_param('sisisss', $CF_cliente, $cod_veicolo, $CF_agente, $prezzo, $data_transazione, $tipologia, $ora_transazione);
+    public function insertTransaction($CF_cliente, $targa, $CF_agente, $prezzo, $data_transazione, $tipologia, $ora_transazione){
+        $statement = $this->db->prepare('INSERT INTO TRANSAZIONE(CF_cliente, targa, CF_agente, prezzo, data_transazione, tipologia, ora) VALUES(?, ?, ?, ?, ?, ?, ?)');
+        $statement->bind_param('sssisss', $CF_cliente, $targa, $CF_agente, $prezzo, $data_transazione, $tipologia, $ora_transazione);
         $statement->execute();
         echo "<meta http-equiv='refresh' content='0'>";
     }
 
-    public function insertAttestatoProprieta($CF_proprietario, $cod_veicolo, $scaduto, $data_attestato){
-        $statement = $this->db->prepare('INSERT INTO ATTESTATO_PROPRIETA(CF_proprietario, cod_veicolo, scaduto, data_attestato	) VALUES(?, ?, ?, ?)');
-        $statement->bind_param('siis', $CF_proprietario, $cod_veicolo, $scaduto, $data_attestato);
+    public function insertAttestatoProprieta($CF_proprietario, $targa, $scaduto, $data_attestato){
+        $statement = $this->db->prepare('INSERT INTO ATTESTATO_PROPRIETA(CF_proprietario, targa, scaduto, data_attestato	) VALUES(?, ?, ?, ?)');
+        $statement->bind_param('ssis', $CF_proprietario, $targa, $scaduto, $data_attestato);
         $statement->execute();
     }
 
-    public function insertPiece($nome, $cod_veicolo, $costo_unitario, $descrizione){
-        $statement = $this->db->prepare('INSERT INTO PEZZO_RICAMBIO(nome, cod_veicolo, costo_unitario, descrizione) VALUES(?, ?, ?, ?)');
-        $statement->bind_param('siis', $nome, $cod_veicolo, $costo_unitario, $descrizione);
+    public function insertPiece($nome, $targa, $costo_unitario, $descrizione){
+        $statement = $this->db->prepare('INSERT INTO PEZZO_RICAMBIO(nome, targa, costo_unitario, descrizione) VALUES(?, ?, ?, ?)');
+        $statement->bind_param('ssis', $nome, $targa, $costo_unitario, $descrizione);
         $statement->execute();
         echo "<meta http-equiv='refresh' content='0'>";
     }
 
-    public function insertRepair($CF_cliente, $cod_veicolo, $data_inizio, $data_fine, $costo_totale){
-        $statement = $this->db->prepare('INSERT INTO RIPARAZIONE(CF_cliente, cod_veicolo, data_inizio, data_fine, costo_totale) VALUES(?, ?, ?, ?, ?)');
-        $statement->bind_param('sissi', $CF_cliente, $cod_veicolo, $data_inizio, $data_fine, $costo_totale);
+    public function insertRepair($CF_cliente, $targa, $data_inizio, $data_fine, $costo_totale){
+        $statement = $this->db->prepare('INSERT INTO RIPARAZIONE(CF_cliente, targa, data_inizio, data_fine, costo_totale) VALUES(?, ?, ?, ?, ?)');
+        $statement->bind_param('ssssi', $CF_cliente, $targa, $data_inizio, $data_fine, $costo_totale);
         $statement->execute();
     }
     
@@ -83,12 +83,12 @@ class DatabaseHelper {
         $statement->execute();
     }
 
-    public function updateCertificate($scaduto, $CF_proprietario, $cod_veicolo ){
+    public function updateCertificate($scaduto, $CF_proprietario, $targa ){
             $statement = $this->db->prepare("UPDATE ATTESTATO_PROPRIETA
                                             SET scaduto = ?,
                                             CF_proprietario = ?
-                                            WHERE cod_veicolo =  ? ");
-        $statement->bind_param("isi", $scaduto, $CF_proprietario, $cod_veicolo);
+                                            WHERE targa =  ? ");
+        $statement->bind_param("iss", $scaduto, $CF_proprietario, $targa);
         $statement->execute();
     }
 
@@ -234,12 +234,12 @@ class DatabaseHelper {
     public function updateEverything($email, $telefono, $paga_oraria, $CF, $type){
         if ($type == 1){
             echo($paga_oraria);
-            $statement = $this->db->prepare("UPDATE AGENTE SET email = ?, telefono = ?, paga_oraria = ? WHERE CF_agente =  ? ");
+            $statement = $this->db->prepare("UPDATE AGENTE SET email = ?, telefono = ?, paga_oraria = ? WHERE codice_fiscale =  ? ");
             $statement->bind_param('ssis', $email, $telefono, $paga_oraria, $CF);
         }else if ($type == 2){
             $statement = $this->db->prepare("UPDATE MECCANICO
                                             SET email = ?, telefono = ?, paga_oraria = ?
-                                            WHERE CF_meccanico =  ? ");
+                                            WHERE codice_fiscale =  ? ");
             $statement->bind_param('ssis', $email, $telefono, $paga_oraria, $CF);
         }
         $statement->execute();
@@ -251,16 +251,6 @@ class DatabaseHelper {
         $statement->bind_param('i', $cod_veicolo_nuovo);
         $statement->execute();
         #fvecho "<meta http-equiv='refresh' content='0'>";
-    }
-
-    #visualizzazione attestati per un determinato utente, sia scaduti che non
-    public function getOwnershipForClient($CF){
-        $statement = $this->db->prepare("SELECT cod_veicolo, data_attestato FROM ATTESTATO_PROPRIETA WHERE CF_proprietario = ?");
-		$statement->bind_param('is', $cod_veicolo, $data_attestato);
-		$statement->execute();
-		$result = $statement->get_result();
-		
-		return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     #visualizzazione attestato di proprietà valido per un determinato utente se c'è
@@ -275,9 +265,9 @@ class DatabaseHelper {
     }
 
     #visualizzazione elenco tutti proprietari di un veicolo, ora prendo i cf poi capire se voglio i nomk
-    public function getOwnersForCar($cod_veicolo){
-        $statement = $this->db->prepare("SELECT CF_proprietario FROM ATTESTATO_PROPRIETA WHERE cod_veicolo = ? ");
-		$statement->bind_param('i', $cod_veicolo);
+    public function getOwnersForCar($targa){
+        $statement = $this->db->prepare("SELECT CF_proprietario FROM ATTESTATO_PROPRIETA WHERE targa = ? ");
+		$statement->bind_param('s', $targa);
 		$statement->execute();
 		$result = $statement->get_result();
 		
@@ -285,9 +275,9 @@ class DatabaseHelper {
     }
 
     #stampa proprietario del veicolo se c'è sennò stampa che è di proprietà dell'officina(ovvero se tutti hanno scaduto=1)
-    public function getActualOwnerForCar($cod_veicolo){
-        $statement = $this->db->prepare("SELECT CF_proprietario FROM ATTESTATO_PROPRIETA WHERE cod_veicolo = ? AND scaduto = 0");
-		$statement->bind_param('i', $cod_veicolo);
+    public function getActualOwnerForCar($targa){
+        $statement = $this->db->prepare("SELECT CF_proprietario FROM ATTESTATO_PROPRIETA WHERE targa = ? AND scaduto = 0");
+		$statement->bind_param('s', $targa);
 		$statement->execute();
 		$result = $statement->get_result();
 		$data = $result->fetch_array(MYSQLI_ASSOC);
@@ -299,9 +289,9 @@ class DatabaseHelper {
     }
 
     #dal modello data di produzione e casa produttrice individuare il codice veicolo
-    public function getCarCod($modello, $casa_produttrice, $data_produzione, $cilindrata, $km_percorsi){
-        $statement = $this->db->prepare("SELECT cod_veicolo_usato FROM VEICOLO_USATO WHERE modello = ? AND casa_produttrice = ? AND anno_produzione = ? AND cilindrata = ? AND km_percorsi = ?");
-		$statement->bind_param('ssiii', $modello, $casa_produttrice, $data_produzione, $cilindrata, $km_percorsi);
+    public function getCarCod($targa){
+        $statement = $this->db->prepare("SELECT cod_veicolo_usato FROM VEICOLO_USATO WHERE targa = ? ");
+		$statement->bind_param('s', $targa);
 		$statement->execute();
 		$result = $statement->get_result();
 		$data = $result->fetch_array(MYSQLI_ASSOC);
@@ -311,7 +301,7 @@ class DatabaseHelper {
     public function getAllGarageCar(){
         $statement = $this->db->prepare("SELECT v.*,a.CF_proprietario, c.nome  AS 'nome_proprietario', c.cognome AS 'cognome_proprietario'
         FROM ATTESTATO_PROPRIETA a 
-        JOIN VEICOLO_USATO v ON a.cod_veicolo = v.cod_veicolo_usato
+        JOIN VEICOLO_USATO v ON a.targa = v.targa
         JOIN CLIENTE c ON a.CF_proprietario = c.CF_cliente
         WHERE a.scaduto=1");
 		$statement->execute();
@@ -323,7 +313,7 @@ class DatabaseHelper {
     public function getAllClientsCar(){
         $statement = $this->db->prepare("SELECT v.*,a.CF_proprietario, c.nome  AS 'nome_proprietario', c.cognome AS 'cognome_proprietario'
         FROM ATTESTATO_PROPRIETA a 
-        JOIN VEICOLO_USATO v ON a.cod_veicolo = v.cod_veicolo_usato
+        JOIN VEICOLO_USATO v ON a.targa = v.targa
         JOIN CLIENTE c ON a.CF_proprietario = c.CF_cliente
         WHERE a.scaduto=0");
 		$statement->execute();
@@ -332,7 +322,6 @@ class DatabaseHelper {
 		return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    #ottieni0 tutti i codici
     public function getAllCarCodes(){
         $statement = $this->db->prepare("SELECT cod_veicolo FROM VEICOLO ");
 		$statement->execute();
@@ -363,7 +352,7 @@ class DatabaseHelper {
     }
 
     public function getClientValidCar($scaduto, $CF_cliente){
-        $statement = $this->db->prepare("SELECT v.* FROM attestato_proprieta a, veicolo_usato v WHERE a.cod_veicolo = v.cod_veicolo_usato AND scaduto=? AND CF_proprietario=?");
+        $statement = $this->db->prepare("SELECT v.* FROM attestato_proprieta a, veicolo_usato v WHERE a.targa = v.targa AND scaduto=? AND CF_proprietario=?");
         $statement->bind_param('is', $scaduto, $CF_cliente);
         $statement->execute();
         $result = $statement->get_result();
@@ -413,9 +402,9 @@ class DatabaseHelper {
 		return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getVeicoloUsatoSpecifico($cod_veicolo){
-        $statement = $this->db->prepare("SELECT * FROM VEICOLO_USATO WHERE cod_veicolo_usato = ?");
-        $statement->bind_param('i', $cod_veicolo);
+    public function getVeicoloUsatoSpecifico($targa){
+        $statement = $this->db->prepare("SELECT * FROM VEICOLO_USATO WHERE targa = ?");
+        $statement->bind_param('s', $targa);
 		$statement->execute();
 		$result = $statement->get_result();
         $data = $result->fetch_array(MYSQLI_ASSOC);
@@ -457,17 +446,17 @@ class DatabaseHelper {
 		return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getRepairId($CF_cliente, $cod_veicolo, $data_inizio, $data_fine, $costo_totale){
-        $statement = $this->db->prepare("SELECT id_riparazione FROM RIPARAZIONE WHERE CF_cliente = ? AND cod_veicolo = ? AND data_inizio = ? AND data_fine = ? AND costo_totale = ?");
-        $statement->bind_param('sissi', $CF_cliente, $cod_veicolo, $data_inizio, $data_fine, $costo_totale);
+    public function getRepairId($CF_cliente, $targa, $data_inizio, $data_fine, $costo_totale){
+        $statement = $this->db->prepare("SELECT id_riparazione FROM RIPARAZIONE WHERE CF_cliente = ? AND targa = ? AND data_inizio = ? AND data_fine = ? AND costo_totale = ?");
+        $statement->bind_param('ssssi', $CF_cliente, $targa, $data_inizio, $data_fine, $costo_totale);
         $statement->execute();
 		$result = $statement->get_result();
 		return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getCarPieces($cod_veicolo){
-        $statement = $this->db->prepare("SELECT * FROM PEZZO_RICAMBIO WHERE cod_veicolo = ? ");
-        $statement->bind_param('i', $cod_veicolo);
+    public function getCarPieces($targa){
+        $statement = $this->db->prepare("SELECT * FROM PEZZO_RICAMBIO WHERE targa = ? ");
+        $statement->bind_param('s', $targa);
         $statement->execute();
 		$result = $statement->get_result();
 		
@@ -482,13 +471,38 @@ class DatabaseHelper {
 		return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function updateTransazioni($cod_veicolo_usato, $usato ,$cod_veicolo_nuovo, $nuovo){
-        $statement = $this->db->prepare("UPDATE TRANSAZIONE
-                                        SET cod_veicolo = ?,
-                                        tipo_veicolo = ?
-                                        WHERE cod_veicolo =  ?
-                                        AND tipo_veicolo = ? ");
-        $statement->bind_param('isis', $cod_veicolo_usato, $usato ,$cod_veicolo_nuovo, $nuovo);
+    public function updateKmPercorsi($kmPercorsiVeicolo, $targa){
+        $statement = $this->db->prepare("UPDATE VEICOLO_USATO
+                                        SET km_percorsi = ?,
+                                        WHERE targa =  ?");
+        $statement->bind_param('is', $kmPercorsiVeicolo, $targa);
+        $statement->execute();
+		$result = $statement->get_result();
+		
+		return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getCasaProduttriceConRiparazioni($anno_produzione){
+        $statement = $this->db->prepare("SELECT casa_produttrice, COUNT(casa_produttrice) AS n_riparazioni
+                                         FROM riparazione, veicolo_usato
+                                         WHERE riparazione.targa = veicolo_usato.targa
+                                         AND YEAR(data_inizio) = ?
+                                         GROUP BY casa_produttrice
+                                         HAVING COUNT(casa_produttrice)>5
+                                         ORDER BY COUNT(casa_produttrice)");
+        $statement->bind_param('i', $anno_produzione);
+        $statement->execute();
+		$result = $statement->get_result();
+		
+		return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getMeccanicoPiuPresente(){
+        $statement = $this->db->prepare("SELECT meccanico.CF_meccanico, meccanico.nome, meccanico.cognome, COUNT(meccanico.CF_meccanico) AS n_riparazioni
+                                         FROM meccanico , comprende_meccanico
+                                         WHERE comprende_meccanico.CF_meccanico = meccanico.CF_meccanico
+                                         GROUP BY meccanico.CF_meccanico
+                                         ORDER BY COUNT(meccanico.CF_meccanico) DESC LIMIT 5");
         $statement->execute();
 		$result = $statement->get_result();
 		
@@ -507,7 +521,16 @@ class DatabaseHelper {
 		$result = $statement->get_result();
 		return $result->fetch_array(MYSQLI_ASSOC);
     }
-}
 
+
+    public function getmonthName($mese){
+        $statement = $this->db->prepare("SELECT MONTHNAME(?)");
+        $statement->bind_param('s', $mese);
+		$statement->execute();
+		$result = $statement->get_result();
+        $data = $result->fetch_array(MYSQLI_ASSOC);
+        return $data;
+    }
+}
 
 ?>
