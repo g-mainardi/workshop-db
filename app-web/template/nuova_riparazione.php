@@ -44,10 +44,6 @@
 					</ul>
 				</fieldset>
 			</li>
-			<li>		
-				<label for="nomeRiparazione"> Nome o breve descrizione della riparazione: </label>
-				<input type="text" name="nomeRiparazione" placeholder="Nome riparazione" maxlength="50" required>
-			</li>
 			<?php if(!empty($_SESSION["pezzi"])) : ?>
 				<li>
 					<label for="selezionePezzi"> Seleziona gli eventuali pezzi di ricambio usati: </label>
@@ -99,9 +95,10 @@
 			</tr>
 		</thead>
 		<tbody>
-		<?php foreach($SetParameters["riparazioni"] as $riparazione) :?>
+		<?php foreach($SetParameters["riparazioni"] as $riparazione) :
+			$cliente = $db->checkClient($riparazione["CF_cliente"])[0];?>
 				<tr class="noform">
-					<td><?php echo $db->getUser($riparazione["CF_cliente"])[0]["nome"]." ".$db->getUser($riparazione["CF_cliente"])[0]["cognome"]; ?></td>
+					<td><?php echo $cliente["nome"]." ".$cliente["cognome"]." (".$cliente["CF_cliente"].")"; ?></td>
 					<td><?php echo $db->getVeicoloUsatoSpecifico($riparazione["targa"]); ?></td>
 					<td><?php echo $riparazione["data_inizio"]; ?></td>
 					<td><?php echo $riparazione["data_fine"]; ?></td>

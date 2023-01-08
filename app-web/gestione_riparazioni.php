@@ -39,7 +39,7 @@
 		$_SESSION["meccanici"] = $db->getAllMechanics();
 		//gestire se è vuoto, mandare un messaggio di errore sull'inserire i pezzi
 		$_SESSION["pezzi"] = $db->getCarPieces($_SESSION["veicoloTarga"]);
-	} else if($_SESSION["selezionatoVeicolo"] && isset($_POST["inserisciRiparazione"]) && isset($_POST["nomeRiparazione"])){
+	} else if($_SESSION["selezionatoVeicolo"] && isset($_POST["inserisciRiparazione"])){
 		// Controllo inserimento meccanici
 		if(!isset($_POST["meccaniciSelezionati"]) || (count($_POST["meccaniciSelezionati"]) <= 0)) {
 			echo "Errore : Inserire almeno un meccanico";
@@ -49,7 +49,6 @@
 			$cliente = $_SESSION["cliente"]["CF_cliente"];
 			$veicolo = $_SESSION["veicoloTarga"];
 			$meccanici = $_POST["meccaniciSelezionati"];  // array di CF di meccanici
-			$nome = $_POST["nomeRiparazione"];
 			$data_inizio = $_POST["dataInizio"];
 			$data_fine = $_POST["dataFine"];
 			$costo_totale = $_POST["costo_totale"];
