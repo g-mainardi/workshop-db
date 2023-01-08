@@ -56,6 +56,12 @@
 				<?php endif;?>
 				</select>
 			</li>
+			<?php if(isset($SetParameters["selezionati"]) && $SetParameters["tipo"]=="vendita" && $SetParameters["tipoVeicolo"]=="nuovo"):?>
+			<li>
+				<label for="targaNuovoVeicolo"> Inserisci la targa : </label>
+				<input type="text" name="targaNuovoVeicolo" placeholder="Inserire targa" required>
+			</li>
+			<?php endif; ?>
 			<?php if(isset($SetParameters["selezionati"])): ?>
 			<?php if($SetParameters["tipo"]=="acquisto" && $SetParameters["tipoVeicolo"]=="nuovo"): ?>
 				<h5> L'officina non può acquistare veicoli nuovi poichè sono già di sua proprietà!</h5>
@@ -65,7 +71,7 @@
 				<select name="selezioneVeicolo" required>
 				<?php if($SetParameters["tipoVeicolo"]=="usato"): ?>
 					<?php foreach($SetParameters["veicoli"] as $veicolo) :?>
-						<option value=<?php echo $veicolo["cod_veicolo_usato"]?>><?php echo $veicolo["casa_produttrice"]." - ".$veicolo["modello"]." (".$veicolo["anno_produzione"].")"?></option>
+						<option value=<?php echo $veicolo["targa"]?>><?php echo $veicolo["casa_produttrice"]." - ".$veicolo["modello"]." (".$veicolo["anno_produzione"].")"?></option>
 					<?php endforeach; ?>
 				<?php else: ?>
 					<?php foreach($SetParameters["veicoli"] as $veicolo) :?>
@@ -99,7 +105,7 @@
 				<tr class="noform">
 					<td><?php echo $transazione["CF_agente"]; ?></td>
 					<td><?php echo $transazione["CF_cliente"]; ?></td>
-					<td><?php echo $db->getVeicoloUsatoSpecifico($transazione["cod_veicolo"]); ?></td>
+					<td><?php echo $db->getVeicoloUsatoSpecifico($transazione["targa"]); ?></td>
 					<td><?php echo $transazione["data_transazione"]; ?></td>
 					<td><?php echo $transazione["tipologia"]; ?></td>
 					<td><?php echo $transazione["prezzo"]; ?></td>
