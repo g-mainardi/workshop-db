@@ -34,14 +34,13 @@
 		<input type="submit" name="inserisciAgente"  value="Inserisci agente">
 	</form>
 </section>
-
 <section>
 	<h2>Cerca l'agente del mese</h2>
 	<?php if(isset($agenteDelMese)):?>
 		<table class="singola">
 			<thead>
 				<tr>
-					<th>L'agente che ha fatto più vendite in <?php echo monthName($mese)." ".$anno." è ";?></th>
+					<th>L'agente che ha fatto più vendite in <?php echo $db->getmonthName($mese)." ".$anno." è ";?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -64,7 +63,6 @@
 	</form>
 	<?php endif;?>
 </section>
-
 <section class="tabelle">
 	<h2>Agenti registrati</h2>
 	<p>È possibile modificare Telefono, Mail e Paga Oraria di un agente</p>
