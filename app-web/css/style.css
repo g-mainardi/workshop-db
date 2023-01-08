@@ -227,3 +227,7 @@ table.singola > tbody > tr{
 	background-color: #7272725c;
 	color: white;
 }
+
+td.elenco > ul{
+	display: inline;
+}

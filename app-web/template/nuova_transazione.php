@@ -110,7 +110,7 @@
 					<td><?php echo $db->getVeicoloUsatoSpecifico($transazione["targa"]); ?></td>
 					<td><?php echo $transazione["data_transazione"]; ?></td>
 					<td><?php echo $transazione["tipologia"]; ?></td>
-					<td><?php echo $transazione["prezzo"]; ?></td>
+					<td><?php echo $transazione["prezzo"]."€"; ?></td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>

@@ -91,18 +91,29 @@
 	<table>
 		<thead>
 			<tr>
-				<th>CLIENTE</th><th>VEICOLO</th><th>DATA_INIZIO</th><th>DATA_FINE</th><th>COSTO</th>
+				<th>CLIENTE</th><th>VEICOLO</th><th>DATA_INIZIO</th><th>DATA_FINE</th><th>COSTO</th><th>MECCANICI</th><th>PEZZI DI RICAMBIO</th>
 			</tr>
 		</thead>
 		<tbody>
 		<?php foreach($SetParameters["riparazioni"] as $riparazione) :
-			$cliente = $db->checkClient($riparazione["CF_cliente"])[0];?>
+			$cliente = $db->checkClient($riparazione["CF_cliente"])[0];
+			$meccanici = $db->getRepairMechanics($riparazione["id_riparazione"]);
+			$pezzi = $db->getRepairPieces($riparazione["id_riparazione"]);?>
 				<tr class="noform">
 					<td><?php echo $cliente["nome"]." ".$cliente["cognome"]." (".$cliente["CF_cliente"].")"; ?></td>
 					<td><?php echo $db->getVeicoloUsatoSpecifico($riparazione["targa"]); ?></td>
 					<td><?php echo $riparazione["data_inizio"]; ?></td>
 					<td><?php echo $riparazione["data_fine"]; ?></td>
-					<td><?php echo $riparazione["costo_totale"]; ?></td>
+					<td><?php echo $riparazione["costo_totale"]."€"; ?></td>
+					<td class="elenco">
+						<ul>
+							<?php foreach($meccanici as $meccanico){echo "<li>".$meccanico["nome"]." ".$meccanico["cognome"]." - ".$meccanico["CF_meccanico"]."</li>";} ?>
+						</ul>
+					</td>
+					<td class="elenco">
+						<ul>
+							<?php foreach($pezzi as $pezzo){echo "<li>".$pezzo["nome"]."</li>";} ?></td>
+						</ul>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>

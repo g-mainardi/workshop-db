@@ -492,6 +492,23 @@ class DatabaseHelper {
 		return $result->fetch_array(MYSQLI_ASSOC);
     }
 
+    public function getRepairMechanics($id_riparazione){
+        $statement = $this->db->prepare("SELECT m.* FROM MECCANICO m, COMPRENDE_MECCANICO c WHERE c.id_riparazione = ? AND m.CF_meccanico = c.CF_meccanico");
+        $statement->bind_param('i', $id_riparazione);
+        $statement->execute();
+        $result = $statement->get_result();
+		
+		return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    
+    public function getRepairPieces($id_riparazione){
+        $statement = $this->db->prepare("SELECT p.* FROM PEZZO_RICAMBIO p, COMPRENDE_PEZZO c WHERE c.id_riparazione = ? AND p.id_pezzo = c.id_pezzo");
+        $statement->bind_param('i', $id_riparazione);
+        $statement->execute();
+        $result = $statement->get_result();
+		
+		return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 
 ?>
