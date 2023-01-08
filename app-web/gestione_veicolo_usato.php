@@ -6,7 +6,11 @@
     $SetParameters["file"] = "nuovo_veicolo_usato.php";
 	array_push($SetParameters["scripts"], "./js/script.js");
 
-	if(isset($_POST["veicoloCasaProd"]) && isset($_POST["veicoloModello"]) && isset($_POST["veicoloCilindrata"]) && isset($_POST["veicoloAnnoProd"]))
+	if(isset($_POST["aggiornaKmPercorsi"])){
+		$db->updateKmPercorsi($_POST["kmPercorsiVeicolo"], $_POST["veicoloCod"]);
+	}
+
+	if(isset($_POST["veicoloCasaProd"]) && isset($_POST["veicoloModello"]) && isset($_POST["veicoloCilindrata"]) && isset($_POST["veicoloAnnoProd"]) && isset($_POST["veicoloTarga"]))
 	{
 		// Controllo se cilindrata inserita correttamente
 		if(!is_numeric($_POST['veicoloCilindrata'])){
@@ -20,10 +24,9 @@
 				echo("la data di acquisizione è sbagliata, non si può comprare un veicolo prima che questo sia prodotto.");
 			}else{
 				$db->insertVeicoloUsato($_POST["veicoloCasaProd"], $_POST["veicoloModello"],
-							$_POST["veicoloAnnoProd"], $_POST["veicoloCilindrata"], $_POST["veicoloKmPercorsi"]);
-				$cod_veicolo = $db->getCarCod( $_POST["veicoloModello"], $_POST["veicoloCasaProd"], $_POST["veicoloAnnoProd"], $_POST["veicoloCilindrata"], $_POST["veicoloKmPercorsi"]);
+							$_POST["veicoloAnnoProd"], $_POST["veicoloCilindrata"], $_POST["veicoloKmPercorsi"], $_POST["veicoloTarga"]);
 				$scaduto = 0;
-				$db->insertAttestatoProprieta($_POST["proprietarioVeicolo"], $cod_veicolo, $scaduto, $dataAppropriazione);
+				$db->insertAttestatoProprieta($_POST["proprietarioVeicolo"],$_POST["veicoloTarga"], $scaduto, $dataAppropriazione);
 			}
 		}
     }
