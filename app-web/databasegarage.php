@@ -522,15 +522,6 @@ class DatabaseHelper {
 		return $result->fetch_array(MYSQLI_ASSOC);
     }
 
-
-    public function getmonthName($mese){
-        $statement = $this->db->prepare("SELECT MONTHNAME(?)");
-        $statement->bind_param('s', $mese);
-		$statement->execute();
-		$result = $statement->get_result();
-        $data = $result->fetch_array(MYSQLI_ASSOC);
-        return $data;
-    }
 }
 
 ?>

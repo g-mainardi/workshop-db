@@ -40,7 +40,7 @@
 		<table class="singola">
 			<thead>
 				<tr>
-					<th>L'agente che ha fatto più vendite in <?php echo $db->getmonthName($mese)." ".$anno." è ";?></th>
+					<th>L'agente che ha fatto più vendite in <?php echo monthname($mese)." ".$anno." è ";?></th>
 				</tr>
 			</thead>
 			<tbody>
