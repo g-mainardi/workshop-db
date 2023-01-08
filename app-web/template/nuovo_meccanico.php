@@ -65,5 +65,6 @@
 			</form>
 			<?php endforeach; ?>
 		</tbody>
+	    <h5>Il meccanico che ha effettuato più riparazioni è : <?php echo $SetParameters["meccanico_migliore"][0]["nome"]; ?> <?php echo $SetParameters["meccanico_migliore"][0]["cognome"]; ?></h5>
 	</table>
 </section>
