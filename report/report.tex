@@ -54,7 +54,7 @@
 \chapter{Analisi dei requisiti}
 L'autofficina \textbf{DB-Garage}$^{\copyright}$ richiede la realizzazione di un database per la gestione di automobili,
 %
-clienti, dipendenti e delle loro interazioni, ovvero riparazioni e acquisto o vendita dei veicoli. Vengono di seguito 
+clienti, dipendenti e delle loro interazioni, ovvero riparazioni e acquisto o vendita di veicoli, nuovi o usati. Vengono di seguito 
 %
 descritti gli aspetti caratterizzanti del dominio.
 
@@ -64,31 +64,41 @@ Di ogni utente del portale (cliente o impiegato) è necessario memorizzare: codi
 %
 data di nascita e telefono. Si può inoltre aggiungere, preferibilmente, anche una e-mail per le eventuali comunicazioni. 
 %
+La mail e il telefono di ogni utente devono poter essere aggiornati nel caso in cui il contatto del cliente o dell'impiegato cambi.
+%
 I dipendenti si differenziano in base al tipo di attività che possono svolgere, che può essere quello di riparazioni o 
 %
 quello di compravendita.
 %
 Il primo tipo di lavoratori è formato da meccanici ed il secondo da agenti automobilistici, di entrambi si vuole memorizzare 
 %
-anche la retribuzione oraria.
+anche la retribuzione oraria, che deve poter essere aggiornata, in caso di modifiche contrattuali.
 
-Le automobili sono identificate da modello e casa produttrice, ma hanno anche cilindrata e anno di produzione.
+Le automobili appartengono tutte a una casa produttrice, hanno un modello, una cilindrata e un anno di produzione.
+%
+In aggiunta, le auto usate hanno già la targa, univoca, e, avendo già circolato prima dell'inserimento in officina, 
+%
+occorre tener conto dei km percorsi ed eventualmente aggiornarli.
 %
 Ciascun veicolo può essere oggetto di molteplici attestati di proprietà con il suo utente proprietario, 
 %
 ma un auto potrà avere solo un attestato non scaduto, altrimenti vorrà dire che è di proprietà dell'officina.
 
-Ogni riparazione ad una determinata automobile coinvolge uno o più meccanici per ciascuno dei quali deve 
+Le riparazioni sono relative alle automobili usate, hanno un costo totale concordato con il cliente, coinvologono
 %
-essere tenuta traccia del numero di ore dedicate.
+uno o più meccanici e in caso utilizzano anche dei pezzi di ricambio.
+
+Per avere una panoramica della qualità dei marchi di automobili, i meccanici ritengono utile avere la lista delle 
 %
-Inoltre, il sistema deve considerare gli eventuali pezzi di ricambio utilizzati che sono individuati da 
+case produttrici i cui veicoli hanno avuto più di 10 riparazioni nell'ultimo anno.
+
+Inoltre per tenere traccia dei lavoratori con più esperienza o qualità, si vuole stilare la classifica dei 5 meccanici
+%
+più laboriosi in ordine di n° di riparazioni effettuate in totale dall'apertura dell'officina.
+
+Il sistema deve considerare gli eventuali pezzi di ricambio utilizzati che sono individuati da 
 %
 casa produttrice e modello di riferimento, con l'aggiunta del costo unitario e una breve descrizione se necessaria.
-%
-Il costo totale di ciascuna riparazione viene stabilito a lavoro finito, basandosi sul conto delle ore 
-%
-impiegate di ciascun meccanico e dell’utilizzo di eventuali pezzi di ricambio.
 
 Ogni transazione nel reparto compravendita viene effettuata da un agente automobilistico con un cliente 
 %
@@ -97,6 +107,10 @@ e riguarda uno specifico veicolo, di essa si vogliono memorizzare se sia acquist
 dall'utente) o vendita(l'officina vende l'auto ad un utente), prezzo concordato e la data. 
 % 
 Una transazione, una volta effettuata, determinerà un passaggio di proprietà del veicolo in oggetto
+
+L'officina vuole premiare gli agenti meritevoli e quindi deve essere possibile ottenere il venditore che ha fatto
+%
+più transazioni in uno specifico mese. 
 
 La base di dati deve mantenere in memoria sia la data di inizio che la data di fine di ogni riparazione effettuata,
 %
@@ -122,7 +136,7 @@ di ogni transazione e di ogni attestato di proprietà, così da poter essere mos
 		\hline\rule[-3mm]{0mm}{0.85cm}
 		Meccanico & & \quantities{Dipendente dell'officina che esegue riparazioni.} \\
 		\hline\rule[-3mm]{0mm}{0.85cm}
-		Agente & Agente automobilistico & \quantities{Dipendente dell'officina che esegue transazioni.}\\
+		Agente & \quantities{Agente automobilistico, Venditore} & \quantities{Dipendente dell'officina che esegue transazioni.}\\
 		\hline\rule[-3mm]{0mm}{0.85cm}
 		Riparazione & Lavoro & \quantities{Servizio di uno o più meccanici riguardo a un \\veicolo, su richiesta di un cliente.}\\
 		\hline\rule[-3mm]{0mm}{0.85cm}
@@ -143,37 +157,41 @@ di ogni transazione e di ogni attestato di proprietà, così da poter essere mos
 \section{Definizione specifiche in linguaggio naturale}
 L'autofficina \textbf{DB-Garage}$^{\copyright}$ richiede la realizzazione di un database per la gestione di automobili,
 %
-clienti, dipendenti e delle loro interazioni, ovvero riparazioni e acquisto o vendita dei veicoli. Vengono di seguito 
+clienti, dipendenti e delle loro interazioni, ovvero riparazioni e acquisto o vendita di veicoli, nuovi o usati. Vengono di seguito 
 %
 descritti gli aspetti caratterizzanti del dominio.
 
 Un \textbf{Utente} è una persona registrata nel sistema della quale è necessario memorizzare: codice fiscale, nome, cognome,
 %
-data di nascita e telefono, più una e-mail opzionale.
+data di nascita e telefono, più una e-mail opzionale. Telefoo e E-mail devono essere aggiornabili.
 
 Un \textbf{Cliente} è una semplice sottoclasse di Utente senza attributi aggiuntivi, che ha effettuato o deve effettuare 
 %
 una Riparazione o una Transazione.
 
-\textbf{Dipendente} è un'altra sottoclasse ma che ha anche una paga oraria e due sottoclassi a sua volta: \textbf{Meccanico} e \textbf{Agente}.
+\textbf{Dipendente} è un'altra sottoclasse ma che ha anche una paga oraria, aggiornabile, e due sottoclassi a sua volta: \textbf{Meccanico} e \textbf{Agente}.
 
-L'oggetto principale delle operazioni del sistema è il \textbf{Veicolo} che è identificato da modello e casa produttrice, ma ha anche cilindrata e anno di produzione.
+L'oggetto principale delle operazioni del sistema è il \textbf{Veicolo} che è identificato da modello, casa produttrice, cilindrata e anno di produzione.
+%
+I veicoli possono essere nuovi o usati, quelli usati sono identificati univocamente dalla targa e inoltre ne vengono 
+%
+memorizzati anche i km percorsi, quest'ultimo attributo deve poter essere aggiornato.
 %
 Ciascun Veicolo può essere oggetto di molteplici \textbf{Attestati} con il suo \underline{Utente proprietario}, 
 %
 ma un Veicolo potrà avere solo un Attestato non scaduto, altrimenti vorrà dire che è di proprietà dell'\textit{Officina}.
 
-Ogni \textbf{Riparazione} ad un determinato Veicolo coinvolge uno o più \textbf{Meccanici} per ciascuno dei quali deve 
+Le \textbf{Riparazioni} sono relative solo ai Veicoli \underline{usati}, hanno un costo totale, coinvologono uno o più 
 %
-essere tenuta traccia del numero di ore dedicate.
+\textbf{Meccanici} e opzionalmente dei pezzi di ricambio.
+
+L'\textit{Officina} ritiene utile avere una \underline{Lista delle case produttrici} i cui veicoli hanno avuto più di 10 riparazioni
+%
+nell'ultimo anno e la \underline{Classifica di 5 Meccanici} in ordine di n° di riparazioni effettuate in totale.
 
 Inoltre, il sistema deve considerare gli eventuali \textbf{Pezzi di ricambio} utilizzati che sono individuati da 
 %
 casa produttrice e modello di riferimento, con l'aggiunta del costo unitario e una breve descrizione, opzionale.
-
-Il costo totale di ciascuna Riparazione viene stabilito all'inserimento nel sistema, tenendo conto delle ore 
-%
-impiegate da ciascun Meccanico e della quantità dei Pezzi di ricambio.
 
 Ogni \textbf{Transazione} viene effettuata da un \textbf{Agente} con un \textbf{Cliente} e riguarda un specifico \textbf{Veicolo},
 %
@@ -181,11 +199,14 @@ di essa si vuole memorizzare se sia acquisto(l'\textit{Officina} compra l'auto d
 % 
 vende l'auto ad un Utente), prezzo e data. 
 
+\noindent
 Una Transazione determina un passaggio di proprietà del Veicolo in oggetto, quindi il relativo \textbf{Attestato} 
 %
 dovrà essere posto come scaduto e ne sarà inserito un altro se il Veicolo passa ad un Cliente(\underline{Transazione di Vendita}),
 %
 mentre se passa all'\textit{Officina}(\underline{Transazione di Acquisto}) no.
+
+Deve essere possibile ottenere l' \underline{Agente del mese}, cioè quello con più transazioni in un dato periodo. 
 
 Devono essere tenute in memoria sia la data di inizio che la data di fine di ogni Riparazione effettuata, di ogni Transazione e di 
 %
@@ -193,19 +214,20 @@ ogni Attestato.
 
 \subsection*{Principali azioni richieste:}
 \begin{enumerate}
-	\item Inserimento nuovo cliente
-	\item Inserimento nuovo veicolo
+	\item Inserimento cliente
+	\item Inserimento veicolo usato
 	\item Inserimento riparazione
 	\item Inserimento transazione
-	\item Inserimento atto di proprietà
 	\item Visualizza elenco clienti
-	\item Visualizza elenco meccanici
-	\item Visualizza elenco agenti
-	\item Visualizza elenco riparazioni effettuate da un meccanico
-	\item Visualizza elenco pezzi ricambi usati per una certa riparazione
-	\item Visualizza elenco veicoli che possiede un determinato cliente
-	\item Visualizza elenco solo veicoli in vendita (veicoli dell'officina)
+	\item Visualizza elenco veicoli nuovi
+	\item Visualizza elenco veicoli dei clienti
+	\item Visualizza elenco veicoli usati in vendita 
+	\item Visualizza le case produttrici più carenti dell'anno 
+	\item Visualizza i 5 meccanici più laboriosi
+	\item Ottieni l'agente del mese
 	\item Aggiorna attributo scaduto su atto di proprietà
+	\item Aggiorna attributo e-mail
+	\item Aggiorna attributo km percorsi in veicoli usati 
 \end{enumerate}
 
 \chapter{Progettazione Concettuale}
@@ -250,7 +272,9 @@ ogni Attestato.
 		\hline\rule[-2mm]{0mm}{0.75cm}
 		Riguardo & R & 6000 \\
 		\hline\rule[-2mm]{0mm}{0.75cm}
-		Veicolo & E & 5000 \\
+		Veicolo Nuovo & E & 1200 \\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Veicolo Usato & E & 5000 \\
 		\hline\rule[-2mm]{0mm}{0.75cm}
 		Coinvolgimento & R & 1000\\
 		\hline\rule[-2mm]{0mm}{0.75cm}
@@ -290,31 +314,31 @@ ogni Attestato.
 		\rule[-6mm]{0mm}{1.5cm}
 		\textbf{Codice} & \textbf{Operazione} &\textbf{Frequenza} \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		1 & Inserimento nuovo cliente & 5 al giorno \\
+		1 & Inserimento cliente & 8 al giorno \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		2 & Inserimento nuovo veicolo & 6 al giorno \\
+		2 & Inserimento veicolo usato & 10 al giorno \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		3 & Inserimento riparazione & 20 al giorno \\
+		3 & Inserimento riparazione & 18 al giorno \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		4 & Inserimento transazione & 2 a settimana \\
+		4 & Inserimento transazione & 10 a settimana \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		5 & Inserimento atto di proprietà & 4 a settimana \\
+		5 & Visualizza elenco clienti & 25 al giorno \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		6 & Visualizza elenco clienti & 25 al giorno \\
+		6 & Visualizza elenco veicoli nuovi & 10 al giorno \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		7 & Visualizza elenco meccanici & 22 al giorno \\
+		7 & Visualizza elenco veicoli dei clienti & 28 al giorno \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		8 & Visualizza elenco agenti & 3 a settimana \\
+		8 & \quantities{Visualizza elenco veicoli\\usati in vendita} & 12 al giorno  \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		9 & \quantities{Visualizza elenco riparazioni\\effettuate da un meccanico} & 1 al giorno \\
+		9 & \quantities{Visualizza le case produttrici\\più carenti dell'anno} & 1 all'anno  \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		10 & \quantities{Visualizza elenco pezzi ricambi\\usati per una certa riparazione} & 1 al giorno \\
+		10 & \quantities{Visualizza i 5 meccanici\\più laboriosi} & 1 al giorno \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		11 & \quantities{Visualizza elenco veicoli che\\possiede un determinato cliente} & 22 al giorno \\
+		11 & Visualizza l'agente del mese & 1 al mese \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		12 & \quantities{Visualizza elenco solo\\veicoli in vendita} & 3 al giorno\\
+		12 & Aggiorna attributo e-mail & 5 a settimana \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		13 & \quantities{Aggiorna attributo scaduto\\su atto di proprietà} & 2 a settimana \\
+		13 & \quantities{Aggiorna attributo km percorsi\\in veicoli usati} & 1 alla settimana \\
 		\hline
 	\end{tabular}
 \end{figure}
@@ -325,34 +349,38 @@ ogni Attestato.
 	\centering
 	\arrayrulecolor{BlueGreen}
 	\begin{tabular}{L{3cm}C{2.5cm}C{4.5cm}C{2.5cm}}
-		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.65cm}{}
+		\rowcolor{BlueGreen}\rule[-1.5mm]{0mm}{0.60cm}{}
 		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\	
 		\hline\rule[-2mm]{0mm}{0.65cm}{}
 		Cliente & E & 1 & S \\
 	\end{tabular}
 	
 	\begin{tabular}{C{13.9cm}}
-		\rule[-2.5mm]{0mm}{0.8cm}{}	
-		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 1 S $\to$ 2 x 5 = 10 accessi al giorno}
+		\rule[-3mm]{0mm}{0.85cm}{}	
+		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 1 S $\to$ 2 x 8 = 16 accessi al giorno}
 	\end{tabular}
 \end{figure}
 
-\subsection*{Operazione 2: Inserimento veicolo}
+\subsection*{Operazione 2: Inserimento veicolo usato}
 \begin{figure}[ht]
 	\centering
 	\arrayrulecolor{BlueGreen}
 	\begin{tabular}{L{3cm}C{2.5cm}C{4.5cm}C{2.5cm}}
-		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.65cm}{}
+		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.6cm}{}
 		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\
 		\hline\rule[-2mm]{0mm}{0.65cm}{}
 		Cliente & E & 3 000 & L \\
 		\hline\rule[-2mm]{0mm}{0.65cm}{}
-		Veicolo & E & 1 & S \\
+		Veicolo Usato & E & 1 & S \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Veicolo Usato & E & 1 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Attestato & R & 1 & L \\
 	\end{tabular}
 	
 	\begin{tabular}{C{13.9cm}}
-		\rule[-2.5mm]{0mm}{0.8cm}{}	
-		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 1 S + 3 000 L $\to$ 3 002 x 6 = 18 012 accessi al giorno}
+		\rule[-3mm]{0mm}{0.85cm}{}	
+		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 1 S + 3 002 L $\to$ 3 004 x 10 = 30 040 accessi al giorno}
 	\end{tabular}
 \end{figure}
 
@@ -361,13 +389,13 @@ ogni Attestato.
 	\centering
 	\arrayrulecolor{BlueGreen}
 	\begin{tabular}{L{3cm}C{2.5cm}C{4.5cm}C{2.5cm}}
-		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.65cm}{}
+		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.6cm}{}
 		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\
 
 	\end{tabular}
 	
 	\begin{tabular}{C{13.9cm}}
-		\rule[-2.5mm]{0mm}{0.8cm}{}	
+		\rule[-3mm]{0mm}{0.85cm}{}	
 		\cellcolor{BlueGreen} \textbf{\underline{Totale:} S + L $\to$  accessi al giorno}
 	\end{tabular}
 \end{figure}
