@@ -27,6 +27,10 @@
 				</select> 
 			</li>
 			<li>
+				<label for="veicoloTarga"> Targa: </label>
+				<input type="text" name="veicoloTarga" placeholder="Targa" maxlength="7" required>
+			</li>
+			<li>
 				<label for="dataAppropriazione"> Data acquisto veicolo: </label>
 				<input type="date" name="dataAppropriazione" placeholder="dataAppropriazione" required>
 			</li>
@@ -65,20 +69,26 @@
 	<table>
 		<thead>
 			<tr>
-			<th>CASA PRODUZIONE</th><th>MODELLO</th><th>ANNO DI PRODUZIONE</th><th>CILINDRATA(CM3)</th><th>PROPRIETARIO</th><th>KM PERCORSI</th>
+			<th>TARGA</th><th>CASA PRODUZIONE</th><th>MODELLO</th><th>ANNO DI PRODUZIONE</th><th>CILINDRATA(CM3)</th><th>PROPRIETARIO</th><th>KM PERCORSI</th><th>AGGIORNA</th><th>ACQUISTA</th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php foreach($SetParameters["veicoli_officina"] as $veicolo) :?>
-				<tr class="noform">
-					<td><?php echo $veicolo["casa_produttrice"]; ?></td>
-					<td><?php echo $veicolo["modello"]; ?></td>
-					<td><?php echo $veicolo["anno_produzione"]; ?></td>
-					<td><?php echo $veicolo["cilindrata"]; ?></td>
+			<form action="#" method="POST">
+				<tr>
+					<td><input type="hidden" id='<?php echo $veicolo["targa"];?>' name="veicoloTarga" value=<?php echo $veicolo["targa"]; ?>> <?php echo $veicolo["targa"]?></td>
+					<td><input type="hidden" id='<?php echo $veicolo["targa"];?>' name="veicoloCasaProduttrice" value=<?php echo  $veicolo["casa_produttrice"]; ?>><?php echo  $veicolo["casa_produttrice"]; ?></td>
+					<td><input type="hidden" id='<?php echo $veicolo["targa"];?>' name="veicoloModelloUsato" value=<?php echo  $veicolo["modello"]; ?>><?php echo  $veicolo["modello"]; ?></td>
+					<td><input type="hidden" id='<?php echo $veicolo["targa"];?>' name="veicoloAnnoProduzione" value=<?php echo  $veicolo["anno_produzione"]; ?>><?php echo  $veicolo["anno_produzione"]; ?></td>
+					<td><input type="hidden" id='<?php echo $veicolo["targa"];?>' name="veicoloCilindrataUsato" value=<?php echo  $veicolo["cilindrata"]; ?>><?php echo  $veicolo["cilindrata"]; ?></td>
 					<td><?php echo $veicolo["nome_proprietario"]." ".$veicolo["cognome_proprietario"]." - ".$veicolo["CF_proprietario"]; ?></td>
-					<td><?php echo $veicolo["km_percorsi"]; ?></td>
+					<td><input type="number" id='<?php echo $veicolo["targa"];?>' min="1" name="kmPercorsiVeicolo" placeholder="Inserisci km percorsi" value=<?php echo  $veicolo["km_percorsi"]?>></td>
+					<td>
+						<input disabled type="submit" id='<?php echo $veicolo["targa"];?>' name="aggiornaKmPercorsi" value="Aggiorna km percorsi">
+					</td>
 					<td><a href="gestione_transazioni.php">Acquista</a></td>
 				</tr>
+			</form>
 			<?php endforeach; ?>
 		</tbody>
 	</table>
