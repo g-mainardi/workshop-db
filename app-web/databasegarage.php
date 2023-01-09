@@ -9,7 +9,7 @@ class DatabaseHelper {
 		}
 	}
     
-    public function insertCliente($CF_cliente, $nome, $cognome, $data_di_nascita, $telefono, $email) {
+    public function insertCliente($CF, $nome, $cognome, $data_di_nascita, $telefono, $email) {
         $statement = $this->db->prepare('INSERT INTO CLIENTE(CF_cliente, nome, cognome, data_nascita, telefono, email) VALUES(?, ?, ?, ?, ?, ?)');
         $statement->bind_param('ssssss', $CF, $nome, $cognome, $data_di_nascita, $telefono, $email);
         $statement->execute();
