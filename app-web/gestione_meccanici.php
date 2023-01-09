@@ -8,7 +8,8 @@
 
 	// Leggo meccanici dal database
     $SetParameters["meccanici"] =  $db->getAllMechanics();
-	$SetParameters["meccanico_migliore"] = $db->getMeccanicoPiuPresente();
+	$SetParameters["meccanici_migliori"] = $db->getMiglioriMeccanici(); // i 5 meccanici con più riparazioni effettuate
+
 	// Tipo di utente: meccanico -> 2
 	$type = 2;
 

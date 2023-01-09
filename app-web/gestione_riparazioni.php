@@ -22,8 +22,7 @@
 	}
 
 	if(isset($_POST["ricerca"]) && isset($_POST["annoRicerca"])){
-		$SetParameters["ricercaCasaProd"] = $db->getCasaProduttriceConRiparazioni($_POST["annoRicerca"]);
-		print_r($SetParameters["ricercaCasaProd"]);
+		$SetParameters["ricercaCasaProd"] = $db->getCaseProduttriciConRiparazioni($_POST["annoRicerca"]);
 	}
 	// Faccio i controlli per i 3 step d'inserimento
 	if(isset($_POST["avanti"]) && isset($_POST["selezioneCliente"])) {

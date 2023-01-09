@@ -35,6 +35,29 @@
 	</form>
 </section>
 
+<?php if(isset($SetParameters["meccanici_migliori"])):?>
+<section class="grande">
+	<h2>Classifica dei 5 migliori meccanici dell'officina</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>CF</th><th>NOME</th><th>COGNOME</th><th>N°RIPARAZIONI</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach($SetParameters["meccanici_migliori"] as $meccanico):?>
+			<tr class="noform">
+				<td><?php echo $meccanico["CF_meccanico"]?></td>
+				<td><?php echo $meccanico["nome"]?></td>
+				<td><?php echo $meccanico["cognome"]?></td>
+				<td><?php echo $meccanico["n_riparazioni"]?></td>
+			</tr>
+			<?php endforeach;?>
+		</tbody>
+	</table>
+</section>
+<?php endif;?>
+
 <section class="tabelle">
 	<h2>Meccanici registrati</h2>
 	<p>È possibile modificare Telefono, Mail e Paga Oraria di un meccanico</p>
@@ -65,6 +88,5 @@
 			</form>
 			<?php endforeach; ?>
 		</tbody>
-	    <h5>Il meccanico che ha effettuato più riparazioni è : <?php echo $SetParameters["meccanico_migliore"][0]["nome"]; ?> <?php echo $SetParameters["meccanico_migliore"][0]["cognome"]; ?></h5>
 	</table>
 </section>

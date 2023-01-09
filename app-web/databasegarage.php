@@ -452,8 +452,8 @@ class DatabaseHelper {
         $statement->execute();
     }
 
-    public function getCasaProduttriceConRiparazioni($anno_produzione){
-        $statement = $this->db->prepare("SELECT casa_produttrice, COUNT(casa_produttrice) AS n_riparazioni
+    public function getCaseProduttriciConRiparazioni($anno_produzione){
+        $statement = $this->db->prepare("SELECT casa_produttrice as nome, COUNT(casa_produttrice) AS n_riparazioni
                                          FROM riparazione, veicolo_usato
                                          WHERE riparazione.targa = veicolo_usato.targa
                                          AND YEAR(data_inizio) = ?
@@ -467,7 +467,7 @@ class DatabaseHelper {
 		return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getMeccanicoPiuPresente(){
+    public function getMiglioriMeccanici(){
         $statement = $this->db->prepare("SELECT meccanico.CF_meccanico, meccanico.nome, meccanico.cognome, COUNT(meccanico.CF_meccanico) AS n_riparazioni
                                          FROM meccanico , comprende_meccanico
                                          WHERE comprende_meccanico.CF_meccanico = meccanico.CF_meccanico

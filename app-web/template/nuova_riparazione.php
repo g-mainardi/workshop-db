@@ -75,16 +75,31 @@
 		<input type="submit" name=<?php if($_SESSION["selezionatoVeicolo"]): echo "inserisciRiparazione"; else: echo "avanti"; endif?> value='<?php if($_SESSION["selezionatoVeicolo"]): echo "Inserisci riparazione";  else: echo "Avanti";endif;?>' >
 	</form>
 </section>
-<section>
+<section <?php if(isset($SetParameters["ricercaCasaProd"])){echo "class='grande'";}?>>
+	<h2>Visualizza le Case di produzione più carenti dell'anno</h2>
+	<?php if(isset($SetParameters["ricercaCasaProd"])):?>
+	<table>
+		<thead>
+			<tr>
+				<th>NOME</th><th>N°RIPARAZIONI</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach($SetParameters["ricercaCasaProd"] as $casa):?>
+			<tr class="noform">
+				<td><?php echo $casa["nome"]?></td>
+				<td><?php echo $casa["n_riparazioni"]?></td>
+			</tr>
+			<?php endforeach;?>
+		</tbody>
+	</table>
+<?php else:?>
 	<form action="#" method="POST">
-		<ul>
-			<li>
-				<label for="annoRicerca"> Selezionare l'anno in cui si intede ricercare la casa produttrice con un numero di riparazioni superiori a 5: </label>
-				<input type="number" min="1900" max="2023"  step="1" name="annoRicerca" placeholder="Anno" required>
-			</li>
-		</ul>
+		<label for="annoRicerca">Verrano mostrate quelle con più di 5 riparazioni effettuate: </label>
+		<input type="number" min="1980" max="2023"  step="1" name="annoRicerca" placeholder="Anno" required>
 		<input type="submit" name="ricerca" value="ricerca" >
 	</form>
+<?php endif;?>
 </section>
 <section class="tabelle">
 	<h2>Riparazioni registrate</h2>
