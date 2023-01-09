@@ -28,6 +28,44 @@
 \usepackage[dvipsnames,usenames]{xcolor}
 \usepackage{tikz}
 
+% Per mostrare codice
+\usepackage{listings}
+\lstset{
+	language=SQL,
+	basicstyle=\footnotesize\ttfamily,
+	keywordstyle=\color{black}\bfseries,
+	commentstyle=\color{darkgray},
+	stringstyle=\color{black},
+	stepnumber = 1,                  		% the step between two line-numbers.
+	numbersep = 5pt,                        % how far the line-numbers are from the 
+	tabsize=4,
+	frame=tb,								% adds a frame around the code
+	showspaces = false,                     % show spaces adding particular 
+	showstringspaces = false,               % underline spaces within strings
+	showtabs = false,                       % show tabs within strings adding 
+	numberstyle = \scriptsize\bf\color{lightgray}, 
+	backgroundcolor = \color{lightgray!50},
+	rulecolor = \color{lightgray},
+	keywordstyle = \bfseries\color{blue!80},	
+	framexleftmargin = 0mm,
+	numberblanklines = false,
+	xleftmargin = 5pt,
+	breaklines = true,
+	breakatwhitespace = true,
+	breakautoindent = true,
+	captionpos = t,
+	texcl = true,
+	tabsize = 3,                            % sets default tabsize to 3 spaces
+	extendedchars = true,
+	inputencoding = utf8, 
+	escapechar = \à,
+	% more key words to emphasize
+	morekeywords={print, println, size, background, strokeWeight, fill, line, rect, ellipse, triangle, arc, save, PI, HALF_PI, QUARTER_PI, TAU, TWO_PI, width, height},	
+	emph={[1]print,println},emphstyle={[1]\bf\color{blue}},
+	emph={[2]for,while},emphstyle={[2]\bf\color{ForestGreen}},
+	emph={[3]case},emphstyle={[3]\bf\color{violet}},
+	}
+
 % Colorare e modificare le tabelle
 \usepackage{array}
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
@@ -96,9 +134,9 @@ Inoltre per tenere traccia dei lavoratori con più esperienza o qualità, si vuo
 %
 più laboriosi in ordine di n° di riparazioni effettuate in totale dall'apertura dell'officina.
 
-Il sistema deve considerare gli eventuali pezzi di ricambio utilizzati che sono individuati da 
+Il sistema deve considerare gli eventuali pezzi di ricambio utilizzati che sono individuati dalla targa del veicolo di
 %
-casa produttrice e modello di riferimento, con l'aggiunta del costo unitario e una breve descrizione se necessaria.
+riferimento e dal nome, con l'aggiunta del costo unitario e una breve descrizione se necessaria.
 
 Ogni transazione nel reparto compravendita viene effettuata da un agente automobilistico con un cliente 
 %
@@ -193,7 +231,7 @@ nell'ultimo anno e la \underline{Classifica di 5 Meccanici} in ordine di n° di 
 
 Inoltre, il sistema deve considerare gli eventuali \textbf{Pezzi di ricambio} utilizzati che sono individuati da 
 %
-casa produttrice e modello di riferimento, con l'aggiunta del costo unitario e una breve descrizione, opzionale.
+targa e nome, con l'aggiunta del costo unitario e una breve descrizione, opzionale.
 
 Ogni \textbf{Transazione} viene effettuata da un \textbf{Agente} con un \textbf{Cliente} e riguarda un specifico \textbf{Veicolo},
 %
@@ -478,14 +516,12 @@ specifico veicolo con data di inizio e di fine della riparazione corrispondenti.
 		\hline\rule[-2mm]{0mm}{0.65cm}{}
 		Veicolo Usato & E & 1 & S \\
 		\hline\rule[-2mm]{0mm}{0.65cm}{}
-		Veicolo Usato & E & 1 & L \\
-		\hline\rule[-2mm]{0mm}{0.65cm}{}
 		Attestato & R & 1 & L \\
 	\end{tabular}
 	
 	\begin{tabular}{C{12.9cm}}
 		\rule[-3mm]{0mm}{0.85cm}{}	
-		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 1 S + 3 002 L $\to$ 3 004 x 10 = 30 040 accessi al giorno}
+		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 1 S + 3 001 L $\to$ 3 003 x 10 = 30 030 accessi al giorno}
 	\end{tabular}
 \end{figure}
 
@@ -498,6 +534,8 @@ specifico veicolo con data di inizio e di fine della riparazione corrispondenti.
 		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\
 		\hline\rule[-2mm]{0mm}{0.65cm}{}
 		Cliente & E & 3 000 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Attestato & R & 3 000 & L \\
 		\hline\rule[-2mm]{0mm}{0.65cm}{}
 		Cliente & E & 1 & L \\
 		\hline\rule[-2mm]{0mm}{0.65cm}{}
@@ -520,7 +558,7 @@ specifico veicolo con data di inizio e di fine della riparazione corrispondenti.
 	
 	\begin{tabular}{C{13.9cm}}
 		\rule[-3mm]{0mm}{0.85cm}{}	
-		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 3 S +  3 035,5 L $\to$ 3 041,5 x 18 = 54 747 accessi al giorno}
+		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 3 S +  6 035,5 L $\to$ 6 041,5 x 18 = 72 747 accessi al giorno}
 	\end{tabular}
 \end{figure}
 
@@ -577,6 +615,8 @@ specifico veicolo con data di inizio e di fine della riparazione corrispondenti.
 		Agente & E & 1 & L \\
 		\hline\rule[-2mm]{0mm}{0.65cm}{}
 		Veicolo Usato & E & 6 000 / 3 000 = 2 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Attestato & R & 6 000 / 3 000 = 2 & L \\
 		\hline\rule[-2mm]{0mm}{0.65cm}{}
 		Attestato & R & 1 & S \\
 		\hline\rule[-2mm]{0mm}{0.65cm}{}
@@ -838,6 +878,246 @@ cilindrata)\\
 \section{Schema relazionale finale}
 
 \section{Traduzione delle operazioni in query SQL}
+
+\subsection*{Operazione 1: Inserimento cliente}
+\begin{lstlisting}
+	INSERT INTO CLIENTE(CF_cliente, nome, cognome, data_nascita, telefono, email) 
+	VALUES (?, ?, ?, ?, ?, ?)
+\end{lstlisting}
+
+\subsection*{Operazione 2: Inserimento veicolo usato}
+Per l'inserimento, occorre visualizzare tutti i clienti registrati:
+\begin{lstlisting}
+	SELECT * 
+	FROM CLIENTE
+\end{lstlisting}
+Dopo aver selezionato il proprietario, l'auto viene inserita,
+\begin{lstlisting}
+	INSERT INTO VEICOLO_USATO(casa_produttrice, modello, anno_produzione, cilindrata, km_percorsi, targa) 
+	VALUES(?, ?, ?, ?, ?, ?)
+\end{lstlisting}
+e infine si inserisce anche il relativo attestato.
+\begin{lstlisting}
+	INSERT INTO ATTESTATO_PROPRIETA(CF_proprietario, targa, scaduto, data_attestato) 
+	VALUES(?, ?, ?, ?)
+\end{lstlisting}
+
+\subsection*{Operazione 3: Inserimento riparazione}
+Per l'inserimento, occorre visualizzare tutti i clienti registrati:
+\begin{lstlisting}
+	SELECT * 
+	FROM CLIENTE
+\end{lstlisting}
+Selezionato il cliente, se ne prendono i dati dal database
+\begin{lstlisting}
+	SELECT * 
+	FROM CLIENTE
+	WHERE CF_cliente=?
+\end{lstlisting}
+e si visualizza la lista dei veicoli di cui è proprietario
+\begin{lstlisting}
+	SELECT V.* 
+	FROM ATTESTATO_PROPRIETA A, VEICOLO_USATO V 
+	WHERE A.targa = V.targa AND scaduto=0 AND CF_proprietario=?
+\end{lstlisting}
+Scelto il veicolo, se ne prendono i dati dal database,
+\begin{lstlisting}
+	SELECT * 
+	FROM VEICOLO_USATO 
+	WHERE targa=?"
+\end{lstlisting}
+si visualizza l'elenco dei meccanici disponibili 
+\begin{lstlisting}
+	SELECT * 
+	FROM MECCANICO
+\end{lstlisting}
+e dei pezzi di ricambio per quel veicolo.
+\begin{lstlisting}
+	SELECT * 
+	FROM PEZZO_RICAMBIO 
+	WHERE targa=?
+\end{lstlisting}
+Una volta raccolti questi dati si inserisce la riparazione,
+\begin{lstlisting}
+	INSERT INTO RIPARAZIONE(CF_cliente, targa, data_inizio, data_fine, costo_totale) 
+	VALUES(?, ?, ?, ?, ?)
+\end{lstlisting}
+prendo l'id creato dal db,
+\begin{lstlisting}
+	SELECT id_riparazione 
+	FROM RIPARAZIONE 
+	WHERE CF_cliente = ? AND targa = ? AND data_inizio = ? AND data_fine = ? AND costo_totale = ?
+\end{lstlisting}
+per poter inserire la lavorazione(comprende\_meccanico)
+\begin{lstlisting}
+	INSERT INTO COMPRENDE_MECCANICO(CF_meccanico, id_riparazione) 
+	VALUES(?, ?)
+\end{lstlisting}
+e l'utilizzo(comprende\_pezzo).
+\begin{lstlisting}
+	INSERT INTO COMPRENDE_PEZZO(id_pezzo, id_riparazione) 
+	VALUES(?, ?)
+\end{lstlisting}
+
+\subsection*{Operazione 4: Vendita veicolo nuovo}
+Per prima cosa occorre visualizzare tutti i clienti e gli agenti registrati.
+\begin{lstlisting}
+	SELECT * 
+	FROM CLIENTE
+\end{lstlisting}
+\begin{lstlisting}
+	SELECT * 
+	FROM AGENTE
+\end{lstlisting}
+Una volta selezionati, ne estraggo le informazioni e mostro la lista dei veicoli nuovi.
+\begin{lstlisting}
+	SELECT * 
+	FROM CLIENTE
+	WHERE CF_cliente=?
+\end{lstlisting}
+\begin{lstlisting}
+	SELECT * 
+	FROM AGENTE
+	WHERE CF_agente=?
+\end{lstlisting}
+\begin{lstlisting}
+	SELECT * 
+	FROM VEICOLO_NUOVO
+\end{lstlisting}
+Poi quando è stato scelto il veicolo, ne prendo le altre informazioni dal database e lo elimino
+\begin{lstlisting}
+	SELECT * FROM VEICOLO_NUOVO 
+	WHERE cod_veicolo_nuovo = ?
+\end{lstlisting}
+\begin{lstlisting}
+	DELETE FROM VEICOLO_NUOVO 
+	WHERE cod_veicolo_nuovo = ?
+\end{lstlisting}
+Ora registro il veicolo come veicolo usato e lo intesto al cliente che l'ha acquistato
+\begin{lstlisting}
+	INSERT INTO VEICOLO_USATO(casa_produttrice, modello, anno_produzione, cilindrata, km_percorsi, targa) 
+	VALUES(?, ?, ?, ?, ?, ?)
+\end{lstlisting}
+\begin{lstlisting}
+	INSERT INTO ATTESTATO_PROPRIETA(CF_proprietario, targa, scaduto, data_attestato	) 
+	VALUES(?, ?, ?, ?)
+\end{lstlisting}
+Infine aggiungo la transazione di vendita.
+\begin{lstlisting}
+	INSERT INTO TRANSAZIONE(CF_cliente, targa, CF_agente, prezzo, data_transazione, tipologia, ora) 
+	VALUES(?, ?, ?, ?, ?, "vendita", ?)
+\end{lstlisting}
+
+\subsection*{Operazione 5: Acquisto veicolo usato}
+Per prima cosa occorre visualizzare tutti i clienti e gli agenti registrati.
+\begin{lstlisting}
+	SELECT * 
+	FROM CLIENTE
+\end{lstlisting}
+\begin{lstlisting}
+	SELECT * 
+	FROM AGENTE
+\end{lstlisting}
+Una volta selezionati, ne estraggo le informazioni.
+\begin{lstlisting}
+	SELECT * 
+	FROM CLIENTE
+	WHERE CF_cliente=?
+\end{lstlisting}
+\begin{lstlisting}
+	SELECT * 
+	FROM AGENTE
+	WHERE CF_agente=?
+\end{lstlisting}
+Mostro le auto di proprietà del cliente
+\begin{lstlisting}
+	SELECT V.* 
+	FROM ATTESTATO_PROPRIETA A, VEICOLO_USATO V 
+	WHERE A.targa = V.targa AND scaduto=0 AND CF_proprietario=?
+\end{lstlisting}
+Poi quando è stato scelto il veicolo e prezzo, modifico l'attestato di proprietà
+\begin{lstlisting}
+	UPDATE ATTESTATO_PROPRIETA
+	SET scaduto = 0, CF_proprietario = ?
+    WHERE targa =  ? 
+\end{lstlisting}
+Infine aggiungo la transazione di acquisto.
+\begin{lstlisting}
+	INSERT INTO TRANSAZIONE(CF_cliente, targa, CF_agente, prezzo, data_transazione, tipologia, ora) 
+	VALUES(?, ?, ?, ?, ?, "acquisto", ?)
+\end{lstlisting}
+
+\subsection*{Operazione 6: Visualizza elenco clienti}
+\begin{lstlisting}
+	SELECT *
+	FROM CLIENTE
+\end{lstlisting}
+
+\subsection*{Operazione 7: Visualizza elenco veicoli nuovi}
+\begin{lstlisting}
+	SELECT *
+	FROM VEICOLO_NUOVO
+\end{lstlisting}
+
+\subsection*{Operazione 8: Visualizza elenco veicoli dei clienti}
+\begin{lstlisting}
+	SELECT V.*, A.CF_proprietario, C.nome  AS 'nome_proprietario', C.cognome AS 'cognome_proprietario'
+    FROM ATTESTATO_PROPRIETA A
+    JOIN VEICOLO_USATO V ON A.targa = V.targa
+    JOIN CLIENTE C ON A.CF_proprietario = C.CF_cliente
+    WHERE A.scaduto=0
+\end{lstlisting}
+
+\subsection*{Operazione 9: Visualizza elenco veicoli usati in vendita}
+\begin{lstlisting}
+	SELECT *  
+	FROM ATTESTATO_PROPRIETA A
+	JOIN VEICOLO_USATO V ON A.targa = V.targa 
+	WHERE A.scaduto=1
+\end{lstlisting}
+
+\subsection*{Operazione 10: Visualizza case produttrici più carenti dell'anno}
+\begin{lstlisting}
+	SELECT casa_produttrice as nome, COUNT(casa_produttrice) AS n_riparazioni
+	FROM RIPARAZIONE R, VEICOLO_USATO V
+    WHERE R.targa = V.targa
+    AND YEAR(data_inizio) = ?
+    GROUP BY casa_produttrice
+    HAVING COUNT(casa_produttrice) > 5
+    ORDER BY COUNT(casa_produttrice)
+\end{lstlisting}
+
+\subsection*{Operazione 11: Visualizza i 5 meccanici più laboriosi}
+\begin{lstlisting}
+	SELECT M.CF_meccanico, M.nome, M.cognome, COUNT(M.CF_meccanico) AS n_riparazioni
+	FROM MECCANICO M, COMPRENDE_MECCANICO C
+    WHERE C.CF_meccanico = M.CF_meccanico
+    GROUP BY M.CF_meccanico
+    ORDER BY COUNT(M.CF_meccanico) DESC LIMIT 5
+\end{lstlisting}
+
+\subsection*{Operazione 12: Visualizza l'agente del mese}
+\begin{lstlisting}
+	SELECT A.CF_agente, A.nome, A.cognome, COUNT(DATE_FORMAT(data_transazione, \%m-\%Y')) AS n_vendite
+    FROM TRANSAZIONE T, AGENTE A
+    WHERE T.CF_agente=A.CF_agente AND YEAR(data_transazione)=? AND MONTH(data_transazione)=?
+    GROUP BY A.CF_agente
+    ORDER BY COUNT(DATE_FORMAT(data_transazione, '\%m-\%Y')) DESC
+    LIMIT 1
+\end{lstlisting}
+
+\subsection*{Operazione 13: Aggiorna attributo e-mail}
+\begin{lstlisting}
+	UPDATE CLIENTE SET CLIENTE.email = ? 
+	WHERE CLIENTE.CF_cliente = ?
+\end{lstlisting}
+
+\subsection*{Operazione 14: Aggiorna attributo km percorsi in veicoli usati}
+\begin{lstlisting}
+	UPDATE VEICOLO_USATO
+	SET km_percorsi = ?
+    WHERE targa =  ?
+\end{lstlisting}
 
 \chapter{Progettazione Applicazione}
 
