@@ -172,7 +172,7 @@ così da poter essere mostrati in caso di richiesta dai clienti.
 		\hline\rule[-3mm]{0mm}{0.85cm}
 		Dipendente & \quantities{Impiegato, Lavoratore} & \quantities{Persona che lavora per l'officina \\come meccanico o agente.} \\
 		\hline\rule[-3mm]{0mm}{0.85cm}
-		Cliente & & \quantities{Persona che deve eseguire o ha eseguito una \\riparazione o una transazione con l'officina. }\\
+		Cliente & Utente Proprietario & \quantities{Persona che deve eseguire o ha eseguito una \\riparazione o una transazione con l'officina. }\\
 		\hline\rule[-3mm]{0mm}{0.85cm}
 		Meccanico & & \quantities{Dipendente dell'officina che esegue riparazioni.} \\
 		\hline\rule[-3mm]{0mm}{0.85cm}
@@ -266,7 +266,6 @@ invece per ogni Transazione e Attestato, va registrata la data di inserimento.
 	\item Visualizza le case produttrici più carenti dell'anno 
 	\item Visualizza i 5 meccanici più laboriosi
 	\item Ottieni l'agente del mese
-	\item Aggiorna attributo scaduto su atto di proprietà
 	\item Aggiorna attributo e-mail
 	\item Aggiorna attributo km percorsi in veicoli usati 
 \end{enumerate}
@@ -375,11 +374,12 @@ Un cliente può richiedere più riparazioni ma non vi possono essere più ripara
 %
 specifico veicolo con data di inizio e di fine della riparazione corrispondenti.
 
+\newpage
 \section{Schema Finale}
 \addcontentsline{toc}{section}{Schema Finale}	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[scale=1]{img/schema_finale.png}
+		\includegraphics[scale=0.9]{img/schema_finale.png}
 	\end{figure}
 
 \chapter{Progettazione Logica}
@@ -815,14 +815,12 @@ Lo schema presenta già in modo evidente quasi tutte le chiavi primarie delle en
 Nella traduzione da schema concettuale a schema logico, si sono eliminate le seguenti relazioni: 
 
 \begin{itemize}
-	\item \textbf{Affidamento}(tra Cliente e Medico), importando Medico.CF dentro a Cliente 
-	\item \textbf{Comprendere} (tra transazione e cliente), importando CF\_cliente all’interno della transazione;
-	\item \textbf{Ha} (tra attestato\_proprieta e veicolo\_usato), importando targa dentro ad attestato di proprietà;
-	\item \textbf{Prevede} (tra veicolo e transazione), importando targa dentro transazione;
-	\item \textbf{Applicata} (tra riparazione e veicolo\_usato), importando targa dentro riparazione;
-	\item \textbf{Di} (tra pezzo di ricambio e veicolo\_usato), importando targa dentro pezzo di ricambio;
-	\item \textbf{Finalizza} (tra agente e transazione), importando CF\_agente dentro transazione;
-	\item \textbf{Relativo} (tra attestato di proprietà e cliente), importando CF\_cliente dentro attestato di proprietà;
+	\item \textbf{Esecuzione} (tra transazione e cliente), importando CF\_cliente all’interno della transazione;
+	\item \textbf{Riguardo} (tra attestato\_proprieta e veicolo\_usato), importando targa dentro ad attestato di proprietà;
+	\item \textbf{Coinvolgimento} (tra veicolo e transazione), importando targa dentro transazione;
+	\item \textbf{Sottoposizione} (tra riparazione e veicolo\_usato), importando targa dentro riparazione;
+	\item \textbf{Perseguimento} (tra agente e transazione), importando CF\_agente dentro transazione;
+	\item \textbf{Possesso} (tra attestato di proprietà e cliente), importando CF\_cliente dentro attestato di proprietà;
 	\item \textbf{Richiesta} (tra riparazione e cliente), importando CF\_cliente all’interno di riparazione.
 \end{itemize}
 
