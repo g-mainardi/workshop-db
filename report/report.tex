@@ -64,7 +64,7 @@ Di ogni utente del portale (cliente o impiegato) è necessario memorizzare: codi
 %
 data di nascita e telefono. Si può inoltre aggiungere, preferibilmente, anche una e-mail per le eventuali comunicazioni. 
 %
-La mail e il telefono di ogni utente devono poter essere aggiornati nel caso in cui il contatto del cliente o dell'impiegato cambi.
+La mail e il telefono di ogni persona devono poter essere aggiornati nel caso in cui il contatto del cliente o dell'impiegato cambi.
 %
 I dipendenti si differenziano in base al tipo di attività che possono svolgere, che può essere quello di riparazioni o 
 %
@@ -80,7 +80,7 @@ In aggiunta, le auto usate hanno già la targa, univoca, e, avendo già circolat
 %
 occorre tener conto dei km percorsi ed eventualmente aggiornarli.
 %
-Ciascun veicolo può essere oggetto di molteplici attestati di proprietà con il suo utente proprietario, 
+Ciascun veicolo può essere oggetto di molteplici attestati di proprietà con il suo cliente proprietario, 
 %
 ma un auto potrà avere solo un attestato non scaduto, altrimenti vorrà dire che è di proprietà dell'officina.
 
@@ -104,7 +104,7 @@ Ogni transazione nel reparto compravendita viene effettuata da un agente automob
 %
 e riguarda uno specifico veicolo, di essa si vogliono memorizzare se sia acquisto(l'officina compra l'auto 
 %
-dall'utente) o vendita(l'officina vende l'auto ad un utente), prezzo concordato e la data. 
+dal un cliente) o vendita(l'officina vende l'auto ad un cliente), prezzo concordato e la data. 
 % 
 Una transazione, una volta effettuata, determinerà un passaggio di proprietà del veicolo in oggetto
 
@@ -130,7 +130,7 @@ così da poter essere mostrati in caso di richiesta dai clienti.
 		\rule[-3mm]{0mm}{0.85cm}
 		\textbf{Termine} & \textbf{Eventuali sinonimi} &\textbf{Breve descrizione} \\
 		\hline\rule[-3mm]{0mm}{0.85cm}
-		Utente & & \quantities{Persona registrata nel sistema.} \\
+		Utente & Persona & \quantities{Persona registrata nel sistema.} \\
 		\hline\rule[-3mm]{0mm}{0.85cm}
 		Dipendente & \quantities{Impiegato, Lavoratore} & \quantities{Persona che lavora per l'officina \\come meccanico o agente.} \\
 		\hline\rule[-3mm]{0mm}{0.85cm}
@@ -373,11 +373,11 @@ specifico veicolo con data di inizio e di fine della riparazione corrispondenti.
 		\hline\rule[-2mm]{0mm}{0.75cm}
 		Riguardo & R & 6000 \\
 		\hline\rule[-2mm]{0mm}{0.75cm}
-		Veicolo & E & 6220 \\
+		Veicolo & E & 6120 \\
 		\hline\rule[-2mm]{0mm}{0.75cm}
 		Veicolo Nuovo & E & 120 \\
 		\hline\rule[-2mm]{0mm}{0.75cm}
-		Veicolo Usato & E & 6100 \\
+		Veicolo Usato & E & 6000 \\
 		\hline\rule[-2mm]{0mm}{0.75cm}
 		Coinvolgimento & R & 1000\\
 		\hline\rule[-2mm]{0mm}{0.75cm}
@@ -450,7 +450,7 @@ specifico veicolo con data di inizio e di fine della riparazione corrispondenti.
 \newpage
 \section{Schemi di navigazione e tabelle accessi}
 \subsection*{Operazione 1: Inserimento cliente}
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
 	\arrayrulecolor{BlueGreen}
 	\begin{tabular}{L{3cm}C{2cm}C{4.5cm}C{2cm}}
@@ -460,14 +460,14 @@ specifico veicolo con data di inizio e di fine della riparazione corrispondenti.
 		Cliente & E & 1 & S \\
 	\end{tabular}
 	
-	\begin{tabular}{C{13.9cm}}
+	\begin{tabular}{C{12.9cm}}
 		\rule[-3mm]{0mm}{0.85cm}{}	
 		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 1 S $\to$ 2 x 8 = 16 accessi al giorno}
 	\end{tabular}
 \end{figure}
 
 \subsection*{Operazione 2: Inserimento veicolo usato}
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
 	\arrayrulecolor{BlueGreen}
 	\begin{tabular}{L{3cm}C{2cm}C{4.5cm}C{2cm}}
@@ -483,17 +483,17 @@ specifico veicolo con data di inizio e di fine della riparazione corrispondenti.
 		Attestato & R & 1 & L \\
 	\end{tabular}
 	
-	\begin{tabular}{C{13.9cm}}
+	\begin{tabular}{C{12.9cm}}
 		\rule[-3mm]{0mm}{0.85cm}{}	
 		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 1 S + 3 002 L $\to$ 3 004 x 10 = 30 040 accessi al giorno}
 	\end{tabular}
 \end{figure}
 
 \subsection*{Operazione 3: Inserimento riparazione}
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
 	\arrayrulecolor{BlueGreen}
-	\begin{tabular}{L{3.5cm}C{2cm}C{4.5cm}C{2cm}}
+	\begin{tabular}{L{3.7cm}C{2.2cm}C{4.7cm}C{2cm}}
 		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.6cm}{}
 		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\
 		\hline\rule[-2mm]{0mm}{0.65cm}{}
@@ -526,7 +526,7 @@ specifico veicolo con data di inizio e di fine della riparazione corrispondenti.
 
 \newpage
 \subsection*{Operazione 4: Vendita veicolo nuovo}
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
 	\arrayrulecolor{BlueGreen}
 	\begin{tabular}{L{4.2cm}C{2cm}C{4.5cm}C{2cm}}
@@ -554,14 +554,14 @@ specifico veicolo con data di inizio e di fine della riparazione corrispondenti.
 		Transazione di vendita& R & 1 & S \\
 	\end{tabular}
 	
-	\begin{tabular}{C{13.9cm}}
+	\begin{tabular}{C{14cm}}
 		\rule[-3mm]{0mm}{0.85cm}{}	
 		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 4 S +  3 143 L $\to$ 3 151 x 3 = 9 453 accessi a settimana}
 	\end{tabular}
 \end{figure}
 
 \subsection*{Operazione 5: Acquisto veicolo usato}
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
 	\arrayrulecolor{BlueGreen}
 	\begin{tabular}{L{4.5cm}C{2cm}C{4.5cm}C{2cm}}
@@ -583,9 +583,178 @@ specifico veicolo con data di inizio e di fine della riparazione corrispondenti.
 		Transazione d'acquisto& R & 1 & S \\
 	\end{tabular}
 	
-	\begin{tabular}{C{13.9cm}}
+	\begin{tabular}{C{14.4cm}}
 		\rule[-3mm]{0mm}{0.85cm}{}	
 		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 2 S +  3 024 L $\to$ 3 028 x 8 = 24 224 accessi a settimana}
+	\end{tabular}
+\end{figure}
+
+\subsection*{Operazione 6: Visualizza elenco clienti}
+\begin{figure}[H]
+	\centering
+	\arrayrulecolor{BlueGreen}
+	\begin{tabular}{L{4.5cm}C{2cm}C{4.5cm}C{2cm}}
+		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.6cm}{}
+		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Cliente & E & 3 000 & L \\
+	\end{tabular}
+	
+	\begin{tabular}{C{14.3cm}}
+		\rule[-3mm]{0mm}{0.85cm}{}	
+		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 3 000 L $\to$ 3 000 x 25 = 75 000 accessi al giorno}
+	\end{tabular}
+\end{figure}
+
+\newpage
+\subsection*{Operazione 7: Visualizza elenco veicoli nuovi}
+\begin{figure}[H]
+	\centering
+	\arrayrulecolor{BlueGreen}
+	\begin{tabular}{L{4.5cm}C{2cm}C{4.5cm}C{2cm}}
+		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.6cm}{}
+		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Veicolo Nuovo & E & 120 & L \\
+	\end{tabular}
+	
+	\begin{tabular}{C{14.3cm}}
+		\rule[-3mm]{0mm}{0.85cm}{}	
+		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 120 L $\to$ 120 x 10 = 1 200 accessi al giorno}
+	\end{tabular}
+\end{figure}
+
+\subsection*{Operazione 8: Visualizza elenco veicoli dei clienti}
+Le transazioni d'acquisto sono 400, quindi tra le auto usate 400 sono di proprietà dell'officina.
+\begin{figure}[H]
+	\centering
+	\arrayrulecolor{BlueGreen}
+	\begin{tabular}{L{4.5cm}C{2cm}C{4.5cm}C{2cm}}
+		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.6cm}{}
+		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Veicolo Usato & E & 6 000 - 400 = 5 600 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Attestato & R & 6 000 - 400 = 5 600 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Clienti & E & 6 000 - 400 = 5 600 & L \\
+	\end{tabular}
+	
+	\begin{tabular}{C{14.3cm}}
+		\rule[-3mm]{0mm}{0.85cm}{}	
+		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 16 800 L $\to$ 16 800 x 28 = 470 400 accessi al giorno}
+	\end{tabular}
+\end{figure}
+
+\subsection*{Operazione 9: Visualizza elenco veicoli usati in vendita}
+\begin{figure}[H]
+	\centering
+	\arrayrulecolor{BlueGreen}
+	\begin{tabular}{L{4.5cm}C{2cm}C{4.5cm}C{2cm}}
+		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.6cm}{}
+		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Veicolo Usato & E & 400 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Attestato & R & 400 & L \\
+	\end{tabular}
+	
+	\begin{tabular}{C{14.3cm}}
+		\rule[-3mm]{0mm}{0.85cm}{}	
+		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 800 L $\to$ 800 x 12 = 9 600 accessi al giorno}
+	\end{tabular}
+\end{figure}
+
+\subsection*{Operazione 10: Visualizza case produttrici più carenti dell'anno}
+\begin{figure}[H]
+	\centering
+	\arrayrulecolor{BlueGreen}
+	\begin{tabular}{L{4.5cm}C{2cm}C{4.5cm}C{2cm}}
+		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.6cm}{}
+		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Veicolo Usato & E & 6 000 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Riparazione & E & 12 000 & L \\
+	\end{tabular}
+	
+	\begin{tabular}{C{14.3cm}}
+		\rule[-3mm]{0mm}{0.85cm}{}	
+		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 18 000 L $\to$ 18 000 x 1 = 18 000 accessi all'anno}
+	\end{tabular}
+\end{figure}
+
+\subsection*{Operazione 11: Visualizza i 5 meccanici più laboriosi}
+\begin{figure}[H]
+	\centering
+	\arrayrulecolor{BlueGreen}
+	\begin{tabular}{L{4.5cm}C{2cm}C{4.5cm}C{2cm}}
+		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.6cm}{}
+		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Meccanico & E & 30 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Lavorazione & R & 12 000 & L \\
+	\end{tabular}
+	
+	\begin{tabular}{C{14.3cm}}
+		\rule[-3mm]{0mm}{0.85cm}{}	
+		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 12 030 L $\to$ 12 030 x 1 = 12 030 accessi al giorno}
+	\end{tabular}
+\end{figure}
+
+\subsection*{Operazione 12: Visualizza l'agente del mese}
+\begin{figure}[H]
+	\centering
+	\arrayrulecolor{BlueGreen}
+	\begin{tabular}{L{4.5cm}C{2cm}C{4.5cm}C{2cm}}
+		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.6cm}{}
+		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Agente & E & 20 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Transazione & R & 1 000 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Clienti & E & 120 & L \\
+	\end{tabular}
+	
+	\begin{tabular}{C{14.3cm}}
+		\rule[-3mm]{0mm}{0.85cm}{}	
+		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 1 020 L $\to$ 1 020 x 1 = 1 020 accessi al mese}
+	\end{tabular}
+\end{figure}
+
+\subsection*{Operazione 13: Aggiorna attributo e-mail}
+\begin{figure}[H]
+	\centering
+	\arrayrulecolor{BlueGreen}
+	\begin{tabular}{L{4.5cm}C{2cm}C{4.5cm}C{2cm}}
+		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.6cm}{}
+		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Cliente & E & 1 & S \\
+	\end{tabular}
+	
+	\begin{tabular}{C{14.3cm}}
+		\rule[-3mm]{0mm}{0.85cm}{}	
+		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 1 S $\to$ 2 x 5 = 10 accessi a settimana}
+	\end{tabular}
+\end{figure}
+
+\subsection*{Operazione 14: Aggiorna attributo km percorsi in veicoli usati}
+\begin{figure}[H]
+	\centering
+	\arrayrulecolor{BlueGreen}
+	\begin{tabular}{L{4.5cm}C{2cm}C{4.5cm}C{2cm}}
+		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.6cm}{}
+		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Veicolo Usato & E & 1 & S \\
+	\end{tabular}
+	
+	\begin{tabular}{C{14.3cm}}
+		\rule[-3mm]{0mm}{0.85cm}{}	
+		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 1 S $\to$ 2 x 1 = 2 accessi a settimana}
 	\end{tabular}
 \end{figure}
 
@@ -606,15 +775,15 @@ Lo schema presenta già in modo evidente quasi tutte le chiavi primarie delle en
 Nella traduzione da schema concettuale a schema logico, si sono eliminate le seguenti relazioni: 
 
 \begin{itemize}
-	\item \textbf{affidamento}(tra Cliente e Medico), importando Medico.CF dentro a Cliente 
-	\item \textbf{comprendere} (tra transazione e cliente), importando CF\_cliente all’interno della transazione;
-	\item \textbf{ha} (tra attestato\_proprieta e veicolo\_usato), importando targa dentro ad attestato di proprietà;
-	\item \textbf{prevede} (tra veicolo e transazione), importando targa dentro transazione;
-	\item \textbf{applicata} (tra riparazione e veicolo\_usato), importando targa dentro riparazione;
-	\item \textbf{di} (tra pezzo di ricambio e veicolo\_usato), importando targa dentro pezzo di ricambio;
-	\item \textbf{finalizza} (tra agente e transazione), importando CF\_agente dentro transazione;
-	\item \textbf{relativo} (tra attestato di proprietà e cliente), importando CF\_cliente dentro attestato di proprietà;
-	\item \textbf{richiesta} (tra riparazione e cliente), importando CF\_cliente all’interno di riparazione.
+	\item \textbf{Affidamento}(tra Cliente e Medico), importando Medico.CF dentro a Cliente 
+	\item \textbf{Comprendere} (tra transazione e cliente), importando CF\_cliente all’interno della transazione;
+	\item \textbf{Ha} (tra attestato\_proprieta e veicolo\_usato), importando targa dentro ad attestato di proprietà;
+	\item \textbf{Prevede} (tra veicolo e transazione), importando targa dentro transazione;
+	\item \textbf{Applicata} (tra riparazione e veicolo\_usato), importando targa dentro riparazione;
+	\item \textbf{Di} (tra pezzo di ricambio e veicolo\_usato), importando targa dentro pezzo di ricambio;
+	\item \textbf{Finalizza} (tra agente e transazione), importando CF\_agente dentro transazione;
+	\item \textbf{Relativo} (tra attestato di proprietà e cliente), importando CF\_cliente dentro attestato di proprietà;
+	\item \textbf{Richiesta} (tra riparazione e cliente), importando CF\_cliente all’interno di riparazione.
 \end{itemize}
 
 \section{Analisi ridondanze}
