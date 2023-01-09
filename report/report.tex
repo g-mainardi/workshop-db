@@ -1132,8 +1132,13 @@ di dati, con il nome della categoria e sotto una breve descrizione del contenuto
 %
 Infondo a questa, ma anche a tutte le altre pagine, è presente uno spazio contenente i contatti dell'officina.
 
-Andiamo ad analizzare una ad una ogni pagina e le relative sotto categorie.
+\addcontentsline{toc}{section}{Pagina iniziale}	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.5]{img/index.jpg}
+	\end{figure}
 
+Andiamo ad analizzare una ad una ogni pagina e le relative sotto categorie.
 \subsection*{Pagina Clienti}
 In questa pagina ci viene mostrato il form attraverso il quale è possibile inserire un nuovo cliente, specificandone
 %
@@ -1143,52 +1148,104 @@ Sotto il form d'inserimento troviamo una tabella che ha per righe i clienti regi
 %
 inseriti, in fondo alla tabella è possibile inoltre, per ogni singolo cliente, aggiornare telefono, mail o entrambi.
 
+\addcontentsline{toc}{section}{Clienti}	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.46]{img/clienti.jpg}
+	\end{figure}
+
 \subsection*{Pagina Agenti}
 In questa pagina abbiamo la possibilità di scegliere tra due sezioni:
 
-\subsubsection*{Pagina Gestione Agenti}
-In questa pagina è possibile inserire e visualizzare gli agenti esattamente come per la pagina dei clienti, con 
-%
-l'aggiunta dell'attributo paga oraria all'inserimento e dunque anche della sua presenza nella tabella degli attributi.
-%
-Questo parametro, inoltre, può essere aggiornato proprio come mail e telefono.
+\begin{itemize}
+	\item \textbf{Pagina Gestione Agenti}
+	In questa pagina è possibile inserire e visualizzare gli agenti esattamente come per la pagina dei clienti, con 
+	%
+	l'aggiunta dell'attributo paga oraria all'inserimento e dunque anche della sua presenza nella tabella degli attributi.
+	%
+	Questo parametro, inoltre, può essere aggiornato proprio come mail e telefono.
+	
+	A centro pagina si può specificare un mese per trovare il venditore che ha avuto più successo in quel periodo.
+	\addcontentsline{toc}{section}{Agenti}	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.5]{img/agenti.jpg}
+	\end{figure}
 
-\subsubsection*{Pagina Transazioni}
-Qua è possibile registrare una transazione specificando per primi agente e cliente coinvolti, poi verrà mostrata la lista
-%
-dei veicoli da consultare in base alla scelta della tipologia di auto: nuova o usata e il tipo di transazione: acquisto o vendita.
+	\item \textbf{Pagina Transazioni}
+	Qua è possibile registrare una transazione specificando per primi agente e cliente coinvolti, poi verrà mostrata la lista
+	%
+	dei veicoli da consultare in base alla scelta della tipologia di auto: nuova o usata e il tipo di transazione: acquisto o vendita.
+	
+	Nella parte inferiore invece è possibile visualizzare tutti i passaggi effettuati con la relativa data.
+	\addcontentsline{toc}{section}{Transazioni}	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.46]{img/transazioni.jpg}
+	\end{figure}
 
-Nella parte inferiore invece è possibile visualizzare tutti i passaggi effettuati con la relativa data.
+	
+\end{itemize}
+
 
 \subsection*{Pagina Meccanici}
 In questa pagina abbiamo la possibilità di scegliere tra tre sezioni:
 
-\subsubsection*{Pagina Gestione Meccanici}
-In questa pagina è possibile inserire e visualizzare gli agenti esattamente come per la pagina degli agenti.
+\begin{itemize}
+	\item \textbf{Pagina Gestione Meccanici}:
+	In questa pagina è possibile inserire e visualizzare gli agenti esattamente come per la pagina degli agenti.
+	È inoltre presente la classifica dei 5 migliori meccanici dell'officina.	
+	\addcontentsline{toc}{section}{Meccanici}	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.5]{img/meccanici.jpg}
+	\end{figure}
 
-\subsubsection*{Pagina Riparazioni}
-Qui è possibile registrare una riparazione specificando in ordine: prima il cliente, poi l'auto in oggetto, tra quelle 
-%
-di proprietà del cliente, infine saranno selezionabili i vari meccanici coinvolti, pezzi utilizzati e gli altri attributi.
+	\item \textbf{Pagina Riparazioni}
+	Qui è possibile registrare una riparazione specificando in ordine: prima il cliente, poi l'auto in oggetto, tra quelle 
+	%
+	di proprietà del cliente, infine saranno selezionabili i vari meccanici coinvolti, pezzi utilizzati e gli altri attributi.
+	
+	Si può notare inoltre che sotto il form d'inserimento ce n'è un altro per poter visualizzare le Case di Produzione 
+	%
+	le cui auto hanno avuto più riparazioni in uno specifico anno.
+	\addcontentsline{toc}{section}{Riparazioni}	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.5]{img/riparazioni.jpg}
+	\end{figure}
 
-\subsubsection*{Pagina Pezzi di ricambio}
-In questa pagina si inseriscono i pezzi di ricambio e si può vedere la lista di quelli già presenti.
+	\item \textbf{Pagina Pezzi di ricambio}
+	In questa pagina si inseriscono i pezzi di ricambio e si può vedere la lista di quelli già presenti.
+	
+\end{itemize}
 
 \subsection*{Pagina Veicoli}
 In questa pagina abbiamo la possibilità di scegliere tra due sezioni:
 
-\subsubsection*{Pagina Gestione Veicoli Nuovi}
-In questa sezione si registrano e visualizzano solo i veicoli nuovi da registrare in officina.
+\begin{itemize}
+	\item \textbf{Pagina Veicoli Nuovi}:
+	In questa sezione si registrano e visualizzano solo i veicoli nuovi da registrare in officina.
+	\addcontentsline{toc}{section}{Veicoli Nuovi}	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.46]{img/veicoli_nuovi.jpg}
+	\end{figure}
 
-\subsubsection*{Pagina Gestione Veicoli Usati}
-In questa parte invece si possono inserire i veicoli usati, specificandone il cliente, e si possono inoltre 
-%
-consultare una tabella contente i veicoli appartenti ai vari clienti registrati e una tabella con i veicoli
-%
-usati di proprietà dell'officina. In fondo ad ogni riga di quest'ultima tabella, c'è un link che porta alla pagina
-% 
-delle transazioni dove è possibile acquistare l'auto.
+	\item \textbf{Pagina Veicoli Usati}:
+	In questa parte invece si possono inserire i veicoli usati, specificandone il cliente, e si possono inoltre 
+	%
+	consultare una tabella contente i veicoli appartenti ai vari clienti registrati e una tabella con i veicoli
+	%
+	usati di proprietà dell'officina. In fondo ad ogni riga di quest'ultima tabella, c'è un link che porta alla pagina
+	% 
+	delle transazioni dove è possibile acquistare l'auto.
+	\addcontentsline{toc}{section}{Veicoli Usati}	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.46]{img/veicoli_usati.jpg}
+	\end{figure}
 
-DA INSERIRE: Screenshot interfaccia utente
+\end{itemize}
 
 \end{document}
