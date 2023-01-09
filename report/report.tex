@@ -219,7 +219,8 @@ invece per ogni Transazione e Attestato, va registrata la data di inserimento.
 	\item Inserimento cliente
 	\item Inserimento veicolo usato
 	\item Inserimento riparazione
-	\item Inserimento transazione
+	\item Vendita veicolo nuovo
+	\item Acquisto veicolo usato 
 	\item Visualizza elenco clienti
 	\item Visualizza elenco veicoli nuovi
 	\item Visualizza elenco veicoli dei clienti
@@ -274,9 +275,9 @@ invece per ogni Transazione e Attestato, va registrata la data di inserimento.
 		\hline\rule[-2mm]{0mm}{0.75cm}
 		Riguardo & R & 6000 \\
 		\hline\rule[-2mm]{0mm}{0.75cm}
-		Veicolo Nuovo & E & 1200 \\
+		Veicolo Nuovo & E & 120 \\
 		\hline\rule[-2mm]{0mm}{0.75cm}
-		Veicolo Usato & E & 5000 \\
+		Veicolo Usato & E & 6100 \\
 		\hline\rule[-2mm]{0mm}{0.75cm}
 		Coinvolgimento & R & 1000\\
 		\hline\rule[-2mm]{0mm}{0.75cm}
@@ -322,25 +323,27 @@ invece per ogni Transazione e Attestato, va registrata la data di inserimento.
 		\hline\rule[-5mm]{0mm}{1.4cm}
 		3 & Inserimento riparazione & 18 al giorno \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		4 & Inserimento transazione & 10 a settimana \\
+		4 & Vendita veicolo nuovo & 3 a settimana \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		5 & Visualizza elenco clienti & 25 al giorno \\
+		5 & Acquisto veicolo usato & 8 a settimana \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		6 & Visualizza elenco veicoli nuovi & 10 al giorno \\
+		6 & Visualizza elenco clienti & 25 al giorno \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		7 & Visualizza elenco veicoli dei clienti & 28 al giorno \\
+		7 & Visualizza elenco veicoli nuovi & 10 al giorno \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		8 & \quantities{Visualizza elenco veicoli\\usati in vendita} & 12 al giorno  \\
+		8 & Visualizza elenco veicoli dei clienti & 28 al giorno \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		9 & \quantities{Visualizza le case produttrici\\più carenti dell'anno} & 1 all'anno  \\
+		9 & \quantities{Visualizza elenco veicoli\\usati in vendita} & 12 al giorno  \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		10 & \quantities{Visualizza i 5 meccanici\\più laboriosi} & 1 al giorno \\
+		10 & \quantities{Visualizza le case produttrici\\più carenti dell'anno} & 1 all'anno  \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		11 & Visualizza l'agente del mese & 1 al mese \\
+		11 & \quantities{Visualizza i 5 meccanici\\più laboriosi} & 1 al giorno \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		12 & Aggiorna attributo e-mail & 5 a settimana \\
+		12 & Visualizza l'agente del mese & 1 al mese \\
 		\hline\rule[-5mm]{0mm}{1.4cm}
-		13 & \quantities{Aggiorna attributo km percorsi\\in veicoli usati} & 1 alla settimana \\
+		13 & Aggiorna attributo e-mail & 5 a settimana \\
+		\hline\rule[-5mm]{0mm}{1.4cm}
+		14 & \quantities{Aggiorna attributo km percorsi\\in veicoli usati} & 1 alla settimana \\
 		\hline
 	\end{tabular}
 \end{figure}
@@ -350,7 +353,7 @@ invece per ogni Transazione e Attestato, va registrata la data di inserimento.
 \begin{figure}[ht]
 	\centering
 	\arrayrulecolor{BlueGreen}
-	\begin{tabular}{L{3cm}C{2.5cm}C{4.5cm}C{2.5cm}}
+	\begin{tabular}{L{3cm}C{2cm}C{4.5cm}C{2cm}}
 		\rowcolor{BlueGreen}\rule[-1.5mm]{0mm}{0.60cm}{}
 		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\	
 		\hline\rule[-2mm]{0mm}{0.65cm}{}
@@ -367,7 +370,7 @@ invece per ogni Transazione e Attestato, va registrata la data di inserimento.
 \begin{figure}[ht]
 	\centering
 	\arrayrulecolor{BlueGreen}
-	\begin{tabular}{L{3cm}C{2.5cm}C{4.5cm}C{2.5cm}}
+	\begin{tabular}{L{3cm}C{2cm}C{4.5cm}C{2cm}}
 		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.6cm}{}
 		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\
 		\hline\rule[-2mm]{0mm}{0.65cm}{}
@@ -390,15 +393,99 @@ invece per ogni Transazione e Attestato, va registrata la data di inserimento.
 \begin{figure}[ht]
 	\centering
 	\arrayrulecolor{BlueGreen}
-	\begin{tabular}{L{3cm}C{2.5cm}C{4.5cm}C{2.5cm}}
+	\begin{tabular}{L{3.5cm}C{2cm}C{4.5cm}C{2cm}}
 		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.6cm}{}
 		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\
-
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Cliente & E & 3 000 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Cliente & E & 1 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Veicolo Usato & E & 6 000 / 3 000 = 2 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Veicolo Usato & E & 1 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Meccanico & E & 30 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Pezzo di ricambio & E & 9 000 / 6 000 = 1,5 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Riparazione & E & 1 & S \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Riparazione & E & 1 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Lavorazione & R & 1 & S \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Utilizzo & R & 1 & S \\
 	\end{tabular}
 	
 	\begin{tabular}{C{13.9cm}}
 		\rule[-3mm]{0mm}{0.85cm}{}	
-		\cellcolor{BlueGreen} \textbf{\underline{Totale:} S + L $\to$  accessi al giorno}
+		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 3 S +  3 035,5 L $\to$ 3 041,5 x 18 = 54 747 accessi al giorno}
+	\end{tabular}
+\end{figure}
+
+\newpage
+\subsection*{Operazione 4: Vendita veicolo nuovo}
+\begin{figure}[ht]
+	\centering
+	\arrayrulecolor{BlueGreen}
+	\begin{tabular}{L{4.2cm}C{2cm}C{4.5cm}C{2cm}}
+		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.6cm}{}
+		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Cliente & E & 3 000 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Agente & E & 20 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Cliente & E & 1 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Agente & E & 1 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Veicolo Nuovo & E & 120 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Veicolo Nuovo & E & 1 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Veicolo Nuovo & E & 1 & S \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Veicolo Usato & E & 1 & S \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Attestato & R & 1 & S \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Transazione di vendita& R & 1 & S \\
+	\end{tabular}
+	
+	\begin{tabular}{C{13.9cm}}
+		\rule[-3mm]{0mm}{0.85cm}{}	
+		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 4 S +  3 143 L $\to$ 3 151 x 3 = 9 453 accessi a settimana}
+	\end{tabular}
+\end{figure}
+
+\subsection*{Operazione 5: Acquisto veicolo usato}
+\begin{figure}[ht]
+	\centering
+	\arrayrulecolor{BlueGreen}
+	\begin{tabular}{L{4.5cm}C{2cm}C{4.5cm}C{2cm}}
+		\rowcolor{BlueGreen}\rule[-2mm]{0mm}{0.6cm}{}
+		\textbf{Concetto} & \textbf{Costrutto} &\textbf{Accessi} & \textbf{Tipo} \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Cliente & E & 3 000 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Agente & E & 20 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Cliente & E & 1 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Agente & E & 1 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Veicolo Usato & E & 6 000 / 3 000 = 2 & L \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Attestato & R & 1 & S \\
+		\hline\rule[-2mm]{0mm}{0.65cm}{}
+		Transazione d'acquisto& R & 1 & S \\
+	\end{tabular}
+	
+	\begin{tabular}{C{13.9cm}}
+		\rule[-3mm]{0mm}{0.85cm}{}	
+		\cellcolor{BlueGreen} \textbf{\underline{Totale:} 2 S +  3 024 L $\to$ 3 028 x 8 = 24 224 accessi a settimana}
 	\end{tabular}
 \end{figure}
 
