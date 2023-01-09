@@ -236,14 +236,112 @@ invece per ogni Transazione e Attestato, va registrata la data di inserimento.
 \chapter{Progettazione Concettuale}
 
 \section{Schema Scheletro}
+\addcontentsline{toc}{section}{Schema Scheletro}	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=1]{img/schema_scheletro.png}
+	\end{figure}
 
-\section{Raffinamenti}
+\section{Raffinamenti proposti}
+L’entità più importante da individuare inizialmente è cliente identificato dal suo codice fiscale.
+
+Tuttavia, all’interno dell’officina non devono essere memorizzati solo i clienti ma anche i dipendenti divisi tra agenti e meccanici.
+
+Proprio per questo si è deciso di creare un’entità generica persona, contenente tutte le loro informazioni da cui dar luogo ad una
+%
+gerarchia che definisce ogni tipo di individuo che ha a che fare con l’officina.
+
+Questa gerarchia viene utilizzata poiché i vari ruoli partecipano alle relative associazioni con semantiche differenti(infatti, un
+%
+agente svolge solo transazioni di compravendita mentre un meccanico si occupa solo delle riparazioni).
+
+La mail è un attributo opzionale in quanto come recapito obbligatorio vi è già il numero di telefono, inoltre potrebbe essere utile al 
+%
+cliente nel caso decidesse di ricevere notizia dell’operazione che si sta svolgendo (transazione o riparazione) tramite canali digitali.
+
+Essendo che sia agente che meccanico hanno in comune l’attributo paga oraria che cliente non ha risulta utile definire la gerarchia
+%
+dipendente.
+
+Risulterà importante conoscere i dati dell’utente per permettere la storicizzazione delle operazioni di compravendita e riparazione 
+%
+dei vari veicoli.
+
+A tal scopo, è necessario individuare l’entità veicolo, entità fondamentale per l’officina.
+
+I veicoli possono essere usati o nuovi, ciò che differenzia le due tipologie è che i veicoli usati hanno due attributi aggiuntivi, 
+%
+ovvero i km percorsi e la targa.
+
+\addcontentsline{toc}{section}{Raffinamenti}	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=1]{img/raffinamenti.png}
+	\end{figure}
+
+I veicoli nuovi sono identificati da un codice mentre i veicoli usati dalla targa.
+
+Possono essere presenti più veicoli nuovi od usati con stessa casa produttrice, stesso modello, stessa cilindrata ed uguale anno di produzione.
+
+Si sottolinea che per ciascun veicolo usato la targa deve essere unica.
+
+Data l’introduzione di due tipologie di veicolo si vede, quindi, l’esigenza di introdurre la gerarchia veicolo, dato che veicoli 
+%
+nuovi ed usati partecipano differentemente alle varie operazioni ed associazioni.
+
+Sia veicoli usati che nuovi possono essere venduti ed acquistati. un veicolo nuovo una volta venduto ad un cliente diventa usato 
+%
+con km percorsi pari a 0.
+
+Una volta che un veicolo nuovo viene venduto esso diventa usato con km percorsi pari a 0 e prevede l’inserimento di una targa.
+
+Ogni veicolo usato deve avere un proprietario ed uno e uno solo attestato di proprietà.
+
+Un cliente può essere proprietario di più veicoli usati ma ogni veicolo può e deve avere uno e uno solo attestato di proprietà, 
+%
+ovvero un solo proprietario. 
+
+Il proprietario del veicolo può essere un cliente registrato o l’officina stessa e viene indicato tramite l’attributo scaduto 
+%
+dell’entità attestato di proprietà che può assumere due differenti valori ovvero 0 e 1.
+
+Se l’attributo scaduto ha valore 1 significa che il veicolo è stato acquistato dall’officina che ne risulta quindi proprietaria, 
+%
+in caso contrario il proprietario del veicolo è il cliente registrato con codice fiscale uguale a quello dell’attestato.
+
+Ogni transazione di compravendita vede come protagonisti un cliente e un agente, l’officina può comprare i veicoli usati dai clienti 
+%
+mentre i clienti possono comprare i veicoli nuovi o usati di proprietà dell’officina.
+
+La transazione è individuata da cliente, veicolo ora e data.
+
+Ogni agente può effettuare più transazioni di acquisto o vendita.
+
+Risulta importante sottolineare che ogni qualvolta un determinato veicolo viene sottoposto ad una transazione, sia essa di vendita o 
+%
+acquisto, da parte dell’officina l’attestato di proprietà corrispondente viene aggiornato.
+
+Ogni automobile usata può essere sottoposta a riparazioni che vengono effettuate da uno o più meccanici e che interessano uno o più 
+%
+pezzi di ricambio.
+
+Se all’interno di una riparazione si vogliono utilizzare dei pezzi di ricambio questi devono prima essere registrati con nome, 
+%
+descrizione opzionale e selezionando un veicolo di riferimento scelto tra quelli già presenti nel sistema.
+
+Ogni riparazione è individuata dal cliente a cui è riferita il veicolo la data di inizio e la data di fine.
+
+Uno stesso veicolo usato può ricevere un numero indeterminato di riparazioni anche da parte dello stesso meccanico.
+
+Un cliente può richiedere più riparazioni ma non vi possono essere più riparazioni registrate per un determinato cliente ad uno 
+%
+specifico veicolo con data di inizio e di fine della riparazione corrispondenti.
 
 \section{Schema Finale}
 \addcontentsline{toc}{section}{Schema Finale}	
-	\begin{figure}[h!]
+	\begin{figure}[H]
 		\centering
-		\includegraphics[scale=0.56]{img/schema_finale.png}
+		\includegraphics[scale=1]{img/schema_finale.png}
 	\end{figure}
 
 \chapter{Progettazione Logica}
@@ -274,6 +372,8 @@ invece per ogni Transazione e Attestato, va registrata la data di inserimento.
 		Attestato & R & 6000\\
 		\hline\rule[-2mm]{0mm}{0.75cm}
 		Riguardo & R & 6000 \\
+		\hline\rule[-2mm]{0mm}{0.75cm}
+		Veicolo & E & 6220 \\
 		\hline\rule[-2mm]{0mm}{0.75cm}
 		Veicolo Nuovo & E & 120 \\
 		\hline\rule[-2mm]{0mm}{0.75cm}
@@ -490,11 +590,81 @@ invece per ogni Transazione e Attestato, va registrata la data di inserimento.
 \end{figure}
 
 \section{Raffinamento schema}
-...eliminazione di identificatori esterni, attributi composti e gerarchie, scelta delle chiavi
+\subsection*{Eliminazione delle gerarchie}
+In tutto lo schema E/R sono presenti tre gerarchie da rimuovere al fine di produrre uno schema logico. 
+%
+Sia per la gerarchia dipendente che per la gerarchia utente, essendo entrambe totali ed esclusive si adotta l’approccio collasso 
+%
+verso il basso, sono stati dunque replicati gli attributi in agente, meccanico e cliente.
+
+\subsection*{Eliminazione degli attributi composti }
+Nello schema non sono presenti attributi composti, non è stato dunque necessario suddividere alcun attributo nelle sue sottocomponenti.
+\subsection*{Scelta delle chiavi primarie }
+Lo schema presenta già in modo evidente quasi tutte le chiavi primarie delle entità.
+
+\subsection*{Eliminazione degli identificatori esterni }
+Nella traduzione da schema concettuale a schema logico, si sono eliminate le seguenti relazioni: 
+
+\begin{itemize}
+	\item \textbf{affidamento}(tra Cliente e Medico), importando Medico.CF dentro a Cliente 
+	\item \textbf{comprendere} (tra transazione e cliente), importando CF\_cliente all’interno della transazione;
+	\item \textbf{ha} (tra attestato\_proprieta e veicolo\_usato), importando targa dentro ad attestato di proprietà;
+	\item \textbf{prevede} (tra veicolo e transazione), importando targa dentro transazione;
+	\item \textbf{applicata} (tra riparazione e veicolo\_usato), importando targa dentro riparazione;
+	\item \textbf{di} (tra pezzo di ricambio e veicolo\_usato), importando targa dentro pezzo di ricambio;
+	\item \textbf{finalizza} (tra agente e transazione), importando CF\_agente dentro transazione;
+	\item \textbf{relativo} (tra attestato di proprietà e cliente), importando CF\_cliente dentro attestato di proprietà;
+	\item \textbf{richiesta} (tra riparazione e cliente), importando CF\_cliente all’interno di riparazione.
+\end{itemize}
 
 \section{Analisi ridondanze}
 
 \section{Traduzione di entità e associazioni in relazioni}
+
+\textbf{AGENTE}(\underline{CF\_agente}, nome, cognome, data\_nascita, telefono, paga\_oraria, email*)\\
+
+\noindent
+\textbf{ATTESTATO\_PROPRIETA}(scaduto, data\_attestato)\\
+\underline{FK: CF\_cliente riferimento a CLIENTE}\\
+\underline{FK: targa riferimento a VEICOLO\_USATO}\\
+
+\noindent
+\textbf{CLIENTE}(\underline{CF\_cliente}, nome, cognome, data\_nascita, telefono, email*)\\
+
+\noindent
+\textbf{COMPRENDE\_MECCANICO}\\
+\underline{FK: CF\_meccanico riferimento a MECCANICO}\\
+\underline{FK: id\_riparazione riferimento a RIPARAZIONE}\\
+
+\noindent
+\textbf{COMPRENDE\_PEZZO}\\
+\underline{FK: id\_pezzo riferimento a PEZZO\_RICAMBIO}\\
+\underline{FK: id\_riparazione riferimento a RIPARAZIONE}\\
+
+\noindent
+\textbf{MECCANICO}(\underline{CF\_meccanico}, nome, cognome, data\_nascita, telefono, paga\_oraria, email*)\\
+
+\noindent
+\textbf{PEZZO\_RICAMBIO}(nome, descrizione, \underline{id\_pezzo}, costo\_unitario)\\
+FK: targa riferimento a VEICOLO\_USATO\\
+
+\noindent
+\textbf{RIPARAZIONE}(data\_inizio, data\_fine, costo\_totale, \underline{id\_riparazione})\\
+FK: targa riferimento a VEICOLO\_USATO\\
+FK: CF\_cliente riferimento a CLIENTE\\
+
+\noindent
+\textbf{TRANSAZIONE}(prezzo, \underline{data\_transazione}, \underline{ora}, tipologia)\\
+FK: CF\_agente riferimento AGENTE\\
+\underline{FK: CF\_cliente riferimento CLIENTE}\\
+\underline{FK: targa riferimento VEICOLO\_USATO}\\
+
+\noindent
+\textbf{VEICOLO\_NUOVO}(\underline{cod\_veicolo\_nuovo}, modello, casa\_produttrice, data\_produzione,\\
+cilindrata)\\
+
+\noindent
+\textbf{VEICOLO\_USATO}(modello, casa\_produttrice, data\_produzione, cilindrata, \underline{targa}, km\_percorsi)\\
 
 \section{Schema relazionale finale}
 
