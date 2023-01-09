@@ -389,7 +389,7 @@ class DatabaseHelper {
 		$statement->execute();
 		$result = $statement->get_result();
         $data = $result->fetch_array(MYSQLI_ASSOC);
-        return $data["modello"]." - ".$data["casa_produttrice"];
+        return $data["casa_produttrice"]." - ".$data["modello"]." (".$data["anno_produzione"].")";
     }
 
     public function getVeicoloNuovoSpecifico($cod_veicolo){
@@ -459,7 +459,7 @@ class DatabaseHelper {
                                          AND YEAR(data_inizio) = ?
                                          GROUP BY casa_produttrice
                                          HAVING COUNT(casa_produttrice)>5
-                                         ORDER BY COUNT(casa_produttrice)");
+                                         ORDER BY COUNT(casa_produttrice) DESC");
         $statement->bind_param('i', $anno_produzione);
         $statement->execute();
 		$result = $statement->get_result();
